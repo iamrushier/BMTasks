@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Take references of required elements
   const inputTodo = document.getElementById("input-todo");
   const buttonTodo = document.getElementById("button-todo");
+  const deleteAll = document.getElementById("button-delete_all");
   const ulTodo = document.getElementById("ul-todo");
 
   // Trach whether it is Edit mode or Create mode
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Action if it is "Delete" button
     if (e.target.classList.contains("btn-warning")) {
       // Confirmation before deleting
-      const confirms = confirm("Do you really want to delete?");
+      const confirms = confirm("Delete this item?");
       if (confirms) {
         e.target.closest(".list-group-item").remove(); // Traversing DOM for parent
         saveAllTodo();
@@ -84,11 +85,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   loadAllTodo(); // Exccuted the first time code loads
+
+  deleteAll.addEventListener("click", () => {
+    const confirms = confirm("Delete all items?");
+    if (confirms) {
+      ulTodo.innerHTML = "";
+      saveAllTodo();
+      loadAllTodo();
+    }
+  });
 });
 
 /* 
 Requiremenst:
-1. Alert and get confirmation before deleting item
-2. Button to delete all todo items
+1. Alert and get confirmation before deleting item - Done
+2. Button to delete all todo items - Done
 3. Update element on the spot, instead of loading into Input field.
 */
