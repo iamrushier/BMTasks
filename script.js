@@ -57,11 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.classList.contains("btn-danger")) {
       const li = e.target.closest(".list-group-item"); // Get the li parent
 
-      const currentChild = li.querySelector(!editMode ? "span" : "input");
-      const taskText = currentChild[!editMode ? "textContent" : "value"];
+      const elementArr = ["span", "input"];
+      const propertyArr = ["textContent", "value"];
+
+      const currentChild = li.querySelector(elementArr[Number(editMode)]); // true:1, false:0
+      const taskText = currentChild[propertyArr[Number(editMode)]];
       currentChild.remove();
-      const newChild = document.createElement(!editMode ? "input" : "span");
-      newChild[!editMode ? "value" : "textContent"] = taskText;
+      const newChild = document.createElement(elementArr[Number(!editMode)]);
+      newChild[propertyArr[Number(!editMode)]] = taskText;
+
       newChild.classList.add("text-todo");
       li.prepend(newChild);
       li.querySelector(".btn-danger").textContent = "Save";
@@ -104,5 +108,5 @@ document.addEventListener("DOMContentLoaded", () => {
 Requiremenst:
 1. Alert and get confirmation before deleting item - Done
 2. Button to delete all todo items - Done
-3. Update element on the spot, instead of loading into Input field.
+3. Update element on the spot, instead of loading into Input field. - Done
 */
