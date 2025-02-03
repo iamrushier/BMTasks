@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ip.value = taskText;
         li.prepend(ip);
         li.querySelector(".btn-danger").textContent = "Save";
+        editMode = true;
       } else {
         const taskText = li.querySelector("input").value; // Get current ToDo
         li.querySelector("input").remove();
@@ -76,8 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
         li.querySelector(".btn-danger").textContent = "Edit";
         editMode = false;
         saveAllTodo();
+        editMode = false;
       }
-      editMode = !editMode;
     }
   });
 
