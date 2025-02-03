@@ -12,15 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener for Add button
   buttonTodo.addEventListener("click", () => {
     const text = inputTodo.value;
-    if (editMode) {
-      // In case editing existing item
-      editElement.querySelector(".text-todo").textContent = text;
-      editMode = false;
-      editElement = null;
-      buttonTodo.textContent = "Add";
-    } else {
-      createTodo(text);
-    }
+    // if (editMode) {
+    //   // In case editing existing item
+    //   editElement.querySelector(".text-todo").textContent = text;
+    //   editMode = false;
+    //   editElement = null;
+    //   buttonTodo.textContent = "Add";
+    // } else {
+    createTodo(text);
+    // }
     inputTodo.value = "";
     saveAllTodo();
   });
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <button type="button" class="btn btn-warning">Delete</button>
     </div>`;
 
-    ulTodo.prepend(li); // ulTodo.appendChild(li);
+    ulTodo.appendChild(li);
   };
 
   // Bubbling of events: events are bubbled up to the parent element
@@ -56,14 +56,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Action if it is "Edit" button
     if (e.target.classList.contains("btn-danger")) {
       const li = e.target.closest(".list-group-item"); // Get the li parent
-      const taskText = li.querySelector(".text-todo").textContent; // Get current ToDo
-
-      inputTodo.value = taskText; // Insert selected element Text in Input field
-      buttonTodo.textContent = "Update";
-
-      // Save element currently being edited and update Mode
-      editElement = li;
-      editMode = true;
+      if (!editMode) {
+        const taskText = li.querySelector(".text-todo").textContent; // Get current ToDo
+        li.querySelector("span").remove();
+        const ip = document.createElement("input");
+        // ip.classList.add(".text-todo");
+        ip.innerHTML = `<input type='text'>`;
+        ip.value = taskText;
+        li.prepend(ip);
+        li.querySelector(".btn-danger").textContent = "Save";
+      } else {
+        const taskText = li.querySelector("input").value; // Get current ToDo
+        li.querySelector("input").remove();
+        const span = document.createElement("span");
+        span.classList.add("text-todo");
+        span.textContent = taskText;
+        li.prepend(span);
+        console.log(taskText);
+        li.querySelector(".btn-danger").textContent = "Edit";
+        editMode = false;
+        saveAllTodo();
+      }
+      editMode = !editMode;
     }
   });
 
