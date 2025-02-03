@@ -45,9 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
   ulTodo.addEventListener("click", (e) => {
     // Action if it is "Delete" button
     if (e.target.classList.contains("btn-warning")) {
-      // Traversing DOM
-      e.target.closest(".list-group-item").remove();
-      saveAllTodo();
+      // Confirmation before deleting
+      const confirms = confirm("Do you really want to delete?");
+      if (confirms) {
+        e.target.closest(".list-group-item").remove(); // Traversing DOM for parent
+        saveAllTodo();
+      }
     }
     // Action if it is "Edit" button
     if (e.target.classList.contains("btn-danger")) {
@@ -82,3 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadAllTodo(); // Exccuted the first time code loads
 });
+
+/* 
+Requiremenst:
+1. Alert and get confirmation before deleting item
+2. Button to delete all todo items
+3. Update element on the spot, instead of loading into Input field.
+*/
