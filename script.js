@@ -56,29 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Action if it is "Edit" button
     if (e.target.classList.contains("btn-danger")) {
       const li = e.target.closest(".list-group-item"); // Get the li parent
-      if (!editMode) {
-        const taskText = li.querySelector(".text-todo").textContent; // Get current ToDo
-        li.querySelector("span").remove();
-        const ip = document.createElement("input");
-        // ip.classList.add(".text-todo");
-        ip.innerHTML = `<input type='text'>`;
-        ip.value = taskText;
-        li.prepend(ip);
-        li.querySelector(".btn-danger").textContent = "Save";
-        editMode = true;
-      } else {
-        const taskText = li.querySelector("input").value; // Get current ToDo
-        li.querySelector("input").remove();
-        const span = document.createElement("span");
-        span.classList.add("text-todo");
-        span.textContent = taskText;
-        li.prepend(span);
-        console.log(taskText);
-        li.querySelector(".btn-danger").textContent = "Edit";
-        editMode = false;
-        saveAllTodo();
-        editMode = false;
-      }
+
+      const currentChild = li.querySelector(!editMode ? "span" : "input");
+      const taskText = currentChild[!editMode ? "textContent" : "value"];
+      currentChild.remove();
+      const newChild = document.createElement(!editMode ? "input" : "span");
+      newChild[!editMode ? "value" : "textContent"] = taskText;
+      newChild.classList.add("text-todo");
+      li.prepend(newChild);
+      li.querySelector(".btn-danger").textContent = "Save";
+
+      editMode && saveAllTodo();
+      editMode = !editMode;
     }
   });
 
