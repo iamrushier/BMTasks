@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const elementArr = ["span", "input"];
       const propertyArr = ["textContent", "value"];
+      const btnTextArr = ["Edit", "Save"];
 
       const currentChild = li.querySelector(elementArr[Number(editMode)]); // true:1, false:0
       const taskText = currentChild[propertyArr[Number(editMode)]];
@@ -68,7 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       newChild.classList.add("text-todo");
       li.prepend(newChild);
-      li.querySelector(".btn-danger").textContent = "Save";
+      li.querySelector(".btn-danger").textContent =
+        btnTextArr[Number(!editMode)];
 
       editMode && saveAllTodo();
       editMode = !editMode;
