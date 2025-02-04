@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Creating a list item dynamically
   const createTodo = (task, isChecked = "") => {
+    console.log(task, isChecked);
     const li = document.createElement("li");
     // Add styles
     li.className =
@@ -32,7 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
       <button type="button" class="btn btn-danger">Edit</button>
       <button type="button" class="btn btn-warning">Delete</button>
     </div>`;
-
+    li.querySelector(".form-check-input").addEventListener(
+      "change",
+      function () {
+        saveAllTodo();
+      }
+    );
     ulTodo.appendChild(li);
   };
 
@@ -85,9 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Save the todo items in local storage
   const saveAllTodo = () => {
     // Extract only text content for all todo list items
-    const allTodos = [...document.querySelectorAll(".text-todo")].map(
-      (task) => task.textContent
-    );
+    const allTodos = [...document.querySelectorAll(".inputs")].map((item) => [
+      item.textContent.trim(),
+      item.querySelector(".form-check-input").checked ? "checked" : "",
+    ]);
+
+    // Try this: [...document.querySelectorAll(".inputs")].map((item)=>[item.textContent.trim(),item.querySelector(".form-check-input").checked? "checked":""])
+
     // Convert to string before storing in localStorage
     localStorage.setItem("allTodos", JSON.stringify(allTodos));
   };
@@ -96,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadAllTodo = () => {
     // Parse into array, using shortcuit || operator
     const allTodos = JSON.parse(localStorage.getItem("allTodos")) || [];
-    allTodos.forEach((task) => createTodo(task));
+    allTodos.forEach(([task, status]) => createTodo(task, status));
   };
 
   loadAllTodo(); // Exccuted the first time code loads
