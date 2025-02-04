@@ -7,32 +7,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Trach whether it is Edit mode or Create mode
   let editMode = false;
-  let editElement = null;
 
   // Event listener for Add button
   buttonTodo.addEventListener("click", () => {
     const text = inputTodo.value;
-    // if (editMode) {
-    //   // In case editing existing item
-    //   editElement.querySelector(".text-todo").textContent = text;
-    //   editMode = false;
-    //   editElement = null;
-    //   buttonTodo.textContent = "Add";
-    // } else {
     createTodo(text);
-    // }
     inputTodo.value = "";
     saveAllTodo();
   });
 
   // Creating a list item dynamically
-  const createTodo = (task) => {
+  const createTodo = (task, isChecked = "") => {
     const li = document.createElement("li");
     // Add styles
     li.className =
       "list-group-item d-flex justify-content-between align-items-start";
     // Render actual element
-    li.innerHTML = `<span class="text-todo">${task}</span>
+    li.innerHTML = `
+    <div class="inputs">
+      <input class="form-check-input me-0" type="checkbox" ${isChecked}>
+      <span class="text-todo">${task}</span>
+    </div>
     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
       <button type="button" class="btn btn-danger">Edit</button>
       <button type="button" class="btn btn-warning">Delete</button>
@@ -61,17 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const propertyArr = ["textContent", "value"];
       const btnTextArr = ["Edit", "Save"];
 
-      const currentChild = li.querySelector(elementArr[Number(editMode)]); // true:1, false:0
+      const currentChild = li.querySelector(".text-todo"); // true:1, false:0
       const taskText = currentChild[propertyArr[Number(editMode)]];
+
       currentChild.remove();
+
       const newChild = document.createElement(elementArr[Number(!editMode)]);
       newChild[propertyArr[Number(!editMode)]] = taskText;
 
-      newChild.classList.add("text-todo");
-      li.prepend(newChild);
+      newChild.classList.add("text-todo", "ms-1");
+
+      li.querySelector(".form-check-input").insertAdjacentElement(
+        "afterEnd",
+        newChild
+      );
+      console.log(li);
+      //console.log(li.closest("span"));
+      //li.closest("span").appendChild(newChild);
+      // li.prepend(newChild);
       li.querySelector(".btn-danger").textContent =
         btnTextArr[Number(!editMode)];
-
+      console.log("===============");
       editMode && saveAllTodo();
       editMode = !editMode;
     }
