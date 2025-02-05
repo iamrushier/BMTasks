@@ -12,9 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.textContent = message;
     setTimeout(() => {
       toast.style.opacity = "0";
-      // setTimeout(() => {
       toast.style.visibility = "hidden";
-      // }, 1000);
       toast.innerHTML = "";
     }, 2000);
   }
@@ -29,9 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const item of res.data) {
           createTodo(item.id, item.title, item.checked ? "checked" : "");
         }
-        // console.log("ToDo items retrieved from API (GET)");
-      })
-      .then(() => {
         showToast("ToDo items retrieved\n(GET request)");
       })
       .catch((e) => console.log("Error:", e.message));
@@ -53,8 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
           res.data.title,
           res.data.checked ? "checked" : ""
         );
-      })
-      .then(() => {
         showToast("New ToDo item created!\n(POST request)");
       })
       .catch((e) => console.log("Error:", e.message));
@@ -82,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
           .patch(`https://jsonplaceholder.typicode.com/todos/${li.id}`, {
             completed: e.target.checked,
           })
-          .then((res) => {})
           .then(() => {
             showToast(`Todo item checked/unchecked!\n(PATCH)`);
           })
@@ -102,8 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
           .delete(`https://jsonplaceholder.typicode.com/todos/${item.id}`)
           .then(() => {
             item.remove(); // Traversing DOM for parent
-          })
-          .then(() => {
             showToast("ToDo item deleted!(DELETE)");
           })
           .catch((e) => console.log("Error:", e.message));
@@ -114,31 +104,35 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = e.target.closest(".list-group-item"); // Get the li parent
       const currentChild = li.querySelector(".text-todo");
       const taskText = currentChild[!editMode ? "textContent" : "value"];
+      if (taskText === "") return;
       currentChild.remove();
       const newChild = document.createElement(!editMode ? "input" : "span");
       newChild[!editMode ? "value" : "textContent"] = taskText;
       newChild.classList.add("text-todo", "ms-1");
-      axios
-        .put(`https://jsonplaceholder.typicode.com/todos/${li.id}`, {
-          title: taskText,
-          completed: li.querySelector(".form-check-input").checked,
-        })
-        .then((res) => {
-          console.log(res.data);
-          li.querySelector(".form-check-input").insertAdjacentElement(
-            "afterEnd",
-            newChild
-          );
-          li.querySelector(".btn-danger").textContent = editMode
-            ? "Edit"
-            : "Save";
-          console.log("Updated");
-          editMode = !editMode;
-        })
-        .then(() => {
-          showToast("ToDo item replaced!(PUT)");
-        })
-        .catch((e) => console.log("Error:", e.message));
+      if (editMode) {
+        axios
+          .put(`https://jsonplaceholder.typicode.com/todos/${li.id}`, {
+            title: taskText,
+            completed: li.querySelector(".form-check-input").checked,
+          })
+          .then((res) => {
+            li.querySelector(".form-check-input").insertAdjacentElement(
+              "afterEnd",
+              newChild
+            );
+            li.querySelector(".btn-danger").textContent = "Edit";
+            editMode = false;
+            showToast(`ToDo item replaced!(PUT)`);
+          })
+          .catch((e) => console.log("Error:", e.message));
+      } else {
+        li.querySelector(".form-check-input").insertAdjacentElement(
+          "afterEnd",
+          newChild
+        );
+        li.querySelector(".btn-danger").textContent = "Save";
+        editMode = true;
+      }
     }
   });
 
@@ -149,8 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .delete("https://jsonplaceholder.typicode.com/todos/*")
         .then(() => {
           ulTodo.innerHTML = "";
-        })
-        .then(() => {
           showToast("All ToDo items deleted!(DELETE/*)");
         })
         .catch((e) => console.log("Error:", e.message));
