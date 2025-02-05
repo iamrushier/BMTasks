@@ -4,20 +4,6 @@ axios.defaults.headers.common["X-Auth-Token"] =
 
 // GET REQUEST
 function getTodos() {
-  // axios({
-  //   method: "get",
-  //   url: "https://jsonplaceholder.typicode.com/todos", // Backend/API
-  //   params: {
-  //     _limit: 5,
-  //   }, // Limit data to 5
-  // })
-  //   .then((res) => showOutput(res))
-  //   .catch((err) => console.log(err));
-
-  /* SHortcut methods */
-  // axios.get("https://jsonplaceholder.typicode.com/todos", {
-  //   params: { _limit: 2 },
-  // })
   axios("https://jsonplaceholder.typicode.com/todos?_limit=5", {
     timeout: 1000,
   }) // Default is get
@@ -27,16 +13,6 @@ function getTodos() {
 
 // POST REQUEST
 function addTodo() {
-  // axios({
-  //   method: "post",
-  //   url: "https://jsonplaceholder.typicode.com/todos", // Backend/API
-  //   data: {
-  //     title: "New Todo",
-  //     completed: false,
-  //   }, // Limit data to 5
-  // })
-  //   .then((res) => showOutput(res))
-  //   .catch((err) => console.log(err));
   axios
     .post("https://jsonplaceholder.typicode.com/todos", {
       title: "New Todo",
@@ -48,7 +24,6 @@ function addTodo() {
 
 // PUT/PATCH REQUEST
 function updateTodo() {
-  // console.log("PUT/PATCH Request");
   // Put raplace entire resource object/ Patch upadate part of resource object
   axios
     .patch("https://jsonplaceholder.typicode.com/todos/1", {
@@ -76,12 +51,6 @@ function getData() {
     ])
     .then(axios.spread((todos, posts) => showOutput(posts)))
     .catch((err) => console.error(err));
-  // .then((res) => {
-  //   // When all request are fullfilled, res is array of responses
-  //   console.log(res[0]);
-  //   console.log(res[1]);
-  //   showOutput(res[1]);
-  // })
 }
 
 // CUSTOM HEADERS
