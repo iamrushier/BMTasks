@@ -25,7 +25,8 @@ nextImg.style.left = `100%`;
 const slideImageRight = () => {};
 const slideImageLeft = () => {};
 const goNext = () => {
-  counter++;
+  // counter++;
+  counter = (counter + 1) % images.length;
   main.removeChild(prevImg);
   currentImg.style.left = `-100%`;
   currentImg.classList.remove("current-img");
@@ -42,7 +43,8 @@ const goNext = () => {
   main.appendChild(nextImg);
 };
 const goPrev = () => {
-  counter--;
+  //counter--;
+  counter = (counter - 1 + images.length) % images.length;
   main.removeChild(nextImg);
   currentImg.style.left = `100%`;
   currentImg.classList.remove("current-img");
