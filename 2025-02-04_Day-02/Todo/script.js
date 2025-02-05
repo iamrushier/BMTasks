@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     draggedItem = this;
     this.style.opacity = "0.5";
     e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setDate("text/plain", ""); // For firefox??
+    e.dataTransfer.setData("text/plain", "");
   }
   function handleDragEnd(e) {
     draggedItem.style.opacity = "1";
