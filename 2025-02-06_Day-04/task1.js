@@ -7,6 +7,7 @@
 //    * The data should be an array of user names.
 // Bonus Task: Implement error handling in the callback function
 //      to simulate a case where the server might fail.
+
 function fetchData(func) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -18,8 +19,15 @@ function fetchData(func) {
     .then((res) => {
       console.log(func(res));
     })
-    .catch((err) => console.log("Error", err));
+    .catch((err) => console.log("Error:", err));
 }
 const toUpper = (arr) => arr.map((name) => name.toUpperCase());
 
 fetchData(toUpper);
+
+// Output:
+// If resolved:
+// [ 'RAMESH', 'SURESH', 'AMAR', 'AKBAR', 'ANTHONY' ]
+
+// If rejected:
+// Error: Rejected

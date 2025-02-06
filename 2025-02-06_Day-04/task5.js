@@ -18,8 +18,15 @@ const calculateSum = (arr) => arr.reduce((prev, curr) => prev + curr);
 const getMax = (arr) => arr.reduce((prev, curr) => (prev > curr ? prev : curr));
 
 arr = [65, 34, 1, 34, 5];
-console.log("Original array:", arr);
+
 console.log("Odd numbers filtered:", processData(arr, filterOdd));
+// Odd numbers filtered: [ 65, 1, 5 ]
+
 console.log("Doubled numbers:", processData(arr, doubleNumbers));
+// Doubled numbers: [ 130, 68, 2, 68, 10 ]
+
 console.log("Sum of numbers:", processData(arr, calculateSum));
+// Sum of numbers: 139
+
 console.log("Maximum of numbers:", processData(arr, getMax));
+// Maximum of numbers: 65

@@ -48,14 +48,38 @@ const bookLibrary = {
     return this.books.map((book) => book.title);
   },
 };
-// console.log(bookLibrary.books);
+
 console.log(bookLibrary.getAllBooks());
+// [
+//   'Programming Python',
+//   'The Discovery of India',
+//   'Wings of Fire',
+//   'Let us C',
+//   'Let us Python'
+// ]
+
 console.log(bookLibrary.getBooksByAuthor("Kanetkar"));
+// [
+//   { title: 'Let us C', author: 'Kanetkar', yearPublished: 1999 },
+//   { title: 'Let us Python', author: 'Kanetkar', yearPublished: 2005 }
+// ]
+
 bookLibrary.removeBook("Let us C");
 console.log(bookLibrary.getAllBooks());
+// [
+//   'Programming Python',
+//   'The Discovery of India',
+//   'Wings of Fire',
+//   'Let us Python'
+// ]
+
 bookLibrary.addBook({
   title: "Let us C",
   author: "Kanetkar",
   yearPublished: 1999,
 });
 console.log(bookLibrary.getBooksByAuthor("Kanetkar"));
+// [
+//   { title: 'Let us Python', author: 'Kanetkar', yearPublished: 2005 },
+//   { title: 'Let us C', author: 'Kanetkar', yearPublished: 1999 }
+// ]

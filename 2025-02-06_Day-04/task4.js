@@ -17,18 +17,33 @@ const productsArr = [
   { name: "Scientific Calculator", price: 900, category: "Electronics" },
   { name: "Notebook", price: 60, category: "Stationery" },
 ];
-// console.log(productsArr);
 
 productNames = productsArr.map((product) => product.name.toUpperCase());
 console.log("Upper cased names:", productNames);
+// Upper cased names: [
+//   'JAVASCRIPT FOR DUMMIES',
+//   'PENCIL SET',
+//   'USB DRIVE',
+//   'SCIENTIFIC CALCULATOR',
+//   'NOTEBOOK'
+// ]
 
 electronicProducts = productsArr.filter(
   (product) => product.category === "Electronics"
 );
 console.log("Electonic products:", electronicProducts);
+// Electonic products: [
+//   { name: 'USB Drive', price: 200, category: 'Electronics' },
+//   {
+//     name: 'Scientific Calculator',
+//     price: 900,
+//     category: 'Electronics'
+//   }
+// ]
 
 const totalPrice = productsArr.reduce((acc, { price }) => acc + price, 0);
 console.log("Total cost:", totalPrice);
+// Total cost: 1710
 
 const categorize = (arr) => {
   return arr
@@ -47,3 +62,4 @@ const categorize = (arr) => {
 };
 
 console.log("Cost per category:", categorize(productsArr));
+// Cost per category: { Books: 500, Stationery: 110, Electronics: 1100 }
