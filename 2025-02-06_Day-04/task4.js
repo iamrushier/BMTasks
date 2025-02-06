@@ -9,3 +9,41 @@
 // 4: Combine map(), filter(), and reduce()
 //    * Create a function that calculates the total price of products
 //        from a specific category using map(), filter(), and reduce().
+
+const productsArr = [
+  { name: "JavaScript for Dummies", price: 500, category: "Books" },
+  { name: "Pencil Set", price: 50, category: "Stationery" },
+  { name: "USB Drive", price: 200, category: "Electronics" },
+  { name: "Scientific Calculator", price: 900, category: "Electronics" },
+  { name: "Notebook", price: 60, category: "Stationery" },
+];
+// console.log(productsArr);
+
+productNames = productsArr.map((product) => product.name.toUpperCase());
+console.log("Upper cased names:", productNames);
+
+electronicProducts = productsArr.filter(
+  (product) => product.category === "Electronics"
+);
+console.log("Electonic products:", electronicProducts);
+
+const totalPrice = productsArr.reduce((acc, { price }) => acc + price, 0);
+console.log("Total cost:", totalPrice);
+
+const categorize = (arr) => {
+  return arr
+    .map((arr1) => {
+      const record = new Object();
+      record.category = arr1.category;
+      record.total = arr
+        .filter((product) => product["category"] === arr1.category)
+        .reduce((acc, { price }) => acc + price, 0);
+      return record;
+    })
+    .reduce((acc, { category, total }) => {
+      acc[category] = total;
+      return acc;
+    }, {});
+};
+
+console.log("Cost per category:", categorize(productsArr));
