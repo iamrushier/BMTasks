@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="text-center"><h1>Fake Store For Dummies</h1></div>
+
+    <ul
+      class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-2 shadow-sm"
+      id="pillNav2"
+      style="
+        --bs-nav-link-color: var(--bs-white);
+        --bs-nav-pills-link-active-color: var(--bs-primary);
+        --bs-nav-pills-link-active-bg: var(--bs-white);
+      "
+    >
+      <li class="nav-item">
+        <button class="nav-link active rounded-2" id="home-tab">HOME</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link rounded-2" id="home-tab">CATEGORIES</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link rounded-2" id="home-tab">CART</button>
+      </li>
+    </ul>
+    <div class="container"></div>
+
+    <script src="js/axios.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/api_calls.js"></script>
+  </body>
+</html>
