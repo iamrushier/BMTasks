@@ -1,9 +1,9 @@
-console.log("API calls Loaded");
 const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 
 // Home page ✅
-const getAllProducts = () => {
-  fakeStoreAPI.get("/products").then((res) => res.data);
+const getAllProducts = async () => {
+  const res = await fakeStoreAPI.get("/products?limit=10");
+  return res.data;
 };
 
 // Categories Page (tab for each category) ✅
@@ -67,5 +67,16 @@ const getAllUsers = async () => {
 //     products: [{ productId: 5, quantity: 1 }],
 //   });
 //   getAllUsers();
-export { getAllUsers, tryLoginForUser };
+export {
+  getAllProducts,
+  getCategories,
+  updateCartProducts,
+  getCartItemsForUserID,
+  getProductById,
+  addProductToCart,
+  emptyCart,
+  getProductsByCategory,
+  getAllUsers,
+  tryLoginForUser,
+};
 // Only include DOMContentLoad event for main.js file or other (helper)js files too?

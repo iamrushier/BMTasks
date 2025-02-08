@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="../css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -17,16 +23,19 @@
       "
     >
       <li class="nav-item">
-        <button class="nav-link active rounded-2" id="home-tab">HOME</button>
+        <button class="nav-link active rounded-2 home-btn">HOME</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link rounded-2" id="home-tab">CATEGORIES</button>
+        <a class="nav-link rounded-2 categories-btn" href="./categories.html"
+          >CATEGORIES</a
+        >
       </li>
       <li class="nav-item">
-        <button class="nav-link rounded-2" id="home-tab">CART</button>
+        <a class="nav-link rounded-2 cart-btn" href="./cart.html">CART</a>
       </li>
     </ul>
     <div class="container"></div>
+    <script src="../js/axios.min.js"></script>
     <script type="module" src="../js/home.js"></script>
   </body>
 </html>
