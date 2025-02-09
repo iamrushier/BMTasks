@@ -1,17 +1,12 @@
 import { getCategories, getProductsByCategory } from "./api_calls.js";
-import renderProducts from "./home.js";
+import { renderCategories, renderProducts } from "./render.js";
+import loggedInUser from "./state.js";
+import "./commons.js";
 
+if (!loggedInUser.username) window.location.href = "../index.html";
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Categories loaded");
   const catBar = document.getElementById("category-bar");
-  const renderCategories = (data) => {
-    console.log("data:", data);
-    for (const category of Object.values(data)) {
-      const li = document.createElement("li");
-      li.className = "nav-item";
-      li.innerHTML = `<button class="nav-link rounded-2">${category.toUpperCase()}</button>`;
-      catBar.appendChild(li);
-    }
+  const initCatBar = () => {
     catBar.querySelector(".active")?.classList.remove("active");
     const first_category = catBar.querySelector(".nav-link");
 
@@ -22,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   getCategories().then((data) => {
     renderCategories(data);
+    initCatBar();
   });
 
   catBar.addEventListener("click", (e) => {
@@ -29,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!e.target.classList.contains("active")) {
         catBar.querySelector(".active").classList.remove("active");
         e.target.classList.add("active");
-        console.log("Runs?", e.target.textContent);
         getProductsByCategory(e.target.textContent).then((data) => {
           renderProducts(data);
         });

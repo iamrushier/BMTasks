@@ -1,4 +1,3 @@
-import { getAllUsers } from "../js/api_calls.js";
 const loggedInUser = {
   username: sessionStorage.getItem("username") || "",
   password: sessionStorage.getItem("password") || "",
