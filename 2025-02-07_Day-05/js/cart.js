@@ -18,11 +18,14 @@ if (!loggedInUser.username) window.location.href = "../index.html";
 getUserId(loggedInUser)
   .then((id) => {
     loggedInUser.setUserId(id);
-    console.log(loggedInUser);
     sessionStorage.setItem("id", JSON.stringify(id));
     getCartItemsForUserID(id).then((data) => {
-      console.log(data);
       renderCartItems(data);
     });
   })
   .catch((err) => console.log("Failed to get ID"));
+
+const checkoutBtn = document.querySelector(".checkout-btn");
+checkoutBtn.addEventListener("click", () => {
+  console.log("Checkout complete");
+});
