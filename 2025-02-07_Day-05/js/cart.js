@@ -11,6 +11,8 @@ import {
 // loggedInUser.setUser("mor_2314", "83r5^_"); //2
 // snyder f238&@*$
 // mor_2314 83r5^_
+if (!loggedInUser.username) window.location.href = "../index.html";
+
 const cartContainer = document.querySelector(".item-container");
 const renderCartItems = async (data) => {
   cartContainer.innerHTML = "";

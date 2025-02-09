@@ -2,10 +2,14 @@ import { getAllProducts } from "./api_calls.js";
 import loggedInUser from "../js/state.js";
 
 // document.addEventListener("DOMContentLoaded", () => {
-console.log("Home loaded");
-// if (!loggedInUser.username) {
+// const logoutBtn = document.querySelector(".logout");
+// logoutBtn.addEventListener("click", () => {
+//   loggedInUser.clearUser();
 //   window.location.href = "../index.html";
-// } else {
+// });
+
+if (!loggedInUser.username) window.location.href = "../index.html";
+
 const prodContainer = document.querySelector(".container");
 
 const renderProducts = (prodData) => {
@@ -39,7 +43,8 @@ const renderProducts = (prodData) => {
               
             </div></div>`;
     prodDiv.addEventListener("click", (e) => {
-      console.log(e.target.closest(".card"));
+      // console.log(e.target.closest(".card"));
+      // To select individual product
     });
     prodContainer.appendChild(prodDiv);
   }
@@ -52,7 +57,7 @@ getAllProducts()
   .catch(() => {
     console.log("Failed to load products");
   });
-// }
+
 // });
 
 export default renderProducts;
