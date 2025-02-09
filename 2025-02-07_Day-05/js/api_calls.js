@@ -7,44 +7,47 @@ const getAllProducts = async () => {
 };
 
 // Categories Page (tab for each category) ✅
-const getCategories = () => {
-  fakeStoreAPI.get("/products/categories").then((res) => {
-    console.log(res.data);
-  });
+const getCategories = async () => {
+  try {
+    const res = await fakeStoreAPI.get("/products/categories");
+    return res.data;
+  } catch (err) {
+    return new Promise((reso, rej) => reso({ 0: "One", 1: "Two", 2: "Three" }));
+  }
 };
 
-const getProductsByCategory = (category) => {
+const getProductsByCategory = async (category) => {
   category = category.toLowerCase();
-  fakeStoreAPI.get(`/products/category/${category}`).then((res) => res.data);
+  const res = await fakeStoreAPI.get(`/products/category/${category}`);
+  return res.data;
 };
 
 // Selected product ✅
-const getProductById = (productId) => {
-  fakeStoreAPI.get(`/products/${productId}`);
+const getProductById = async (productId) => {
+  const res = await fakeStoreAPI.get(`/products/${productId}`);
+  return res.data;
 };
 
 // Cart page ✅
 // Get cart items for user id , default 1
-const getCartItemsForUserID = (userId) => {
-  fakeStoreAPI
-    .get(`/carts/user/${userId}`)
-    .then((res) => console.log(res.data));
+const getCartItemsForUserID = async (userId) => {
+  const res = await fakeStoreAPI.get(`/carts/user/${userId}`);
+  return res.data;
 };
 
-const updateCartProducts = (cartId, products) => {
-  fakeStoreAPI
-    .patch(`/carts/${cartId}`, { products })
-    .then((res) => console.log(res));
+const updateCartProducts = async (cartId, products) => {
+  const res = await fakeStoreAPI.patch(`/carts/${cartId}`, { products });
+  return res.data;
 };
 
-const addProductToCart = ({ userId, date, products }) => {
-  fakeStoreAPI
-    .post("/carts", { userId, date, products })
-    .then((res) => console.log(res.data));
+const addProductToCart = async ({ userId, date, products }) => {
+  const res = await fakeStoreAPI.post("/carts", { userId, date, products });
+  return res.data;
 };
 
-const emptyCart = (cartId) => {
-  fakeStoreAPI.delete(`/carts/${cartId}`).then((res) => console.log(res.data));
+const emptyCart = async (cartId) => {
+  const res = await fakeStoreAPI.delete(`/carts/${cartId}`);
+  return res.data;
 };
 
 // Optional: Login page, ✅
