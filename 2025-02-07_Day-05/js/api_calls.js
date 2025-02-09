@@ -1,12 +1,12 @@
 const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 
-// Home page ✅
+// Home page ✅✅
 const getAllProducts = async () => {
   const res = await fakeStoreAPI.get("/products?limit=10");
   return res.data;
 };
 
-// Categories Page (tab for each category) ✅
+// Categories Page (tab for each category) ✅✅
 const getCategories = async () => {
   try {
     const res = await fakeStoreAPI.get("/products/categories");
@@ -15,7 +15,7 @@ const getCategories = async () => {
     return new Promise((reso, rej) => reso({ 0: "One", 1: "Two", 2: "Three" }));
   }
 };
-
+// ✅✅
 const getProductsByCategory = async (category) => {
   category = category.toLowerCase();
   const res = await fakeStoreAPI.get(`/products/category/${category}`);
@@ -50,7 +50,7 @@ const emptyCart = async (cartId) => {
   return res.data;
 };
 
-// Optional: Login page, ✅
+// Login page, ✅✅
 const tryLoginForUser = async ({ username, password }) => {
   const res = await fakeStoreAPI.post("/auth/login", { username, password });
   return res.data;
@@ -71,7 +71,7 @@ const getAllUsers = async () => {
 //   });
 //   getAllUsers();
 
-async function getUserId(loggedInUser) {
+async function getIdOfLoggedInUser(loggedInUser) {
   try {
     const users = await getAllUsers();
     const matchedUser = users.find(
@@ -98,6 +98,6 @@ export {
   getProductsByCategory,
   getAllUsers,
   tryLoginForUser,
-  getUserId,
+  getIdOfLoggedInUser as getUserId,
 };
 // Only include DOMContentLoad event for main.js file or other (helper)js files too?

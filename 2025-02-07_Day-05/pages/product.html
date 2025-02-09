@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="../css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="text-center">
+      <h1>Fake Store For Dummies</h1>
+      <button class="logout btn btn-link">Logout</button>
+    </div>
+
+    <ul
+      class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-2 shadow-sm"
+      id="pillNav2"
+      style="
+        --bs-nav-link-color: var(--bs-white);
+        --bs-nav-pills-link-active-color: var(--bs-primary);
+        --bs-nav-pills-link-active-bg: var(--bs-white);
+      "
+    >
+      <li class="nav-item">
+        <a class="nav-link rounded-2 home-btn" href="./home.html">HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link rounded-2 categories-btn" href="./categories.html"
+          >CATEGORIES</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link rounded-2 cart-btn" href="./cart.html">CART</a>
+      </li>
+    </ul>
+    <div
+      class="nav nav-pills nav-fill gap-2 p-1 small rounded-2 shadow-sm text-center"
+      style="
+        --bs-nav-link-color: var(--bs-white);
+        --bs-nav-pills-link-active-color: var(--bs-primary);
+        --bs-nav-pills-link-active-bg: var(--bs-white);
+      "
+    >
+      <h2>Product Page</h2>
+    </div>
+    <div class="container mt-5 product-details">
+      <!-- <div class="card p-3">
+        <div class="row">
+          <div class="col-md-4">
+            <img
+              id="product-image"
+              src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+              class="img-fluid"
+              alt="Product Image"
+            />
+          </div>
+          <div class="col-md-8">
+            <h3 id="product-title">
+              Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+            </h3>
+            <p class="text-muted" id="product-category">men's clothing</p>
+            <h4 class="text-primary">
+              $<span id="product-price">109.95</span>
+            </h4>
+            <p id="product-description">
+              Your perfect pack for everyday use and walks in the forest. Stash
+              your laptop (up to 15 inches) in the padded sleeve, your everyday
+            </p>
+            <p>
+              <strong>Rating:</strong> <span id="product-rating">3.9</span> ⭐
+              (<span id="product-rating-count">120</span> reviews)
+            </p>
+            <button class="btn btn-success">Add to Cart</button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- <script src="../js/axios.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script type="module" src="../js/product.js"></script>
+  </body>
+</html>

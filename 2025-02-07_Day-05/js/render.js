@@ -9,6 +9,7 @@ const renderProducts = (prodData) => {
     prodDiv.classList =
       "card mt-4 d-flex flex-row justify-content-between align-items-center p-3";
     prodDiv.style.height = "auto";
+    prodDiv.setAttribute("data-id", prod.id);
     prodDiv.innerHTML = `<img
               src="${prod.image}"
               class="img-fluid"
@@ -35,6 +36,8 @@ const renderProducts = (prodData) => {
     prodDiv.addEventListener("click", (e) => {
       // console.log(e.target.closest(".card"));
       // To select individual product
+      const productId = prodDiv.getAttribute("data-id");
+      window.location.href = `../pages/product.html?id=${productId}`;
     });
     prodContainer.appendChild(prodDiv);
   }
@@ -97,4 +100,50 @@ const renderCartItems = async (data) => {
     .map((itemPrice) => Number(itemPrice.textContent.replace("$", "")))
     .reduce((f, s) => f + s)}`;
 };
-export { renderCategories, renderProducts, renderCartItems };
+
+const productDetails = document.querySelector(".product-details");
+
+const renderProductDetails = (data) => {
+  productDetails.innerHTML = "";
+  const container = document.createElement("div");
+  container.classList = "card p-3";
+  container.innerHTML = `<div class="row">
+          <div class="col-md-4">
+            <img
+              id="product-image"
+              src="${data.image}"
+              class="img-fluid"
+              alt="Product Image"
+            />
+          </div>
+          <div class="col-md-8">
+            <h3 id="product-title">
+              ${data.title}
+            </h3>
+            <p class="text-muted" id="product-category">${
+              data.category[0].toUpperCase() + data.category.slice(1)
+            }</p>
+            <h4 class="text-primary">
+              $<span id="product-price">${data.price}</span>
+            </h4>
+            <p id="product-description">
+              ${data.description}</p>
+            <p>
+              <strong>Rating:</strong> <span id="product-rating">${
+                data.rating.rate
+              }</span> ⭐
+              (<span id="product-rating-count">${
+                data.rating.count
+              }</span> reviews)
+            </p>
+            <button class="btn btn-success">Add to Cart</button>
+          </div>
+        </div>`;
+  productDetails.appendChild(container);
+};
+export {
+  renderCategories,
+  renderProducts,
+  renderCartItems,
+  renderProductDetails,
+};
