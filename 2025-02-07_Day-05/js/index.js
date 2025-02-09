@@ -1,4 +1,4 @@
-import { getAllUsers, tryLoginForUser } from "./api_calls.js";
+import { getAllUsers, tryLoginForUser, getUserId } from "./api_calls.js";
 import loggedInUser from "./state.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -46,4 +46,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // const tryLogin=
 });
-export default loggedInUser;
+export { loggedInUser, getUserId };

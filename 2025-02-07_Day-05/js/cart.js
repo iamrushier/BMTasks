@@ -1,9 +1,13 @@
 import loggedInUser from "../js/state.js";
-import { getAllUsers, getProductById } from "./api_calls.js";
-import { getCartItemsForUserID } from "./api_calls.js";
+import {
+  getUserId,
+  getProductById,
+  getCartItemsForUserID,
+} from "./api_calls.js";
+
 // Temporary
 // loggedInUser.setUser("snyder", "f238&@*$"); // 7
-loggedInUser.setUser("hopkins", "William56$hj"); // id:8
+// loggedInUser.setUser("hopkins", "William56$hj"); // id:8
 // loggedInUser.setUser("mor_2314", "83r5^_"); //2
 // snyder f238&@*$
 // mor_2314 83r5^_
@@ -31,7 +35,7 @@ const renderCartItems = async (data) => {
                           />
                         </div>
                         <div class="ms-3">
-                          <h5>$${productInfo.title}</h5>
+                          <h5>${productInfo.title}</h5>
                           <!-- <p class="small mb-0">256GB, Navy Blue</p> -->
                         </div>
                       </div>
@@ -55,28 +59,12 @@ const renderCartItems = async (data) => {
     .map((itemPrice) => Number(itemPrice.textContent.replace("$", "")))
     .reduce((f, s) => f + s)}`;
 };
-async function getUserId(loggedInUser) {
-  try {
-    const users = await getAllUsers();
-    const matchedUser = users.find(
-      (user) => user.username === loggedInUser.username
-    );
 
-    if (matchedUser) {
-      return matchedUser.id;
-      // sessionStorage.setItem("id", matchedUser.id);
-    }
-  } catch (e) {
-    console.log("Failed to fetch ID", e);
-  }
-}
 getUserId(loggedInUser)
   .then((id) => {
     loggedInUser.setUserId(id);
     console.log(loggedInUser);
     sessionStorage.setItem("id", JSON.stringify(id));
-    // document.querySelector(".container").textContent =
-    //   JSON.stringify(loggedInUser);
     getCartItemsForUserID(id).then((data) => {
       console.log(data);
       renderCartItems(data);

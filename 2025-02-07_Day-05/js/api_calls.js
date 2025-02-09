@@ -70,6 +70,23 @@ const getAllUsers = async () => {
 //     products: [{ productId: 5, quantity: 1 }],
 //   });
 //   getAllUsers();
+
+async function getUserId(loggedInUser) {
+  try {
+    const users = await getAllUsers();
+    const matchedUser = users.find(
+      (user) => user.username === loggedInUser.username
+    );
+
+    if (matchedUser) {
+      return matchedUser.id;
+      // sessionStorage.setItem("id", matchedUser.id);
+    }
+  } catch (e) {
+    console.log("Failed to fetch ID", e);
+  }
+}
+
 export {
   getAllProducts,
   getCategories,
@@ -81,5 +98,6 @@ export {
   getProductsByCategory,
   getAllUsers,
   tryLoginForUser,
+  getUserId,
 };
 // Only include DOMContentLoad event for main.js file or other (helper)js files too?
