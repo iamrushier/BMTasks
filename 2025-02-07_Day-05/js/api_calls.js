@@ -22,14 +22,14 @@ const getProductsByCategory = async (category) => {
   return res.data;
 };
 
-// Selected product ✅
+// Selected product ✅✅
 const getProductById = async (productId) => {
   const res = await fakeStoreAPI.get(`/products/${productId}`);
   return res.data;
 };
 
 // Cart page ✅
-// Get cart items for user id , default 1
+// Get cart items for user id , default 1 ✅✅
 const getCartItemsForUserID = async (userId) => {
   const res = await fakeStoreAPI.get(`/carts/user/${userId}`);
   return res.data;
@@ -40,6 +40,7 @@ const updateCartProducts = async (cartId, products) => {
   return res.data;
 };
 
+// ✅
 const addProductToCart = async ({ userId, date, products }) => {
   const res = await fakeStoreAPI.post("/carts", { userId, date, products });
   return res.data;

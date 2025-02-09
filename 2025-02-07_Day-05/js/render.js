@@ -7,7 +7,7 @@ const renderProducts = (prodData) => {
   for (const prod of prodData) {
     const prodDiv = document.createElement("div");
     prodDiv.classList =
-      "card mt-4 d-flex flex-row justify-content-between align-items-center p-3";
+      "card mt-4 d-flex flex-row justify-content-between w-75 mx-auto p-3";
     prodDiv.style.height = "auto";
     prodDiv.setAttribute("data-id", prod.id);
     prodDiv.innerHTML = `<img
@@ -55,6 +55,7 @@ const renderCategories = (data) => {
 const cartContainer = document.querySelector(".item-container");
 const renderCartItems = async (data) => {
   cartContainer.innerHTML = "";
+  // cartContainer.classList.add("");
   const itemsCountMsg = (document.querySelector(
     ".items-count"
   ).textContent = `You have ${data[0].products.length} items in your cart`);
@@ -63,6 +64,7 @@ const renderCartItems = async (data) => {
     const productInfo = await getProductById(entry.productId);
     const itemBox = document.createElement("div");
     itemBox.classList = "card mb-3";
+    itemBox.setAttribute("product-id", productInfo.id);
     itemBox.innerHTML = `
                   <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -77,7 +79,7 @@ const renderCartItems = async (data) => {
                         </div>
                         <div class="ms-3">
                           <h5>${productInfo.title}</h5>
-                          <!-- <p class="small mb-0">256GB, Navy Blue</p> -->
+                          <h6>($${productInfo.price})</h6>
                         </div>
                       </div>
                       <div class="d-flex flex-row align-items-center">
@@ -92,6 +94,9 @@ const renderCartItems = async (data) => {
                       </div>
                     </div>
                 </div>`;
+    itemBox.addEventListener("click", () => {
+      window.location.href = `../pages/product.html?id=${productInfo.id}`;
+    });
     cartContainer.appendChild(itemBox);
   }
   const itemPriceList = document.querySelectorAll(".item-price");
@@ -106,7 +111,7 @@ const productDetails = document.querySelector(".product-details");
 const renderProductDetails = (data) => {
   productDetails.innerHTML = "";
   const container = document.createElement("div");
-  container.classList = "card p-3";
+  container.classList = "card p-3 w-75  mx-auto";
   container.innerHTML = `<div class="row">
           <div class="col-md-4">
             <img
@@ -136,7 +141,7 @@ const renderProductDetails = (data) => {
                 data.rating.count
               }</span> reviews)
             </p>
-            <button class="btn btn-success">Add to Cart</button>
+            <button class="btn btn-success add-cart-btn">Add to Cart</button>
           </div>
         </div>`;
   productDetails.appendChild(container);
