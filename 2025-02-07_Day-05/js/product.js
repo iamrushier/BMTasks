@@ -7,8 +7,8 @@ import {
 import loggedInUser from "../js/state.js";
 // console.log("Product Loaded");
 // console.log(window.location.search);
-const productId = window.location.search.split("=")[1];
 if (!loggedInUser.username) window.location.href = "../index.html";
+const productId = window.location.search.split("=")[1];
 // console.log(productId);
 if (productId) {
   getProductById(productId).then((data) => {
