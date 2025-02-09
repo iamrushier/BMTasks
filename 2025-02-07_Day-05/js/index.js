@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await tryLoginForUser({ username, password });
 
         loggedInUser.setUser(username, password);
+        getUserId(loggedInUser).then((id) => loggedInUser.setUserId(id));
 
         msgDiv.textContent = `Logging in as '${username}'\nToken: ${
           res.token.slice(0, 21) + "...."

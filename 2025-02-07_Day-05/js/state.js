@@ -2,32 +2,28 @@ import { getAllUsers } from "../js/api_calls.js";
 const loggedInUser = {
   username: sessionStorage.getItem("username") || "",
   password: sessionStorage.getItem("password") || "",
-
+  id: sessionStorage.getItem("id") ?? "",
   setUser(username, password) {
     this.username = username;
     this.password = password;
     sessionStorage.setItem("username", username);
     sessionStorage.setItem("password", password);
-    this.setUserId();
+    sessionStorage.setItem("id", "");
   },
-
+  setUserId(id) {
+    this.id = id;
+    sessionStorage.setItem("id", JSON.stringify(id));
+  },
   clearUser() {
     this.username = "";
     this.password = "";
+    this.id = "";
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("password");
-  },
-  async setUserId() {
-    try {
-      const users = await getAllUsers();
-      const matchedUser = users.find((user) => user.username === this.username);
-      if (matchedUser) {
-        this.id = matchedUser.id;
-        sessionStorage.setItem("id", matchedUser.id);
-      }
-    } catch (e) {
-      console.log("Failed to fetch ID");
-    }
+    sessionStorage.removeItem("id");
   },
 };
+// loggedInUser.clearUser();
+// getUserId(loggedInUser).then((id) => loggedInUser.setUserId(id));
+
 export default loggedInUser;
