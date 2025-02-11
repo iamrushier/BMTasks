@@ -85,3 +85,7 @@ var truck = new Truck("Tata", "LPT 1613", 5000, 10);
 console.log("".concat(car.GetVehicleDetails, " (3 days): Rs. ").concat(car.calculateRentalCost(3)));
 console.log("".concat(bike.GetVehicleDetails, " (7 days,discounted): Rs. ").concat(bike.calculateRentalCost(7)));
 console.log("".concat(truck.GetVehicleDetails, " (4 days,discounted): Rs. ").concat(truck.calculateRentalCost(4)));
+// Output:
+// Toyota Corolla (3 days): Rs. 6000
+// Royal Enfield Classic 350 (7 days,discounted): Rs. 5040
+// Tata LPT 1613 (4 days,discounted): Rs. 17000

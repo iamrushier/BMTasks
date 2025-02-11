@@ -83,3 +83,8 @@ console.log(
     truck.GetVehicleDetails
   } (4 days,discounted): Rs. ${truck.calculateRentalCost(4)}`
 );
+
+// Output:
+// Toyota Corolla (3 days): Rs. 6000
+// Royal Enfield Classic 350 (7 days,discounted): Rs. 5040
+// Tata LPT 1613 (4 days,discounted): Rs. 17000

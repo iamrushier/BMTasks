@@ -72,3 +72,8 @@ const payment3 = new CryptoPayment(
 payment1.processPayment();
 payment2.processPayment();
 payment3.processPayment();
+
+// Output:
+// Rs 5000 paid using card ************5678
+// Rs 3000 paid from account test@example.com
+// Rs 10000 paid from wallet 3A1B2C**********

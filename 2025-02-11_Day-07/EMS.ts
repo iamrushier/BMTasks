@@ -73,3 +73,9 @@ console.log(
     emp3.Salary
   } & gets bonus ₹${emp3.calculateBonus()}`
 );
+
+// Output:
+// Employees of XZ Comp:
+// Manager Swamy has salary 70000 & gets bonus ₹15500
+// Engineer Naruto has salary 45000 & gets bonus ₹9500
+// Intern Binny has salary 10000 & gets bonus ₹5100

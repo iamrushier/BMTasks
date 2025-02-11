@@ -82,3 +82,8 @@ console.log("Employees of ".concat(Employee.CompanyName, ":"));
 console.log("Manager ".concat(emp1.name, " has salary ").concat(emp1.Salary, " & gets bonus \u20B9").concat(emp1.calculateBonus()));
 console.log("Engineer ".concat(emp2.name, " has salary ").concat(emp2.Salary, " & gets bonus \u20B9").concat(emp2.calculateBonus()));
 console.log("Intern ".concat(emp3.name, " has salary ").concat(emp3.Salary, " & gets bonus \u20B9").concat(emp3.calculateBonus()));
+// Output:
+// Employees of XZ Comp:
+// Manager Swamy has salary 70000 & gets bonus ₹15500
+// Engineer Naruto has salary 45000 & gets bonus ₹9500
+// Intern Binny has salary 10000 & gets bonus ₹5100

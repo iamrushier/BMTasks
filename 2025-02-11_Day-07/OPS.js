@@ -66,3 +66,7 @@ var payment3 = new CryptoPayment(10000, new Date("2025-02-04"), "3A1B2C3D4E5F6G7
 payment1.processPayment();
 payment2.processPayment();
 payment3.processPayment();
+// Output:
+// Rs 5000 paid using card ************5678
+// Rs 3000 paid from account test@example.com
+// Rs 10000 paid from wallet 3A1B2C**********
