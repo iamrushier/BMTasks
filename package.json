@@ -20,6 +20,7 @@
   "homepage": "https://github.com/iamrushier/BMTasks#readme",
   "dependencies": {
     "axios": "^1.7.9",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "typescript": "^5.7.3"
   }
 }
