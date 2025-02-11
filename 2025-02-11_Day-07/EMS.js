@@ -39,7 +39,7 @@ var Manager = /** @class */ (function (_super) {
         return _this;
     }
     Manager.prototype.calculateBonus = function () {
-        return _super.prototype.calculateBonus.call(this) + this.Salary * 0.10;
+        return _super.prototype.calculateBonus.call(this) + this.Salary * 0.15;
     };
     return Manager;
 }(Employee));
@@ -51,7 +51,7 @@ var Engineer = /** @class */ (function (_super) {
         return _this;
     }
     Engineer.prototype.calculateBonus = function () {
-        return _super.prototype.calculateBonus.call(this) + this.Salary * 0.05;
+        return _super.prototype.calculateBonus.call(this) + this.Salary * 0.1;
     };
     return Engineer;
 }(Employee));
@@ -67,9 +67,9 @@ var Intern = /** @class */ (function (_super) {
     };
     return Intern;
 }(Employee));
-var emp1 = new Manager("ST", 2, 70000, 25);
-var emp2 = new Engineer("TU", 3, 45000, 3);
-var emp3 = new Intern("UV", 4, 10000, 6);
-console.log(emp1.calculateBonus());
-console.log(emp2.calculateBonus());
-console.log(emp3.calculateBonus());
+var emp1 = new Manager("Swamy", 2, 70000, 25);
+var emp2 = new Engineer("Naruto", 3, 45000, 3);
+var emp3 = new Intern("Binny", 4, 10000, 6);
+console.log("Manager ".concat(emp1.name, " has salary ").concat(emp1.Salary, " & gets bonus \u20B9").concat(emp1.calculateBonus()));
+console.log("Engineer ".concat(emp2.name, " has salary ").concat(emp2.Salary, " & gets bonus \u20B9").concat(emp2.calculateBonus()));
+console.log("Intern ".concat(emp3.name, " has salary ").concat(emp3.Salary, " & gets bonus \u20B9").concat(emp3.calculateBonus()));
