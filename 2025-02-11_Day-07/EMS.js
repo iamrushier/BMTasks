@@ -29,6 +29,14 @@ var Employee = /** @class */ (function () {
     Employee.prototype.calculateBonus = function () {
         return 5000.0;
     };
+    Object.defineProperty(Employee, "CompanyName", {
+        get: function () {
+            return this.companyName;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Employee.companyName = "XZ Comp";
     return Employee;
 }());
 var Manager = /** @class */ (function (_super) {
@@ -70,6 +78,7 @@ var Intern = /** @class */ (function (_super) {
 var emp1 = new Manager("Swamy", 2, 70000, 25);
 var emp2 = new Engineer("Naruto", 3, 45000, 3);
 var emp3 = new Intern("Binny", 4, 10000, 6);
+console.log("Employees of ".concat(Employee.CompanyName, ":"));
 console.log("Manager ".concat(emp1.name, " has salary ").concat(emp1.Salary, " & gets bonus \u20B9").concat(emp1.calculateBonus()));
 console.log("Engineer ".concat(emp2.name, " has salary ").concat(emp2.Salary, " & gets bonus \u20B9").concat(emp2.calculateBonus()));
 console.log("Intern ".concat(emp3.name, " has salary ").concat(emp3.Salary, " & gets bonus \u20B9").concat(emp3.calculateBonus()));

@@ -1,4 +1,6 @@
 class Employee {
+  protected static readonly companyName: string = "XZ Comp";
+
   public name: string;
   public readonly id: number;
   private salary: number;
@@ -13,6 +15,10 @@ class Employee {
   }
   public calculateBonus(): number {
     return 5000.0;
+  }
+
+  static get CompanyName(): string {
+    return this.companyName;
   }
 }
 
@@ -51,6 +57,7 @@ const emp1: Manager = new Manager("Swamy", 2, 70000, 25);
 const emp2: Engineer = new Engineer("Naruto", 3, 45000, 3);
 const emp3: Intern = new Intern("Binny", 4, 10000, 6);
 
+console.log(`Employees of ${Employee.CompanyName}:`);
 console.log(
   `Manager ${emp1.name} has salary ${
     emp1.Salary
