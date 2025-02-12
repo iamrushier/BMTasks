@@ -52,20 +52,17 @@ var quizQuestions = [
 ];
 var myQuiz = new Quiz(quizQuestions);
 function renderQuestion(question) {
-    if (questionDiv && messageDiv && optionsDiv) {
-        messageDiv.textContent = "Choose one option.";
-        questionDiv.textContent = question.question;
-        optionsDiv.innerHTML = "";
-        // confirmBtn.disabled = false;
-        // nextBtn.disabled = false;
-        toggleButtonState();
-        for (var _i = 0, _a = question.choices; _i < _a.length; _i++) {
-            var choice = _a[_i];
-            var optionSpan = document.createElement("span");
-            optionSpan.classList.add("option");
-            optionSpan.innerHTML = "<input type=\"radio\" name=\"quiz_question\" value=\"".concat(choice, "\" />\n          <label>").concat(choice, "</label><br\n        />");
-            optionsDiv === null || optionsDiv === void 0 ? void 0 : optionsDiv.appendChild(optionSpan);
-        }
+    messageDiv.textContent = "Choose one option.";
+    messageDiv.style.color = "Black";
+    questionDiv.textContent = question.question;
+    optionsDiv.innerHTML = "";
+    toggleButtonState();
+    for (var _i = 0, _a = question.choices; _i < _a.length; _i++) {
+        var choice = _a[_i];
+        var optionSpan = document.createElement("span");
+        optionSpan.classList.add("option");
+        optionSpan.innerHTML = "<input type=\"radio\" name=\"quiz_question\" value=\"".concat(choice, "\" />\n          <label>").concat(choice, "</label><br\n        />");
+        optionsDiv === null || optionsDiv === void 0 ? void 0 : optionsDiv.appendChild(optionSpan);
     }
 }
 function getSelectedAnswer() {
@@ -78,39 +75,33 @@ function getSelectedAnswer() {
 }
 confirmBtn === null || confirmBtn === void 0 ? void 0 : confirmBtn.addEventListener("click", function () {
     var choice = getSelectedAnswer();
-    if (messageDiv && questionDiv && optionsDiv && scoreDiv && choice) {
-        if (myQuiz.questions[myQuiz.currentQuestionIndex].correctAnswer.toLowerCase() === choice.toLowerCase()) {
-            messageDiv.textContent = "Correct answer!!";
-            scoreDiv.textContent = "Score: ".concat(myQuiz.incrementScore());
-            myQuiz.currentQuestionIndex++;
-        }
-        else {
-            messageDiv.textContent = "Wrong answer..";
-            myQuiz.currentQuestionIndex++;
-        }
-        if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
-            document.getElementsByName("quiz_question").forEach(function (node) { return (node.disabled = true); });
-            toggleButtonState();
-            setTimeout(function () {
-                renderQuestion(myQuiz.getNextQuestion());
-            }, 1000);
-        }
-        else {
-            // confirmBtn.disabled = true;
-            // nextBtn.disabled = true;
-            toggleButtonState();
-            optionsDiv.innerHTML = "";
-            scoreDiv.textContent = "";
-            questionDiv.innerHTML = "<h2>Quiz Over</h2>\n<h2>Your score is ".concat(myQuiz.Score, "/").concat(myQuiz.questions.length * 10, "</h2>");
-        }
+    if (myQuiz.questions[myQuiz.currentQuestionIndex].correctAnswer.toLowerCase() === choice.toLowerCase()) {
+        messageDiv.style.color = "Green";
+        messageDiv.textContent = "Correct answer!!";
+        scoreDiv.textContent = "Score: ".concat(myQuiz.incrementScore());
+        myQuiz.currentQuestionIndex++;
     }
-    // console.log(choice);
+    else {
+        messageDiv.style.color = "Red";
+        messageDiv.textContent = "Wrong answer..";
+        myQuiz.currentQuestionIndex++;
+    }
+    if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
+        document.getElementsByName("quiz_question").forEach(function (node) { return (node.disabled = true); });
+        toggleButtonState();
+        setTimeout(function () {
+            renderQuestion(myQuiz.getNextQuestion());
+        }, 1500);
+    }
+    else {
+        toggleButtonState();
+        optionsDiv.innerHTML = "";
+        scoreDiv.textContent = "";
+        questionDiv.innerHTML = "<h2>Quiz Over</h2>\n<h2>Your score is ".concat(myQuiz.Score, "/").concat(myQuiz.questions.length * 10, "</h2>");
+    }
 });
 function toggleButtonState() {
     confirmBtn.disabled = !confirmBtn.disabled;
-    // nextBtn.disabled = !nextBtn.disabled;
 }
-// confirmBtn.disabled = false;
-// nextBtn.disabled = false;
 toggleButtonState();
 renderQuestion(myQuiz.getNextQuestion());

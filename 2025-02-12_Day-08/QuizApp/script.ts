@@ -1,8 +1,8 @@
 console.log("Hello");
-const questionDiv = document.querySelector(".question-display");
-const optionsDiv = document.querySelector(".answer-choices");
-const messageDiv = document.querySelector(".check-answer");
-const scoreDiv = document.querySelector(".score");
+const questionDiv = <HTMLElement>document.querySelector(".question-display");
+const optionsDiv = <HTMLElement>document.querySelector(".answer-choices");
+const messageDiv = <HTMLElement>document.querySelector(".check-answer");
+const scoreDiv = <HTMLElement>document.querySelector(".score");
 const confirmBtn = <HTMLInputElement>document.querySelector(".confirm-btn");
 interface IQuestion {
   question: string;
@@ -56,19 +56,18 @@ const quizQuestions: IQuestion[] = [
 const myQuiz = new Quiz(quizQuestions);
 
 function renderQuestion(question: IQuestion): void {
-  if (questionDiv && messageDiv && optionsDiv) {
-    messageDiv.textContent = "Choose one option.";
-    questionDiv.textContent = question.question;
-    optionsDiv.innerHTML = "";
-    toggleButtonState();
-    for (const choice of question.choices) {
-      const optionSpan = document.createElement("span");
-      optionSpan.classList.add("option");
-      optionSpan.innerHTML = `<input type="radio" name="quiz_question" value="${choice}" />
+  messageDiv.textContent = "Choose one option.";
+  messageDiv.style.color = "Black";
+  questionDiv.textContent = question.question;
+  optionsDiv.innerHTML = "";
+  toggleButtonState();
+  for (const choice of question.choices) {
+    const optionSpan = document.createElement("span");
+    optionSpan.classList.add("option");
+    optionSpan.innerHTML = `<input type="radio" name="quiz_question" value="${choice}" />
           <label>${choice}</label><br
         />`;
-      optionsDiv?.appendChild(optionSpan);
-    }
+    optionsDiv?.appendChild(optionSpan);
   }
 }
 function getSelectedAnswer(): string {
@@ -82,37 +81,37 @@ function getSelectedAnswer(): string {
 }
 confirmBtn?.addEventListener("click", () => {
   let choice: string = getSelectedAnswer();
-  if (messageDiv && questionDiv && optionsDiv && scoreDiv && choice) {
-    if (
-      myQuiz.questions[
-        myQuiz.currentQuestionIndex
-      ].correctAnswer.toLowerCase() === choice.toLowerCase()
-    ) {
-      messageDiv.textContent = "Correct answer!!";
-      scoreDiv.textContent = `Score: ${myQuiz.incrementScore()}`;
-      myQuiz.currentQuestionIndex++;
-    } else {
-      messageDiv.textContent = "Wrong answer..";
-      myQuiz.currentQuestionIndex++;
-    }
-    if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
-      (
-        document.getElementsByName(
-          "quiz_question"
-        ) as NodeListOf<HTMLInputElement>
-      ).forEach((node) => (node.disabled = true));
-      toggleButtonState();
-      setTimeout(() => {
-        renderQuestion(myQuiz.getNextQuestion());
-      }, 1000);
-    } else {
-      toggleButtonState();
-      optionsDiv.innerHTML = "";
-      scoreDiv.textContent = "";
-      questionDiv.innerHTML = `<h2>Quiz Over</h2>\n<h2>Your score is ${
-        myQuiz.Score
-      }/${myQuiz.questions.length * 10}</h2>`;
-    }
+  if (
+    myQuiz.questions[
+      myQuiz.currentQuestionIndex
+    ].correctAnswer.toLowerCase() === choice.toLowerCase()
+  ) {
+    messageDiv.style.color = "Green";
+    messageDiv.textContent = "Correct answer!!";
+    scoreDiv.textContent = `Score: ${myQuiz.incrementScore()}`;
+    myQuiz.currentQuestionIndex++;
+  } else {
+    messageDiv.style.color = "Red";
+    messageDiv.textContent = "Wrong answer..";
+    myQuiz.currentQuestionIndex++;
+  }
+  if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
+    (
+      document.getElementsByName(
+        "quiz_question"
+      ) as NodeListOf<HTMLInputElement>
+    ).forEach((node) => (node.disabled = true));
+    toggleButtonState();
+    setTimeout(() => {
+      renderQuestion(myQuiz.getNextQuestion());
+    }, 1500);
+  } else {
+    toggleButtonState();
+    optionsDiv.innerHTML = "";
+    scoreDiv.textContent = "";
+    questionDiv.innerHTML = `<h2>Quiz Over</h2>\n<h2>Your score is ${
+      myQuiz.Score
+    }/${myQuiz.questions.length * 10}</h2>`;
   }
 });
 function toggleButtonState(): void {
