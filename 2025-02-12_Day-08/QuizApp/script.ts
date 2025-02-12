@@ -3,8 +3,8 @@ const questionDiv = document.querySelector(".question-display");
 const optionsDiv = document.querySelector(".answer-choices");
 const messageDiv = document.querySelector(".check-answer");
 const scoreDiv = document.querySelector(".score");
-const confirmBtn = document.querySelector(".confirm-btn");
-const nextBtn = document.querySelector(".next-btn");
+const confirmBtn = <HTMLInputElement>document.querySelector(".confirm-btn");
+const nextBtn = <HTMLInputElement>document.querySelector(".next-btn");
 // console.log(questionDiv, optionsDiv);
 interface IQuestion {
   question: string;
@@ -62,6 +62,8 @@ function renderQuestion(question: IQuestion): void {
     messageDiv.textContent = "Choose one option.";
     questionDiv.textContent = question.question;
     optionsDiv.innerHTML = "";
+    confirmBtn.disabled = false;
+    nextBtn.disabled = false;
     for (const choice of question.choices) {
       const optionSpan = document.createElement("span");
       optionSpan.classList.add("option");
@@ -83,29 +85,43 @@ function getSelectedAnswer(): string {
 }
 confirmBtn?.addEventListener("click", () => {
   let choice: string = getSelectedAnswer();
-  if (messageDiv) {
+  if (messageDiv && questionDiv && optionsDiv && scoreDiv) {
     if (
       myQuiz.questions[
         myQuiz.currentQuestionIndex
       ].correctAnswer.toLowerCase() === choice.toLowerCase()
     ) {
       messageDiv.textContent = "Correct answer!!";
-      if (scoreDiv) scoreDiv.textContent = `Score: ${myQuiz.incrementScore()}`;
+      scoreDiv.textContent = `Score: ${myQuiz.incrementScore()}`;
       myQuiz.currentQuestionIndex++;
     } else {
       messageDiv.textContent = "Wrong answer..";
+      myQuiz.currentQuestionIndex++;
     }
-  }
-  if (myQuiz.currentQuestionIndex < myQuiz.questions.length)
-    setTimeout(() => {
-      renderQuestion(myQuiz.getNextQuestion());
-    }, 1500);
-  else {
-    if (questionDiv && optionsDiv) {
+    if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
+      (
+        document.getElementsByName(
+          "quiz_question"
+        ) as NodeListOf<HTMLInputElement>
+      ).forEach((node) => (node.disabled = true));
+      confirmBtn.disabled = true;
+      nextBtn.disabled = true;
+      setTimeout(() => {
+        renderQuestion(myQuiz.getNextQuestion());
+      }, 1000);
+    } else {
+      confirmBtn.disabled = true;
+      nextBtn.disabled = true;
       optionsDiv.innerHTML = "";
-      questionDiv.innerHTML = `<h2>Quiz Over</h2>\n<h2>Your score is ${myQuiz.Score}</h2>`;
+      // messageDiv.textContent = "";
+      scoreDiv.textContent = "";
+      questionDiv.innerHTML = `<h2>Quiz Over</h2>\n<h2>Your score is ${
+        myQuiz.Score
+      }/${myQuiz.questions.length * 10}</h2>`;
     }
   }
   // console.log(choice);
 });
+confirmBtn.disabled = false;
+nextBtn.disabled = false;
 renderQuestion(myQuiz.getNextQuestion());

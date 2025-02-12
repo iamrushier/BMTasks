@@ -57,6 +57,8 @@ function renderQuestion(question) {
         messageDiv.textContent = "Choose one option.";
         questionDiv.textContent = question.question;
         optionsDiv.innerHTML = "";
+        confirmBtn.disabled = false;
+        nextBtn.disabled = false;
         for (var _i = 0, _a = question.choices; _i < _a.length; _i++) {
             var choice = _a[_i];
             var optionSpan = document.createElement("span");
@@ -76,27 +78,35 @@ function getSelectedAnswer() {
 }
 confirmBtn === null || confirmBtn === void 0 ? void 0 : confirmBtn.addEventListener("click", function () {
     var choice = getSelectedAnswer();
-    if (messageDiv) {
+    if (messageDiv && questionDiv && optionsDiv && scoreDiv) {
         if (myQuiz.questions[myQuiz.currentQuestionIndex].correctAnswer.toLowerCase() === choice.toLowerCase()) {
             messageDiv.textContent = "Correct answer!!";
-            if (scoreDiv)
-                scoreDiv.textContent = "Score: ".concat(myQuiz.incrementScore());
+            scoreDiv.textContent = "Score: ".concat(myQuiz.incrementScore());
             myQuiz.currentQuestionIndex++;
         }
         else {
             messageDiv.textContent = "Wrong answer..";
+            myQuiz.currentQuestionIndex++;
         }
-    }
-    if (myQuiz.currentQuestionIndex < myQuiz.questions.length)
-        setTimeout(function () {
-            renderQuestion(myQuiz.getNextQuestion());
-        }, 1500);
-    else {
-        if (questionDiv && optionsDiv) {
+        if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
+            document.getElementsByName("quiz_question").forEach(function (node) { return (node.disabled = true); });
+            confirmBtn.disabled = true;
+            nextBtn.disabled = true;
+            setTimeout(function () {
+                renderQuestion(myQuiz.getNextQuestion());
+            }, 1000);
+        }
+        else {
+            confirmBtn.disabled = true;
+            nextBtn.disabled = true;
             optionsDiv.innerHTML = "";
-            questionDiv.innerHTML = "<h2>Quiz Over</h2>\n<h2>Your score is ".concat(myQuiz.Score, "</h2>");
+            // messageDiv.textContent = "";
+            scoreDiv.textContent = "";
+            questionDiv.innerHTML = "<h2>Quiz Over</h2>\n<h2>Your score is ".concat(myQuiz.Score, "/").concat(myQuiz.questions.length * 10, "</h2>");
         }
     }
     // console.log(choice);
 });
+confirmBtn.disabled = false;
+nextBtn.disabled = false;
 renderQuestion(myQuiz.getNextQuestion());
