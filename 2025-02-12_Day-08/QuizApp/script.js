@@ -4,7 +4,6 @@ var optionsDiv = document.querySelector(".answer-choices");
 var messageDiv = document.querySelector(".check-answer");
 var scoreDiv = document.querySelector(".score");
 var confirmBtn = document.querySelector(".confirm-btn");
-var nextBtn = document.querySelector(".next-btn");
 var Quiz = /** @class */ (function () {
     function Quiz(questions) {
         this.questions = [];
@@ -57,8 +56,9 @@ function renderQuestion(question) {
         messageDiv.textContent = "Choose one option.";
         questionDiv.textContent = question.question;
         optionsDiv.innerHTML = "";
-        confirmBtn.disabled = false;
-        nextBtn.disabled = false;
+        // confirmBtn.disabled = false;
+        // nextBtn.disabled = false;
+        toggleButtonState();
         for (var _i = 0, _a = question.choices; _i < _a.length; _i++) {
             var choice = _a[_i];
             var optionSpan = document.createElement("span");
@@ -78,7 +78,7 @@ function getSelectedAnswer() {
 }
 confirmBtn === null || confirmBtn === void 0 ? void 0 : confirmBtn.addEventListener("click", function () {
     var choice = getSelectedAnswer();
-    if (messageDiv && questionDiv && optionsDiv && scoreDiv) {
+    if (messageDiv && questionDiv && optionsDiv && scoreDiv && choice) {
         if (myQuiz.questions[myQuiz.currentQuestionIndex].correctAnswer.toLowerCase() === choice.toLowerCase()) {
             messageDiv.textContent = "Correct answer!!";
             scoreDiv.textContent = "Score: ".concat(myQuiz.incrementScore());
@@ -90,23 +90,27 @@ confirmBtn === null || confirmBtn === void 0 ? void 0 : confirmBtn.addEventListe
         }
         if (myQuiz.currentQuestionIndex < myQuiz.questions.length) {
             document.getElementsByName("quiz_question").forEach(function (node) { return (node.disabled = true); });
-            confirmBtn.disabled = true;
-            nextBtn.disabled = true;
+            toggleButtonState();
             setTimeout(function () {
                 renderQuestion(myQuiz.getNextQuestion());
             }, 1000);
         }
         else {
-            confirmBtn.disabled = true;
-            nextBtn.disabled = true;
+            // confirmBtn.disabled = true;
+            // nextBtn.disabled = true;
+            toggleButtonState();
             optionsDiv.innerHTML = "";
-            // messageDiv.textContent = "";
             scoreDiv.textContent = "";
             questionDiv.innerHTML = "<h2>Quiz Over</h2>\n<h2>Your score is ".concat(myQuiz.Score, "/").concat(myQuiz.questions.length * 10, "</h2>");
         }
     }
     // console.log(choice);
 });
-confirmBtn.disabled = false;
-nextBtn.disabled = false;
+function toggleButtonState() {
+    confirmBtn.disabled = !confirmBtn.disabled;
+    // nextBtn.disabled = !nextBtn.disabled;
+}
+// confirmBtn.disabled = false;
+// nextBtn.disabled = false;
+toggleButtonState();
 renderQuestion(myQuiz.getNextQuestion());
