@@ -1,6 +1,8 @@
 console.log("Hello");
 var questionDiv = document.querySelector(".question-display");
 var optionsDiv = document.querySelector(".answer-choices");
+var messageDiv = document.querySelector(".check-answer");
+var scoreDiv = document.querySelector(".score");
 var confirmBtn = document.querySelector(".confirm-btn");
 var nextBtn = document.querySelector(".next-btn");
 var Quiz = /** @class */ (function () {
@@ -10,7 +12,7 @@ var Quiz = /** @class */ (function () {
         this.score = 0;
         this.questions = questions;
     }
-    Quiz.prototype.evaluateAnswer = function (choice) {
+    Quiz.prototype.isAnswerCorrect = function (choice) {
         if (choice.toLowerCase() ===
             this.questions[this.currentQuestionIndex].correctAnswer.toLowerCase())
             return true;
@@ -23,14 +25,16 @@ var Quiz = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Quiz.prototype.incrementScore = function () {
+        this.score += 10;
+        return this.score;
+    };
+    Quiz.prototype.getNextQuestion = function () {
+        return this.questions[this.currentQuestionIndex];
+    };
     return Quiz;
 }());
 var quizQuestions = [
-    {
-        question: "What is the capital of France?",
-        choices: ["Berlin", "Madrid", "Paris", "Rome"],
-        correctAnswer: "Paris",
-    },
     {
         question: "How many legs does a spider have?",
         choices: ["6", "8", "10", "12"],
@@ -41,10 +45,18 @@ var quizQuestions = [
         choices: ["Earth", "Venus", "Mars", "Jupiter"],
         correctAnswer: "Mars",
     },
+    {
+        question: "What is the capital of France?",
+        choices: ["Berlin", "Madrid", "Paris", "Rome"],
+        correctAnswer: "Paris",
+    },
 ];
+var myQuiz = new Quiz(quizQuestions);
 function renderQuestion(question) {
-    if (questionDiv) {
+    if (questionDiv && messageDiv && optionsDiv) {
+        messageDiv.textContent = "Choose one option.";
         questionDiv.textContent = question.question;
+        optionsDiv.innerHTML = "";
         for (var _i = 0, _a = question.choices; _i < _a.length; _i++) {
             var choice = _a[_i];
             var optionSpan = document.createElement("span");
@@ -64,6 +76,27 @@ function getSelectedAnswer() {
 }
 confirmBtn === null || confirmBtn === void 0 ? void 0 : confirmBtn.addEventListener("click", function () {
     var choice = getSelectedAnswer();
-    console.log(choice);
+    if (messageDiv) {
+        if (myQuiz.questions[myQuiz.currentQuestionIndex].correctAnswer.toLowerCase() === choice.toLowerCase()) {
+            messageDiv.textContent = "Correct answer!!";
+            if (scoreDiv)
+                scoreDiv.textContent = "Score: ".concat(myQuiz.incrementScore());
+            myQuiz.currentQuestionIndex++;
+        }
+        else {
+            messageDiv.textContent = "Wrong answer..";
+        }
+    }
+    if (myQuiz.currentQuestionIndex < myQuiz.questions.length)
+        setTimeout(function () {
+            renderQuestion(myQuiz.getNextQuestion());
+        }, 1500);
+    else {
+        if (questionDiv && optionsDiv) {
+            optionsDiv.innerHTML = "";
+            questionDiv.innerHTML = "<h2>Quiz Over</h2>\n<h2>Your score is ".concat(myQuiz.Score, "</h2>");
+        }
+    }
+    // console.log(choice);
 });
-renderQuestion(quizQuestions[0]);
+renderQuestion(myQuiz.getNextQuestion());

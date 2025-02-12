@@ -1,6 +1,8 @@
 console.log("Hello");
 const questionDiv = document.querySelector(".question-display");
 const optionsDiv = document.querySelector(".answer-choices");
+const messageDiv = document.querySelector(".check-answer");
+const scoreDiv = document.querySelector(".score");
 const confirmBtn = document.querySelector(".confirm-btn");
 const nextBtn = document.querySelector(".next-btn");
 // console.log(questionDiv, optionsDiv);
@@ -11,12 +13,12 @@ interface IQuestion {
 }
 class Quiz {
   questions: IQuestion[] = [];
-  private currentQuestionIndex: number = 0;
+  currentQuestionIndex: number = 0;
   private score: number = 0;
   constructor(questions: IQuestion[]) {
     this.questions = questions;
   }
-  evaluateAnswer(choice: string): boolean {
+  isAnswerCorrect(choice: string): boolean {
     if (
       choice.toLowerCase() ===
       this.questions[this.currentQuestionIndex].correctAnswer.toLowerCase()
@@ -27,14 +29,16 @@ class Quiz {
   get Score(): number {
     return this.score;
   }
+  incrementScore(): number {
+    this.score += 10;
+    return this.score;
+  }
+  getNextQuestion(): IQuestion {
+    return this.questions[this.currentQuestionIndex];
+  }
 }
 
 const quizQuestions: IQuestion[] = [
-  {
-    question: "What is the capital of France?",
-    choices: ["Berlin", "Madrid", "Paris", "Rome"],
-    correctAnswer: "Paris",
-  },
   {
     question: "How many legs does a spider have?",
     choices: ["6", "8", "10", "12"],
@@ -45,11 +49,19 @@ const quizQuestions: IQuestion[] = [
     choices: ["Earth", "Venus", "Mars", "Jupiter"],
     correctAnswer: "Mars",
   },
+  {
+    question: "What is the capital of France?",
+    choices: ["Berlin", "Madrid", "Paris", "Rome"],
+    correctAnswer: "Paris",
+  },
 ];
+const myQuiz = new Quiz(quizQuestions);
 
 function renderQuestion(question: IQuestion): void {
-  if (questionDiv) {
+  if (questionDiv && messageDiv && optionsDiv) {
+    messageDiv.textContent = "Choose one option.";
     questionDiv.textContent = question.question;
+    optionsDiv.innerHTML = "";
     for (const choice of question.choices) {
       const optionSpan = document.createElement("span");
       optionSpan.classList.add("option");
@@ -71,6 +83,29 @@ function getSelectedAnswer(): string {
 }
 confirmBtn?.addEventListener("click", () => {
   let choice: string = getSelectedAnswer();
-  console.log(choice);
+  if (messageDiv) {
+    if (
+      myQuiz.questions[
+        myQuiz.currentQuestionIndex
+      ].correctAnswer.toLowerCase() === choice.toLowerCase()
+    ) {
+      messageDiv.textContent = "Correct answer!!";
+      if (scoreDiv) scoreDiv.textContent = `Score: ${myQuiz.incrementScore()}`;
+      myQuiz.currentQuestionIndex++;
+    } else {
+      messageDiv.textContent = "Wrong answer..";
+    }
+  }
+  if (myQuiz.currentQuestionIndex < myQuiz.questions.length)
+    setTimeout(() => {
+      renderQuestion(myQuiz.getNextQuestion());
+    }, 1500);
+  else {
+    if (questionDiv && optionsDiv) {
+      optionsDiv.innerHTML = "";
+      questionDiv.innerHTML = `<h2>Quiz Over</h2>\n<h2>Your score is ${myQuiz.Score}</h2>`;
+    }
+  }
+  // console.log(choice);
 });
-renderQuestion(quizQuestions[0]);
+renderQuestion(myQuiz.getNextQuestion());
