@@ -4,8 +4,6 @@ const optionsDiv = document.querySelector(".answer-choices");
 const messageDiv = document.querySelector(".check-answer");
 const scoreDiv = document.querySelector(".score");
 const confirmBtn = <HTMLInputElement>document.querySelector(".confirm-btn");
-// const nextBtn = <HTMLInputElement>document.querySelector(".next-btn");
-// console.log(questionDiv, optionsDiv);
 interface IQuestion {
   question: string;
   choices: string[];
@@ -62,8 +60,6 @@ function renderQuestion(question: IQuestion): void {
     messageDiv.textContent = "Choose one option.";
     questionDiv.textContent = question.question;
     optionsDiv.innerHTML = "";
-    // confirmBtn.disabled = false;
-    // nextBtn.disabled = false;
     toggleButtonState();
     for (const choice of question.choices) {
       const optionSpan = document.createElement("span");
@@ -110,8 +106,6 @@ confirmBtn?.addEventListener("click", () => {
         renderQuestion(myQuiz.getNextQuestion());
       }, 1000);
     } else {
-      // confirmBtn.disabled = true;
-      // nextBtn.disabled = true;
       toggleButtonState();
       optionsDiv.innerHTML = "";
       scoreDiv.textContent = "";
@@ -120,13 +114,9 @@ confirmBtn?.addEventListener("click", () => {
       }/${myQuiz.questions.length * 10}</h2>`;
     }
   }
-  // console.log(choice);
 });
 function toggleButtonState(): void {
   confirmBtn.disabled = !confirmBtn.disabled;
-  // nextBtn.disabled = !nextBtn.disabled;
 }
-// confirmBtn.disabled = false;
-// nextBtn.disabled = false;
 toggleButtonState();
 renderQuestion(myQuiz.getNextQuestion());
