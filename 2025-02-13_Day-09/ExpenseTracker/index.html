@@ -12,7 +12,9 @@
     />
   </head>
   <body>
-    <h1>Expense Tracker</h1>
+    <hr class="text-primary" />
+    <h1 class="text-center">Expense Tracker</h1>
+    <hr class="text-primary" />
     <div class="container row mx-auto p-3">
       <!--Display expenses-->
       <div class="col-md-8 expenses-container card p-3">
@@ -20,7 +22,7 @@
         <div class="filter-options-container row mb-3">
           <div class="category-options col-sm-4">
             Category:<br />
-            <select id="category-filter">
+            <select class="filter-choice" id="category-filter">
               <option value="all">All</option>
               <option value="food">Food</option>
               <option value="travels">Travels</option>
@@ -31,11 +33,13 @@
           </div>
           <div class="date-options col-sm-6">
             Date range:<br />
-            <input type="date" id="from-date" /> To
-            <input type="date" id="until-date" />
+            <input class="filter-choice" type="date" id="from-date" /> To
+            <input class="filter-choice" type="date" id="until-date" />
           </div>
-          <div class="col-sm-2">
-            <button id="filter-btn">Filter</button>
+          <div class="col-sm-1">
+            <button class="filter-choice clear-filter-btn">
+              Clear filters
+            </button>
           </div>
         </div>
 
@@ -51,29 +55,7 @@
                 <th scope="col">Date</th>
               </tr>
             </thead>
-            <tbody id="table-body">
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
+            <tbody id="table-body"></tbody>
           </table>
         </div>
       </div>

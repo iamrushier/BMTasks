@@ -13,7 +13,10 @@ function addExpenseCallback(event: Event): void {
   renderExpensesData(expensesData);
 }
 function filterExpenseCallback(event: Event): void {
-  console.log("Filter called");
+  const target = event.target as HTMLElement;
+
+  if (!target.classList.contains("filter-choice")) return;
+
   const categoryElement = <HTMLSelectElement>(
     document.querySelector("#category-filter")
   );
@@ -23,6 +26,13 @@ function filterExpenseCallback(event: Event): void {
   const untilDateElement = <HTMLInputElement>(
     document.querySelector("#until-date")
   );
+  if (target.classList.contains("clear-filter-btn")) {
+    console.log("Clearing filter");
+    categoryElement.value = "all";
+    categoryElement.selectedIndex = 0;
+    fromDateElement.value = "";
+    untilDateElement.value = "";
+  }
   const category = categoryElement.value;
   const fromDate = fromDateElement.value;
   const untilDate = untilDateElement.value;

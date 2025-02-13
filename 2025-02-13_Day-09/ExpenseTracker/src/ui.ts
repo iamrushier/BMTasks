@@ -62,5 +62,4 @@ function extractNewExpense(): Expense {
     date,
   };
 }
-
 export { appendTableRow, renderExpensesData, extractNewExpense };
