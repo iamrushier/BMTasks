@@ -1,3 +1,8 @@
+# Demonstration:
+
+[![Video Preview]](https://github.com/user-attachments/assets/e9cb03e3-4066-4057-b055-8c0ad66367fc)
+
+
 # Expense Tracker in TypeScript
 
 An Expense Tracker is a simple application that allows users to log, categorize, and view their expenses. It's a great TypeScript project because it involves working with types, state management, and local storage.
