@@ -20,12 +20,14 @@ function filterExpenses(
   );
   let findFromDate: Date;
   let findUntilDate: Date;
+  console.log(!fromDate);
   if (!fromDate) {
     findFromDate = expensesData.reduce((accum: Date, expense: Expense) => {
       const date: Date = new Date(expense.date);
-      if (accum < date) return date;
-      else return accum;
-    }, new Date());
+      if (accum < date) return accum;
+      else return date;
+    }, new Date(new Date().toISOString().slice(0, 10)));
+    console.log(findFromDate);
   } else {
     findFromDate = new Date(fromDate);
   }

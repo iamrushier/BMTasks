@@ -9,6 +9,7 @@ function addExpenseCallback(event: Event): void {
   renderExpensesData(expensesData);
 }
 function filterExpenseCallback(event: Event): void {
+  console.log("Filter called");
   const categoryElement = <HTMLSelectElement>(
     document.querySelector("#category-filter")
   );
@@ -21,6 +22,7 @@ function filterExpenseCallback(event: Event): void {
   const category = categoryElement.value;
   const fromDate = fromDateElement.value;
   const untilDate = untilDateElement.value;
+  console.log("In filter", category, fromDate, untilDate);
   const expensesData: Expense[] = filterExpenses(category, fromDate, untilDate);
   renderExpensesData(expensesData);
 }
