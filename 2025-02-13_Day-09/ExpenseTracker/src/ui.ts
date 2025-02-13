@@ -11,7 +11,10 @@ function appendTableRow(expense: Expense, rowNumber?: number): void {
   }</th>
                             <td>${expense.title}</td>
                             <td>${expense.cost}</td>
-                            <td>${expense.category}</td>
+                            <td>${
+                              expense.category[0].toUpperCase() +
+                              expense.category.slice(1)
+                            }</td>
                             <td>${expense.date}</td>`;
   tableBody.appendChild(tableRow);
 }

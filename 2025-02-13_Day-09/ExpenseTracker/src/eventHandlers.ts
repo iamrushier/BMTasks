@@ -6,6 +6,7 @@ import { extractNewExpense, renderExpensesData } from "./ui";
 function addExpenseCallback(event: Event): void {
   const newExpense: Expense = extractNewExpense();
   if (newExpense.cost === 0 || newExpense.title === "") {
+    alert("Please fill all the fields");
     return;
   }
   const expensesData: Expense[] = addNewExpense(newExpense);
