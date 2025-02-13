@@ -5,6 +5,9 @@ import { extractNewExpense, renderExpensesData } from "./ui";
 
 function addExpenseCallback(event: Event): void {
   const newExpense: Expense = extractNewExpense();
+  if (newExpense.cost === 0 || newExpense.title === "") {
+    return;
+  }
   const expensesData: Expense[] = addNewExpense(newExpense);
   renderExpensesData(expensesData);
 }
@@ -22,7 +25,6 @@ function filterExpenseCallback(event: Event): void {
   const category = categoryElement.value;
   const fromDate = fromDateElement.value;
   const untilDate = untilDateElement.value;
-  console.log("In filter", category, fromDate, untilDate);
   const expensesData: Expense[] = filterExpenses(category, fromDate, untilDate);
   renderExpensesData(expensesData);
 }

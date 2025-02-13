@@ -28,9 +28,9 @@ function extractNewExpense(): Expense {
   const expenseCostInput: HTMLInputElement = document.querySelector(
     "#expense-cost"
   ) as HTMLInputElement;
-  const expenseCategoryInput: HTMLInputElement = document.querySelector(
+  const expenseCategoryInput: HTMLSelectElement = document.querySelector(
     "#expense-category"
-  ) as HTMLInputElement;
+  ) as HTMLSelectElement;
   const expenseDescriptionInput: HTMLInputElement = document.querySelector(
     "#expense-description"
   ) as HTMLInputElement;
@@ -47,7 +47,8 @@ function extractNewExpense(): Expense {
     .slice(0, 10);
   expenseTitleInput.value = "";
   expenseCostInput.value = "0";
-  expenseCategoryInput.value = "Food";
+  expenseCategoryInput.value = "food";
+  expenseCategoryInput.selectedIndex = 0;
   expenseDescriptionInput.value = "";
   expenseDateInput.value = new Date().toISOString().slice(0, 10);
   return {
