@@ -10,6 +10,7 @@ function addExpenseCallback(event: Event): void {
     return;
   }
   const expensesData: Expense[] = addNewExpense(newExpense);
+  clearFilters();
   renderExpensesData(expensesData);
 }
 const categoryElement = <HTMLSelectElement>(
