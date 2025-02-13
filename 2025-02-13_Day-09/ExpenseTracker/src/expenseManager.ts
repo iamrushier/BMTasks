@@ -1,13 +1,14 @@
 import { getFromLocalStorage, saveToLocalStorage } from "./storage";
 import { Expense, expenseTrackerKey } from "./types";
 
-function addNewExpense(expense: Expense): void {
+function addNewExpense(expense: Expense): Expense[] {
   const oldExpensesData: Expense[] = getFromLocalStorage<string, Expense[]>(
     expenseTrackerKey
   );
   oldExpensesData.push(expense);
   const newExpensesData: Expense[] = structuredClone(oldExpensesData);
   saveToLocalStorage(expenseTrackerKey, newExpensesData);
+  return newExpensesData;
 }
 function filterExpenses(
   category: string,

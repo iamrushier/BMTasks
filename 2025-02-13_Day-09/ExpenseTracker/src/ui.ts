@@ -16,6 +16,7 @@ function appendTableRow(expense: Expense, rowNumber?: number): void {
   tableBody.appendChild(tableRow);
 }
 function renderExpensesData(expenses: Expense[]): void {
+  tableBody.innerHTML = "";
   expenses.forEach((expense, index) => {
     appendTableRow(expense, index + 1);
   });

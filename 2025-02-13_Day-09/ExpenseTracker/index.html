@@ -21,7 +21,7 @@
           <div class="category-options col-sm-4">
             Category:<br />
             <select id="category-filter">
-              <option value="">All</option>
+              <option value="all">All</option>
               <option value="food">Food</option>
               <option value="travels">Travels</option>
               <option value="bills">Bills</option>
@@ -42,7 +42,7 @@
         <!-- Table-->
         <div class="table-container overflow-auto" style="height: 400px">
           <table class="table table-hover">
-            <thead>
+            <thead id="table-head">
               <tr>
                 <th scope="col">No.</th>
                 <th scope="col">Title</th>
@@ -51,7 +51,7 @@
                 <th scope="col">Date</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="table-body">
               <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
@@ -65,62 +65,6 @@
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
               </tr>
               <tr>
                 <th scope="row">3</th>
@@ -187,7 +131,11 @@
               required
             />
           </div>
-          <button type="button" class="btn btn-primary btn-lg btn-block">
+          <button
+            type="button"
+            id="add-new-expense"
+            class="btn btn-primary btn-lg btn-block"
+          >
             Add new expense
           </button>
         </div>
