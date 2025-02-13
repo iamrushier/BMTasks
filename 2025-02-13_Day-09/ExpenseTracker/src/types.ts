@@ -1,4 +1,5 @@
 interface Expense {
+  id: string;
   title: string;
   cost: number;
   category: string;

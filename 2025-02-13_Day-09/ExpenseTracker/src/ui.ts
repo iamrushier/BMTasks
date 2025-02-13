@@ -17,9 +17,10 @@ function appendTableRow(expense: Expense, rowNumber?: number): void {
                         }</td>
                         <td>${expense.date}</td>
                         <td>
-                          <button class="btn btn-danger btn-sm">Delete</button>
+                          <button class="btn btn-danger btn-sm delete-btn">Delete</button>
                           </button>
                         </td>`;
+  tableRow.setAttribute("expense-id", expense.id);
   tableBody.appendChild(tableRow);
 }
 
@@ -61,6 +62,7 @@ function extractNewExpense(): Expense {
   expenseDescriptionInput.value = "";
   expenseDateInput.value = new Date().toISOString().slice(0, 10);
   return {
+    id: String(Date.now()),
     title,
     cost,
     category,

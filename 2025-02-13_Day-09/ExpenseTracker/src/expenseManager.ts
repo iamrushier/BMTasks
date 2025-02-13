@@ -48,4 +48,15 @@ function filterExpenses(
       })
   );
 }
-export { addNewExpense, filterExpenses };
+
+function deleteExpense(id: string): Expense[] {
+  const expensesData: Expense[] = getFromLocalStorage<string, Expense[]>(
+    expenseTrackerKey
+  );
+  const newExpensesData: Expense[] = structuredClone(
+    expensesData.filter((expense) => expense.id !== id)
+  );
+  saveToLocalStorage(expenseTrackerKey, newExpensesData);
+  return newExpensesData;
+}
+export { addNewExpense, filterExpenses, deleteExpense };
