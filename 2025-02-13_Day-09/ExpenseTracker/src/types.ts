@@ -3,7 +3,7 @@ interface Expense {
   cost: number;
   category: string;
   description: string;
-  date: Date;
+  date: string;
 }
 enum Category {
   Food,

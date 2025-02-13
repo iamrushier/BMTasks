@@ -42,8 +42,9 @@ function extractNewExpense(): Expense {
   const cost: number = Number(expenseCostInput.value);
   const category: string = expenseCategoryInput.value;
   const description: string = expenseDescriptionInput.value;
-  const date: Date = new Date(expenseDateInput.value);
-
+  const date: string = new Date(expenseDateInput.value)
+    .toISOString()
+    .slice(0, 10);
   expenseTitleInput.value = "";
   expenseCostInput.value = "0";
   expenseCategoryInput.value = "Food";
