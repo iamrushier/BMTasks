@@ -9,20 +9,26 @@ function appendTableRow(expense: Expense, rowNumber?: number): void {
   tableRow.innerHTML = `<th scope="row" class="row-number">${
     rowNumber ?? ""
   }</th>
-                            <td>${expense.title}</td>
-                            <td>${expense.cost}</td>
-                            <td>${
-                              expense.category[0].toUpperCase() +
-                              expense.category.slice(1)
-                            }</td>
-                            <td>${expense.date}</td>`;
+                        <td>${expense.title}</td>
+                        <td class="expense-cost">${expense.cost}</td>
+                        <td>${
+                          expense.category[0].toUpperCase() +
+                          expense.category.slice(1)
+                        }</td>
+                        <td>${expense.date}</td>
+                        <td>
+                          <button class="btn btn-danger btn-sm">Delete</button>
+                          </button>
+                        </td>`;
   tableBody.appendChild(tableRow);
 }
+
 function renderExpensesData(expenses: Expense[]): void {
   tableBody.innerHTML = "";
   expenses.forEach((expense, index) => {
     appendTableRow(expense, index + 1);
   });
+  updateTotalExpenses();
 }
 function extractNewExpense(): Expense {
   const expenseTitleInput = <HTMLInputElement>(
@@ -62,4 +68,36 @@ function extractNewExpense(): Expense {
     date,
   };
 }
+
+function updateTotalExpenses(): void {
+  const category = (<HTMLSelectElement>(
+    document.querySelector("#category-filter")
+  )).value;
+  const fromDate = (<HTMLInputElement>document.querySelector("#from-date"))
+    .value;
+  const untilDate = (<HTMLInputElement>document.querySelector("#until-date"))
+    .value;
+
+  const expenseElements = <NodeListOf<HTMLElement>>(
+    document.querySelectorAll(".expense-cost")
+  );
+  const totalExpense = [...expenseElements].reduce(
+    (acc, el) => acc + parseFloat(el.textContent || "0"),
+    0
+  );
+  const totalExpensesDiv = <HTMLElement>(
+    document.querySelector("#total-expenses")
+  );
+  if (totalExpensesDiv) {
+    totalExpensesDiv.textContent = `${
+      category[0].toUpperCase() + category.slice(1)
+    } Expenses: ₹${totalExpense.toFixed(2)}, ${
+      (fromDate && untilDate && `From ${fromDate} to ${untilDate}`) ||
+      (fromDate && `From ${fromDate}`) ||
+      (untilDate && `Until ${untilDate}`) ||
+      "All time"
+    }`;
+  }
+}
+
 export { appendTableRow, renderExpensesData, extractNewExpense };
