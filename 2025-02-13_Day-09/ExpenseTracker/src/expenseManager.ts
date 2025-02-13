@@ -34,7 +34,7 @@ function filterExpenses(
   if (!untilDate) {
     findUntilDate = new Date();
   } else {
-    findUntilDate = new Date(fromDate);
+    findUntilDate = new Date(untilDate);
   }
   return structuredClone(
     expensesData
