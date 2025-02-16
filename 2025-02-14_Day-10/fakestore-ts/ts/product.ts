@@ -23,7 +23,7 @@ if (productId) {
         date: new Date().toISOString(),
         products: [{ productId: Number(productId), quantity: 1 }],
       }).then((data) => {
-        console.log("Added to cart:", data);
+        alert(`Product added to cart: ${JSON.stringify(data)}`);
       });
     });
   });

@@ -17,5 +17,5 @@ getUserId(loggedInUser)
 
 const checkoutBtn = <HTMLButtonElement>document.querySelector(".checkout-btn");
 checkoutBtn.addEventListener("click", () => {
-  console.log("Checkout complete");
+  alert(`Checkout complete`);
 });
