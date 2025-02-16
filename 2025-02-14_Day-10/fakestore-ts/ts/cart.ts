@@ -1,8 +1,13 @@
 import loggedInUser from "../ts/state";
 import { getUserId, getProductById, getCartItemsForUserID } from "./api_calls";
+import { checkoutAlert, logoutUser } from "./event_handlers";
 import { renderCartItems } from "./render";
-import "./commons";
 if (!loggedInUser.username) window.location.href = "../index.html";
+
+const logoutBtn = <HTMLButtonElement>document.querySelector(".logout");
+const checkoutBtn = <HTMLButtonElement>document.querySelector(".checkout-btn");
+logoutBtn.addEventListener("click", logoutUser);
+checkoutBtn.addEventListener("click", checkoutAlert);
 
 getUserId(loggedInUser)
   .then((id) => {
@@ -14,8 +19,3 @@ getUserId(loggedInUser)
     });
   })
   .catch((err) => console.log("Failed to get ID"));
-
-const checkoutBtn = <HTMLButtonElement>document.querySelector(".checkout-btn");
-checkoutBtn.addEventListener("click", () => {
-  alert(`Checkout complete`);
-});

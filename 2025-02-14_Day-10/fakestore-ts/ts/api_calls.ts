@@ -23,8 +23,6 @@ const getProductById = async (productId: number): Promise<Product> => {
   return res.data;
 };
 
-// Cart page ✅
-// Get cart items for user id , default 1 ✅✅
 const getCartItemsForUserID = async (userId: number) => {
   const res = await fakeStoreAPI.get(`/carts/user/${userId}`);
   return res.data;
@@ -53,20 +51,10 @@ const tryLoginForUser = async ({
   return res.data;
 };
 
-//   tryLoginForUser({ username: "mor_2314", password: "83r5^_" });
-
-// List in login page, for reference ✅✅
 const getAllUsers = async (): Promise<UserDetails[]> => {
   const res = await fakeStoreAPI.get("/users");
   return res.data;
 };
-
-//   addProductToCart({
-//     userId: 67,
-//     date: "2024-03-02T00:00:00.000Z",
-//     products: [{ productId: 5, quantity: 1 }],
-//   });
-//   getAllUsers();
 
 async function getIdOfLoggedInUser(
   loggedInUser: User
@@ -79,7 +67,6 @@ async function getIdOfLoggedInUser(
 
     if (matchedUser) {
       return matchedUser.id;
-      // sessionStorage.setItem("id", matchedUser.id);
     }
   } catch (e) {
     console.log("Failed to fetch ID", e);

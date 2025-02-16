@@ -22,7 +22,5 @@ const loggedInUser = {
     sessionStorage.removeItem("id");
   },
 };
-// loggedInUser.clearUser();
-// getUserId(loggedInUser).then((id) => loggedInUser.setUserId(id));
 
 export default loggedInUser;

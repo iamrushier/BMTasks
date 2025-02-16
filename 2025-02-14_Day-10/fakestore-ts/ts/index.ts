@@ -1,12 +1,8 @@
 import { getAllUsers, tryLoginForUser, getUserId } from "./api_calls";
+import { showUsers } from "./render";
 import loggedInUser from "./state";
 import { UserDetails } from "./types";
 
-// document.addEventListener("DOMContentLoaded", () => {
-console.log("Loaded index");
-const userContainer = <HTMLDivElement>(
-  document.querySelector(".users-container")
-);
 const loginBtn = <HTMLButtonElement>document.querySelector(".login-btn");
 const msgDiv = <HTMLDivElement>document.querySelector(".message");
 
@@ -35,20 +31,7 @@ loginBtn.addEventListener("click", async () => {
   }
 });
 
-const showUsers = (users: UserDetails[]) => {
-  for (const user of users) {
-    const userCardDiv = <HTMLDivElement>document.createElement("div");
-    userCardDiv.classList.add("card", "mb-3");
-    userCardDiv.innerHTML = `<div class="card-body d-flex justify-content-between">
-            <p class="card-text mb-0">Username: ${user.username}</p>
-            <p class="card-text mb-0">Password: ${user.password}</p>
-          </div>`;
-    userContainer.appendChild(userCardDiv);
-  }
-};
 getAllUsers().then((users: UserDetails[]) => {
   showUsers(users);
 });
-// }
-// );
 export { loggedInUser, getUserId };

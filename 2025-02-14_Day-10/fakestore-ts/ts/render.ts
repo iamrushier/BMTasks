@@ -1,9 +1,8 @@
 import { getProductById } from "./api_calls";
-import { Cart, Categories, Product } from "./types";
-
-const prodContainer = <HTMLDivElement>document.querySelector(".container");
+import { Cart, Categories, Product, UserDetails } from "./types";
 
 const renderProducts = (prodData: Product[]) => {
+  const prodContainer = <HTMLDivElement>document.querySelector(".container");
   prodContainer.innerHTML = "";
   for (const prod of prodData) {
     const prodDiv = document.createElement("div");
@@ -43,16 +42,15 @@ const renderProducts = (prodData: Product[]) => {
               
             </div></div>`;
     prodDiv.addEventListener("click", (e) => {
-      // console.log(e.target.closest(".card"));
-      // To select individual product
       const productId = prodDiv.getAttribute("data-id");
       window.location.href = `../pages/product.html?id=${productId}`;
     });
     prodContainer.appendChild(prodDiv);
   }
 };
-const catBar = <HTMLDivElement>document.getElementById("category-bar");
+
 const renderCategories = (data: Categories) => {
+  const catBar = <HTMLDivElement>document.getElementById("category-bar");
   for (const category of data) {
     const li = document.createElement("li");
     li.className = "nav-item";
@@ -61,8 +59,10 @@ const renderCategories = (data: Categories) => {
   }
 };
 
-const cartContainer = <HTMLDivElement>document.querySelector(".item-container");
 const renderCartItems = async (data: Cart[]) => {
+  const cartContainer = <HTMLDivElement>(
+    document.querySelector(".item-container")
+  );
   cartContainer.innerHTML = "";
   const itemsCountMsg = <HTMLDivElement>document.querySelector(".items-count");
   itemsCountMsg.textContent = `You have ${data[0].products.length} items in your cart`;
@@ -117,9 +117,10 @@ const renderCartItems = async (data: Cart[]) => {
     .reduce((f, s) => f + s)}`;
 };
 
-const productDetails = <HTMLElement>document.querySelector(".product-details");
-
 const renderProductDetails = (data: Product) => {
+  const productDetails = <HTMLElement>(
+    document.querySelector(".product-details")
+  );
   productDetails.innerHTML = "";
   const container = document.createElement("div");
   container.classList.add("card", "p-3", "w-75", "mx-auto");
@@ -157,9 +158,26 @@ const renderProductDetails = (data: Product) => {
         </div>`;
   productDetails.appendChild(container);
 };
+
+const showUsers = (users: UserDetails[]) => {
+  const userContainer = <HTMLDivElement>(
+    document.querySelector(".users-container")
+  );
+  for (const user of users) {
+    const userCardDiv = <HTMLDivElement>document.createElement("div");
+    userCardDiv.classList.add("card", "mb-3");
+    userCardDiv.innerHTML = `<div class="card-body d-flex justify-content-between">
+            <p class="card-text mb-0">Username: ${user.username}</p>
+            <p class="card-text mb-0">Password: ${user.password}</p>
+          </div>`;
+    userContainer.appendChild(userCardDiv);
+  }
+};
+
 export {
   renderCategories,
   renderProducts,
   renderCartItems,
   renderProductDetails,
+  showUsers,
 };

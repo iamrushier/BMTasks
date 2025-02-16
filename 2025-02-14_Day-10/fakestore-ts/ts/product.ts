@@ -5,11 +5,13 @@ import {
   updateCartProducts,
 } from "./api_calls";
 import loggedInUser from "../ts/state";
-// console.log("Product Loaded");
-// console.log(window.location.search);
+import { logoutUser } from "./event_handlers";
+
 if (!loggedInUser.username) window.location.href = "../index.html";
+const logoutBtn = <HTMLButtonElement>document.querySelector(".logout");
+logoutBtn.addEventListener("click", logoutUser);
+
 const productId = window.location.search.split("=")[1];
-// console.log(productId);
 if (productId) {
   getProductById(Number(productId)).then((data) => {
     renderProductDetails(data);
