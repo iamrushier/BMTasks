@@ -8,9 +8,14 @@ const renderProducts = (prodData: Product[]) => {
   for (const prod of prodData) {
     const prodDiv = document.createElement("div");
     prodDiv.classList.add(
-      ..."card mt-4 d-flex flex-row justify-content-between w-75 mx-auto p-3".split(
-        " "
-      )
+      "card",
+      "mt-4",
+      "d-flex",
+      "flex-row",
+      "justify-content-between",
+      "w-75",
+      "mx-auto",
+      "p-3"
     );
     prodDiv.style.height = "auto";
     prodDiv.setAttribute("data-id", String(prod.id));
@@ -65,7 +70,7 @@ const renderCartItems = async (data: Cart[]) => {
     const quantity = entry.quantity;
     const productInfo = await getProductById(entry.productId);
     const itemBox = document.createElement("div");
-    itemBox.classList.add("card mb-3");
+    itemBox.classList.add("card", "mb-3");
     itemBox.setAttribute("product-id", String(productInfo.id));
     itemBox.innerHTML = `
                   <div class="card-body">
@@ -117,7 +122,7 @@ const productDetails = <HTMLElement>document.querySelector(".product-details");
 const renderProductDetails = (data: Product) => {
   productDetails.innerHTML = "";
   const container = document.createElement("div");
-  container.classList.add(..."card p-3 w-75  mx-auto".split(" "));
+  container.classList.add("card", "p-3", "w-75", "mx-auto");
   container.innerHTML = `<div class="row">
           <div class="col-md-4">
             <img

@@ -1,22 +1,23 @@
 {
   "name": "fakestore-ts",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "(npx parcel ./index.html) & npx parcel watch ./index.html"
+    "start": "npx parcel index.html pages/*.html ts/*.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/axios": "^0.14.4",
     "axios": "^1.7.9",
     "parcel": "^2.13.3"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.4",
     "buffer": "^6.0.3",
     "process": "^0.11.10"
-  }
+  },
+  "description": ""
 }

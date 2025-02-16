@@ -598,50 +598,52 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"7QK8s":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+// }
+// );
 parcelHelpers.export(exports, "loggedInUser", ()=>(0, _stateDefault.default));
 parcelHelpers.export(exports, "getUserId", ()=>(0, _apiCalls.getUserId));
 var _apiCalls = require("./api_calls");
 var _state = require("./state");
 var _stateDefault = parcelHelpers.interopDefault(_state);
-document.addEventListener("DOMContentLoaded", ()=>{
-    console.log("Loaded index");
-    const userContainer = document.querySelector(".users-container");
-    const loginBtn = document.querySelector(".login-btn");
-    const msgDiv = document.querySelector(".message");
-    loginBtn.addEventListener("click", async ()=>{
-        const usernameField = document.getElementById("username");
-        const passwordField = document.getElementById("password");
-        const username = usernameField.value;
-        const password = passwordField.value;
-        if (username && password) try {
-            const res = await (0, _apiCalls.tryLoginForUser)({
-                username,
-                password
-            });
-            (0, _stateDefault.default).setUser(username, password);
-            (0, _apiCalls.getUserId)((0, _stateDefault.default)).then((id)=>(0, _stateDefault.default).setUserId(String(id)));
-            msgDiv.textContent = `Logging in as '${username}'\nToken: ${res.token.slice(0, 21) + "...."}`;
-            setTimeout(()=>{
-                window.location.href = "pages/home.html";
-            }, 1000);
-        } catch (e) {
-            msgDiv.textContent = "Invalid credentials";
-        }
-    });
-    const showUsers = (users)=>{
-        for (const user of users){
-            const userCardDiv = document.createElement("div");
-            userCardDiv.classList.add("card", "mb-3");
-            userCardDiv.innerHTML = `<div class="card-body d-flex justify-content-between">
+// document.addEventListener("DOMContentLoaded", () => {
+console.log("Loaded index");
+const userContainer = document.querySelector(".users-container");
+const loginBtn = document.querySelector(".login-btn");
+const msgDiv = document.querySelector(".message");
+loginBtn.addEventListener("click", async ()=>{
+    console.log("Submit");
+    const usernameField = document.getElementById("username");
+    const passwordField = document.getElementById("password");
+    const username = usernameField.value;
+    const password = passwordField.value;
+    if (username && password) try {
+        const res = await (0, _apiCalls.tryLoginForUser)({
+            username,
+            password
+        });
+        (0, _stateDefault.default).setUser(username, password);
+        (0, _apiCalls.getUserId)((0, _stateDefault.default)).then((id)=>(0, _stateDefault.default).setUserId(String(id)));
+        msgDiv.textContent = `Logging in as '${username}'\nToken: ${res.token.slice(0, 21) + "...."}`;
+        setTimeout(()=>{
+            window.location.href = "pages/home.html";
+        }, 1000);
+    } catch (e) {
+        msgDiv.textContent = "Invalid credentials";
+    }
+});
+const showUsers = (users)=>{
+    for (const user of users){
+        const userCardDiv = document.createElement("div");
+        userCardDiv.classList.add("card", "mb-3");
+        userCardDiv.innerHTML = `<div class="card-body d-flex justify-content-between">
             <p class="card-text mb-0">Username: ${user.username}</p>
             <p class="card-text mb-0">Password: ${user.password}</p>
           </div>`;
-            userContainer.appendChild(userCardDiv);
-        }
-    };
-    (0, _apiCalls.getAllUsers)().then((users)=>{
-        showUsers(users);
-    });
+        userContainer.appendChild(userCardDiv);
+    }
+};
+(0, _apiCalls.getAllUsers)().then((users)=>{
+    showUsers(users);
 });
 
 },{"./api_calls":"9uAmG","./state":"2dYp5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9uAmG":[function(require,module,exports,__globalThis) {
