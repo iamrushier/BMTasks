@@ -5,7 +5,7 @@ import TextArea from "./TextArea";
 
 const Form = () => {
   return (
-    <div className="container mt-4 w-75">
+    <div className="container mt-4 w-50">
       <h1 className="text-center">User Details</h1>
       <form className="card p-3">
         {/* First name */}
