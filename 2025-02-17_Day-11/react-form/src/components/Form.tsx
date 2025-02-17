@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
 import InputField from "./InputField";
 import RadioButtons from "./RadioButtons";
 import TextArea from "./TextArea";
@@ -32,6 +32,7 @@ const Form = () => {
           name="firstname"
           id="firstname"
           labelText="First Name"
+          required
         />
         {/* Last name */}
         <InputField
@@ -39,9 +40,17 @@ const Form = () => {
           name="lastname"
           id="lastname"
           labelText="Last Name"
+          required
         />
         {/* Age */}
-        <InputField type="number" name="age" id="age" labelText="Age" />
+        <InputField
+          type="number"
+          name="age"
+          id="age"
+          labelText="Age"
+          min={0}
+          required
+        />
 
         {/* Gender */}
         <RadioButtons
@@ -58,15 +67,25 @@ const Form = () => {
         />
 
         {/* Email */}
-        <InputField type="email" name="email" id="email" labelText="Email" />
+        <InputField
+          type="email"
+          name="email"
+          id="email"
+          labelText="Email"
+          required
+        />
 
         {/* Phone number */}
         <InputField
-          type="number"
+          type="string"
           name="phone"
           id="phone"
           labelText="Phone"
           placeholder="Enter phone number"
+          required
+          maxLength={10}
+          minLength={10}
+          pattern="\d+"
         />
 
         {/* Address */}

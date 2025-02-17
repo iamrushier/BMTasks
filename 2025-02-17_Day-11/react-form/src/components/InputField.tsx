@@ -1,23 +1,22 @@
 import React from "react";
 import { InputFieldType } from "./types";
 
-const InputField = (props: InputFieldType) => {
+const InputField = ({ name, type, id, labelText, ...rest }: InputFieldType) => {
   return (
-    <div className={props.containerClassName ?? "form-group row m-2"}>
+    <div className={rest.containerClassName ?? "form-group row m-2"}>
       <label
-        htmlFor={props.name}
-        className={props.labelClassName || "col-sm-3 col-form-label"}
+        htmlFor={name}
+        className={rest.labelClassName || "col-sm-3 col-form-label"}
       >
-        {props.labelText}
+        {labelText}
       </label>
       <input
-        type={props.type}
-        id={props.id}
-        className={props.inputClassName || "col-sm-9"}
-        placeholder={
-          props.placeholder || `Enter ${props.labelText.toLowerCase()}`
-        }
-        name={props.name}
+        type={type}
+        id={id}
+        className={rest.inputClassName || "col-sm-9"}
+        placeholder={rest.placeholder || `Enter ${labelText.toLowerCase()}`}
+        name={name}
+        {...rest}
       />
     </div>
   );

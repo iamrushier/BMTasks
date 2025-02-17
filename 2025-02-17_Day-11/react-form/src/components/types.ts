@@ -7,7 +7,7 @@ export type InputFieldType = {
   inputClassName?: string;
   labelClassName?: string;
   containerClassName?: string;
-};
+} & React.InputHTMLAttributes<HTMLInputElement>;
 export type RadioButtonsType = {
   options: string[];
   name: string;
