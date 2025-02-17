@@ -1,13 +1,31 @@
+import { useRef } from "react";
 import Dropdown from "./DropDown";
 import InputField from "./InputField";
 import RadioButtons from "./RadioButtons";
 import TextArea from "./TextArea";
 
 const Form = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formRef.current) return;
+    const data = new FormData(formRef.current);
+    const formObj = Object.fromEntries(data.entries());
+    const formattedMessage = `
+    Data received:
+    ---------------------------
+    Name: ${formObj.firstname} ${formObj.lastname}
+    Age: ${formObj.age}, Gender: ${formObj.gender}
+    Skills: ${formObj.skills}
+    Contact: ${formObj.email}, ${formObj.phone}
+    Address: ${formObj.address}`;
+    alert(formattedMessage);
+  };
+
   return (
     <div className="container mt-4 w-50">
       <h1 className="text-center">User Details</h1>
-      <form className="card p-3">
+      <form ref={formRef} onSubmit={handleSubmit} className="card p-3">
         {/* First name */}
         <InputField
           type="text"
@@ -56,14 +74,7 @@ const Form = () => {
 
         <hr />
 
-        <button
-          type="submit"
-          className="btn btn-primary btn-md  w-50 mx-auto"
-          onClick={(e) => {
-            e.preventDefault();
-            console.log("Data submitted");
-          }}
-        >
+        <button type="submit" className="btn btn-primary btn-md  w-50 mx-auto">
           Submit
         </button>
       </form>

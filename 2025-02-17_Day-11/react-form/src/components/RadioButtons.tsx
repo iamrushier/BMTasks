@@ -17,7 +17,12 @@ const RadioButtons = (props: RadioButtonsType) => {
       >
         {props.options.map((option, index) => (
           <span className={props.radioItemClassName || "me-5"} key={index}>
-            <input type="radio" name={props.name} /> {option}
+            <input
+              type="radio"
+              name={props.name}
+              value={option.toLowerCase()}
+            />{" "}
+            {option}
           </span>
         ))}
       </div>

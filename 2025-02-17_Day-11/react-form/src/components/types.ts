@@ -37,23 +37,3 @@ export type TextAreaType = {
   labelClassName?: string;
   containerClassName?: string;
 };
-// export enum Gender {
-//   Male = "male",
-//   Female = "female",
-//   Other = "other",
-// }
-// export enum Skills {
-//   FrontEnd = "front-end",
-//   BackEnd = "back-end",
-//   FullStack = "full-stack",
-// }
-// export type UserData = {
-//   firstname: string;
-//   lastname: string;
-//   age: number;
-//   gender: Gender;
-//   skills: Skills;
-//   email: string;
-//   phone: number;
-//   address: string;
-// };
