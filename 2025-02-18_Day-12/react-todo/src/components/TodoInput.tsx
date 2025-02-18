@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { todoItemType, todoPropType } from "../types";
+import { useState } from "react";
+import { todoPropType } from "../types";
 
 const TodoInput = ({ data, setData }: todoPropType) => {
   const [title, setTitle] = useState("");

@@ -1,4 +1,3 @@
-import React from "react";
 import TodoItem from "./TodoItem";
 import { todoPropType } from "../types";
 const TodoContainer = ({ data, setData }: todoPropType) => {

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import TodoContainer from "./components/TodoContainer";
 import { loadFromLocalStorage, saveToLocalStorage } from "./storage";
 function App() {
-  // const [title, setTitle] = useState<string>("");
   const data = loadFromLocalStorage("todos");
   const [todos, setTodos] = useState(data);
   useEffect(() => {
@@ -14,7 +13,6 @@ function App() {
     <>
       <div className="container mt-5 w-50">
         <TodoInput data={todos} setData={setTodos} />
-
         <TodoContainer data={todos} setData={setTodos} />
       </div>
     </>

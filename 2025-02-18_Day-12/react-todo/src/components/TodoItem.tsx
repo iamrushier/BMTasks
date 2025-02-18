@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { todoItemType, todoPropType } from "../types";
 
 const TodoItem = (props: todoPropType & todoItemType) => {
@@ -14,7 +13,7 @@ const TodoItem = (props: todoPropType & todoItemType) => {
           );
           const copy = structuredClone(props.data);
           copy[currIndex].status = !copy[currIndex].status;
-          props.setData(copy); //{ ...todoItemState, status: !todoItemState.status }
+          props.setData(copy);
         }}
       />
       <span className="flex-grow-1">{props.title}</span>
