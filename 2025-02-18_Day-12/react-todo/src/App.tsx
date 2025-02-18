@@ -11,7 +11,9 @@ function App() {
   }, [todos]);
   return (
     <>
-      <div className="container mt-5 w-50">
+      <h1 className="text-center mt-3">React Todo</h1>
+      <hr />
+      <div className="container mt-3 w-50">
         <TodoInput data={todos} setData={setTodos} />
         <TodoContainer data={todos} setData={setTodos} />
       </div>
