@@ -2,10 +2,6 @@ import React, { useEffect, useState } from "react";
 import { todoItemType, todoPropType } from "../types";
 
 const TodoItem = (props: todoPropType & todoItemType) => {
-  //   const [todoItemState, setTodoItemState] = useState({ ...props });
-  //   useEffect(() => {
-  //     console.log(todoItemState);
-  //   }, [todoItemState]);
   return (
     <li className="list-group-item d-flex align-items-center" key={props.id}>
       <input

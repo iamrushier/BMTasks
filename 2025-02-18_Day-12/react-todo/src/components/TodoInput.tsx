@@ -9,6 +9,7 @@ const TodoInput = ({ data, setData }: todoPropType) => {
         type="text"
         className="form-control"
         placeholder="Enter todo title"
+        value={title}
         onChange={(e) => setTitle(e.target.value || "")}
       />
       <div className="input-group-append">
@@ -18,6 +19,7 @@ const TodoInput = ({ data, setData }: todoPropType) => {
             setData(
               data.concat([{ title: title, status: false, id: Date.now() }])
             );
+            setTitle("");
           }}
         >
           Add
