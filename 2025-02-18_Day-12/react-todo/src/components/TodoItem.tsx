@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { todoItemType, todoPropType } from "../types";
 
 const TodoItem = (props: todoPropType & todoItemType) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState(props.title);
   return (
     <li className="list-group-item d-flex align-items-center" key={props.id}>
       <input
@@ -16,7 +19,31 @@ const TodoItem = (props: todoPropType & todoItemType) => {
           props.setData(copy);
         }}
       />
-      <span className="flex-grow-1">{props.title}</span>
+      <span className="flex-grow-1 align-items-center">
+        {!isEditing ? (
+          title
+        ) : (
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          ></input>
+        )}
+      </span>
+      <button
+        className="btn btn-warning"
+        onClick={() => {
+          setIsEditing(!isEditing);
+          const currIndex = props.data.findIndex(
+            (item) => item.id === props.id
+          );
+          const copy = structuredClone(props.data);
+          copy[currIndex].title = title;
+          props.setData(copy);
+        }}
+      >
+        {isEditing ? "Save" : "Edit"}
+      </button>
       <button
         className="btn btn-danger"
         onClick={() => {
