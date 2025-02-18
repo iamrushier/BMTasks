@@ -22,7 +22,17 @@ const TodoItem = (props: todoPropType & todoItemType) => {
         }}
       />
       <span className="flex-grow-1">{props.title}</span>
-      <button className="btn btn-danger">Delete</button>
+      <button
+        className="btn btn-danger"
+        onClick={() => {
+          const filteredData = props.data.filter(
+            (item) => item.id !== props.id
+          );
+          props.setData(filteredData);
+        }}
+      >
+        Delete
+      </button>
     </li>
   );
 };
