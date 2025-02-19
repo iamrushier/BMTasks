@@ -27,3 +27,19 @@ export async function addNewPost(newPost: PostType): Promise<PostType> {
   const post = await response.json();
   return post;
 }
+export type CommentType = {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+};
+export async function getCommentByPostId(
+  postId: number | undefined
+): Promise<CommentType[]> {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+  );
+  const comments = response.json();
+  return comments;
+}
