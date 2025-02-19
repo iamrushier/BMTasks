@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PostItem from "./PostItem";
 import { getPosts, PostType } from "../api_calls";
 

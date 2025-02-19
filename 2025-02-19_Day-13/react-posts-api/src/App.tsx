@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import PostsList from "./components/PostsList";
 import NewPost from "./components/NewPost";
 import PostDetails from "./components/PostDetails";
-import { addNewPost, getPostById, getPosts } from "./api_calls";
 
 function App() {
   return (
