@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { addNewPost, PostType } from "../api_calls";
 
-const postSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  e.preventDefault();
-  console.log(e.target);
-};
 const NewPost = () => {
+  const [newPost, setNewPost] = useState<PostType>({ title: "", body: "" });
+  const postSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    addNewPost(newPost)
+      .then((res) => alert(`New post added: ${JSON.stringify(res)}`))
+      .catch((err: Error) => console.log(err.message))
+      .finally(() => setNewPost({ title: "", body: "" }));
+  };
   return (
     <div className="p-3 rounded-2" style={{ background: "#bbf0ff" }}>
       <form>
@@ -16,7 +21,9 @@ const NewPost = () => {
             name="title"
             id="title"
             className="form-control"
+            value={newPost.title}
             required
+            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
           />
         </div>
         <div className="form-group">
@@ -26,7 +33,9 @@ const NewPost = () => {
             name="title"
             id="title"
             className="form-control"
+            value={newPost.body}
             rows={3}
+            onChange={(e) => setNewPost({ ...newPost, body: e.target.value })}
           />
         </div>
         <button

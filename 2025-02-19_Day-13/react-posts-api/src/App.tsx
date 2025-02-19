@@ -3,18 +3,8 @@ import PostsList from "./components/PostsList";
 import NewPost from "./components/NewPost";
 import PostDetails from "./components/PostDetails";
 import { addNewPost, getPostById, getPosts } from "./api_calls";
-addNewPost({
-  userId: 3,
-  title: "New post",
-  body: "Just testing",
-}).then((res) => console.log(res));
+
 function App() {
-  // getPosts().then((posts) => {
-  //   console.log(posts);
-  // });
-  // getPostById(3).then((post) => {
-  //   console.log(post);
-  // });
   return (
     <div className="container p-3">
       <h1 className="text-center">Posts</h1>

@@ -19,11 +19,6 @@ const PostsList = () => {
         {postsList.slice(0, 10).map((post) => (
           <PostItem post={post} key={post.id} />
         ))}
-        {/* <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem /> */}
       </div>
     </div>
   );
