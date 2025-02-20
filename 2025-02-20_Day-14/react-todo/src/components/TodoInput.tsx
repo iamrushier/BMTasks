@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTodos } from "./TasksContext";
 import React from "react";
 const TodoInput = React.memo(() => {
   console.log("TodoInput renders");
   const [title, setTitle] = useState("");
   const { dispatch } = useTodos();
+
+  const addTask = useCallback(() => {
+    dispatch({
+      type: "add_new",
+      data: { title: title, id: Date.now(), status: false },
+    });
+    setTitle("");
+  }, [title, dispatch]);
+
   return (
     <div className="input-group mb-3">
       <input
@@ -15,16 +24,7 @@ const TodoInput = React.memo(() => {
         onChange={(e) => setTitle(e.target.value || "")}
       />
       <div className="input-group-append">
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            dispatch({
-              type: "add_new",
-              data: { title: title, id: Date.now(), status: false },
-            });
-            setTitle("");
-          }}
-        >
+        <button className="btn btn-outline-secondary" onClick={() => addTask()}>
           Add
         </button>
       </div>

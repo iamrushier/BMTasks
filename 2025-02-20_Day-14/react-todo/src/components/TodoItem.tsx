@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { todoItemType } from "../types";
 import { useTodos } from "./TasksContext";
 import React from "react";
@@ -13,18 +13,21 @@ const TodoItem = React.memo((props: todoItemType) => {
   useEffect(() => {
     saveToLocalStorage("todos", todos);
   }, [todos]);
+
+  const toggleTask = useCallback(() => {
+    dispatch({
+      type: "toggle_status",
+      data: { id: props.id },
+    });
+  }, [dispatch]);
+
   return (
     <li className="list-group-item d-flex align-items-center" key={props.id}>
       <input
         type="checkbox"
         className="form-check-input me-3"
         checked={props.status}
-        onChange={() => {
-          dispatch({
-            type: "toggle_status",
-            data: { id: props.id },
-          });
-        }}
+        onChange={toggleTask}
       />
       <span className="flex-grow-1 align-items-center">
         {!isEditing ? (
