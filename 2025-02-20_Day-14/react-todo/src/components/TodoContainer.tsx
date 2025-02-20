@@ -1,22 +1,28 @@
 import TodoItem from "./TodoItem";
-import { todoPropType } from "../types";
 import CountDisplay from "./CountDisplay";
-const TodoContainer = ({ data, setData }: todoPropType) => {
+import { saveToLocalStorage } from "../storage";
+import { useTodos } from "./TasksContext";
+import { useEffect } from "react";
+import React from "react";
+const TodoContainer = React.memo(() => {
   console.log("TodoContainer renders");
+  // const data = loadFromLocalStorage("todos");
+  const { todos } = useTodos();
+  useEffect(() => {
+    saveToLocalStorage("todos", todos);
+  }, [todos]);
   return (
     <>
-      <CountDisplay data={data} />
+      <CountDisplay />
       <div className="card mt-4">
         <ul className="list-group ">
-          {data.map((item) => {
+          {todos.map((item) => {
             return (
               <TodoItem
                 key={item.id}
                 title={item.title}
                 id={item.id}
                 status={item.status}
-                data={data}
-                setData={setData}
               />
             );
           })}
@@ -24,6 +30,6 @@ const TodoContainer = ({ data, setData }: todoPropType) => {
       </div>
     </>
   );
-};
+});
 
 export default TodoContainer;

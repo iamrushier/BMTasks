@@ -1,24 +1,30 @@
-import { useCallback, useState } from "react";
-import { todoItemType, todoPropType } from "../types";
+import { useEffect, useState } from "react";
+import { todoItemType } from "../types";
+import { useTodos } from "./TasksContext";
+import React from "react";
+import { saveToLocalStorage } from "../storage";
 
-const TodoItem = (props: todoPropType & todoItemType) => {
+const TodoItem = React.memo((props: todoItemType) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(props.title);
+  const { todos, setTodos } = useTodos();
   console.log("TodoItem renders", title);
+
+  useEffect(() => {
+    saveToLocalStorage("todos", todos);
+  }, [todos]);
   return (
     <li className="list-group-item d-flex align-items-center" key={props.id}>
       <input
         type="checkbox"
         className="form-check-input me-3"
         checked={props.status}
-        onChange={useCallback(() => {
-          const currIndex = props.data.findIndex(
-            (item) => item.id === props.id
-          );
-          const copy = structuredClone(props.data);
+        onChange={() => {
+          const currIndex = todos.findIndex((item) => item.id === props.id);
+          const copy = structuredClone(todos);
           copy[currIndex].status = !copy[currIndex].status;
-          props.setData(copy);
-        }, [props.data, props.setData])}
+          setTodos(copy);
+        }}
       />
       <span className="flex-grow-1 align-items-center">
         {!isEditing ? (
@@ -33,31 +39,27 @@ const TodoItem = (props: todoPropType & todoItemType) => {
       </span>
       <button
         className="btn btn-warning"
-        onClick={useCallback(() => {
+        onClick={() => {
           setIsEditing(!isEditing);
-          const currIndex = props.data.findIndex(
-            (item) => item.id === props.id
-          );
-          const copy = structuredClone(props.data);
+          const currIndex = todos.findIndex((item) => item.id === props.id);
+          const copy = structuredClone(todos);
           copy[currIndex].title = title;
-          props.setData(copy);
-        }, [isEditing, props.data, setIsEditing, props.setData])}
+          setTodos(copy);
+        }}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
       <button
         className="btn btn-danger"
-        onClick={useCallback(() => {
-          const filteredData = props.data.filter(
-            (item) => item.id !== props.id
-          );
-          props.setData(filteredData);
-        }, [props.data, props.setData])}
+        onClick={() => {
+          const filteredData = todos.filter((item) => item.id !== props.id);
+          setTodos(filteredData);
+        }}
       >
         Delete
       </button>
     </li>
   );
-};
+});
 
 export default TodoItem;

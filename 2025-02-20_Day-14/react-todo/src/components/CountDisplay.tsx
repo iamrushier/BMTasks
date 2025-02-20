@@ -1,16 +1,18 @@
 import { useMemo } from "react";
-import { todoItemType } from "../types";
+import { useTodos } from "./TasksContext";
+import React from "react";
 
-const CountDisplay = ({ data }: { data: todoItemType[] }) => {
+const CountDisplay = React.memo(() => {
   console.log("CountDisplay renders");
-  const copmletedTasksCount = useMemo(() => {
-    return data.filter((task) => task.status).length;
-  }, [data]);
+  const { todos } = useTodos();
+  const completedTasksCount = useMemo(() => {
+    return todos.filter((task) => task.status).length;
+  }, [todos]);
   return (
     <div className="card p-2 flex-row justify-content-center">
-      <div>Completed tasks: {copmletedTasksCount}</div>
+      <div>Completed tasks: {completedTasksCount}</div>
     </div>
   );
-};
+});
 
 export default CountDisplay;

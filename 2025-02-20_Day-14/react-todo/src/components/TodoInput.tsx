@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { todoPropType } from "../types";
-
-const TodoInput = ({ data, setData }: todoPropType) => {
+import { useTodos } from "./TasksContext";
+import React from "react";
+const TodoInput = React.memo(() => {
   console.log("TodoInput renders");
   const [title, setTitle] = useState("");
+  const { setTodos } = useTodos();
   return (
     <div className="input-group mb-3">
       <input
@@ -17,8 +18,10 @@ const TodoInput = ({ data, setData }: todoPropType) => {
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
-            setData(
-              data.concat([{ title: title, status: false, id: Date.now() }])
+            setTodos((prevTodos) =>
+              prevTodos.concat([
+                { title: title, status: false, id: Date.now() },
+              ])
             );
             setTitle("");
           }}
@@ -28,6 +31,6 @@ const TodoInput = ({ data, setData }: todoPropType) => {
       </div>
     </div>
   );
-};
+});
 
 export default TodoInput;
