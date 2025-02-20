@@ -4,7 +4,7 @@ import React from "react";
 const TodoInput = React.memo(() => {
   console.log("TodoInput renders");
   const [title, setTitle] = useState("");
-  const { setTodos } = useTodos();
+  const { dispatch } = useTodos();
   return (
     <div className="input-group mb-3">
       <input
@@ -18,11 +18,10 @@ const TodoInput = React.memo(() => {
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
-            setTodos((prevTodos) =>
-              prevTodos.concat([
-                { title: title, status: false, id: Date.now() },
-              ])
-            );
+            dispatch({
+              type: "add_new",
+              data: { title: title, id: Date.now(), status: false },
+            });
             setTitle("");
           }}
         >

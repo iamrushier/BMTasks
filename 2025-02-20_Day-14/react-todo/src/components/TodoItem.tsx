@@ -7,7 +7,7 @@ import { saveToLocalStorage } from "../storage";
 const TodoItem = React.memo((props: todoItemType) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(props.title);
-  const { todos, setTodos } = useTodos();
+  const { todos, dispatch } = useTodos();
   console.log("TodoItem renders", title);
 
   useEffect(() => {
@@ -20,10 +20,10 @@ const TodoItem = React.memo((props: todoItemType) => {
         className="form-check-input me-3"
         checked={props.status}
         onChange={() => {
-          const currIndex = todos.findIndex((item) => item.id === props.id);
-          const copy = structuredClone(todos);
-          copy[currIndex].status = !copy[currIndex].status;
-          setTodos(copy);
+          dispatch({
+            type: "toggle_status",
+            data: { id: props.id },
+          });
         }}
       />
       <span className="flex-grow-1 align-items-center">
@@ -41,20 +41,17 @@ const TodoItem = React.memo((props: todoItemType) => {
         className="btn btn-warning"
         onClick={() => {
           setIsEditing(!isEditing);
-          const currIndex = todos.findIndex((item) => item.id === props.id);
-          const copy = structuredClone(todos);
-          copy[currIndex].title = title;
-          setTodos(copy);
+          dispatch({
+            type: "edit",
+            data: { id: props.id, title: title, status: props.status },
+          });
         }}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
       <button
         className="btn btn-danger"
-        onClick={() => {
-          const filteredData = todos.filter((item) => item.id !== props.id);
-          setTodos(filteredData);
-        }}
+        onClick={() => dispatch({ type: "delete", data: { id: props.id } })}
       >
         Delete
       </button>

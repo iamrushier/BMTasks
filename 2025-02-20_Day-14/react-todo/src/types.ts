@@ -1,7 +1,7 @@
 export type todoItemType = {
-  title: string;
+  title?: string;
   id: number;
-  status: boolean;
+  status?: boolean;
 };
 export type todoPropType = {
   data: todoItemType[];

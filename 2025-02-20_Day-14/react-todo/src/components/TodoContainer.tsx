@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import React from "react";
 const TodoContainer = React.memo(() => {
   console.log("TodoContainer renders");
-  // const data = loadFromLocalStorage("todos");
   const { todos } = useTodos();
   useEffect(() => {
     saveToLocalStorage("todos", todos);

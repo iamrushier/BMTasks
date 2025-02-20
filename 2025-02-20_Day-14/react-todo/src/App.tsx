@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TodoInput from "./components/TodoInput";
 import TodoContainer from "./components/TodoContainer";
 import { TaskProvider } from "./components/TasksContext";
-import React from "react";
 const App = () => {
   console.log("App renders");
   return (
