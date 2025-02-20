@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveAllTodo();
       }
     );
+    li.setAttribute("draggable", "true");
     ulTodo.appendChild(li);
   };
 
@@ -129,10 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save the todo items in local storage
   const saveAllTodo = () => {
-    // Extract only text content for all todo list items
-    const allTodos = [...document.querySelectorAll(".inputs")].map((item) => [
-      item.textContent.trim(),
-      item.querySelector(".form-check-input").checked ? "checked" : "",
+    const allTodos = [...ulTodo.children].map((li) => [
+      li.querySelector(".text-todo").textContent.trim(),
+      li.querySelector(".form-check-input").checked ? "checked" : "",
     ]);
 
     // Convert to string before storing in localStorage
@@ -156,6 +156,44 @@ document.addEventListener("DOMContentLoaded", () => {
       loadAllTodo();
     }
   });
+
+  // Drag and drop functionality
+  ulTodo.addEventListener("dragstart", function (e) {
+    if (e.target.tagName === "LI") {
+      e.target.classList.add("dragging");
+    }
+  });
+  ulTodo.addEventListener("dragover", function (e) {
+    e.preventDefault();
+
+    const draggingElement = document.querySelector(".dragging");
+    const closestElement = getClosestElement(ulTodo, e.clientY);
+
+    if (closestElement && closestElement !== draggingElement) {
+      ulTodo.insertBefore(draggingElement, closestElement);
+    }
+  });
+  ulTodo.addEventListener("drop", function (e) {
+    document.querySelector(".dragging").classList.remove("dragging");
+    saveAllTodo();
+  });
+  ulTodo.addEventListener("dragend", function (e) {
+    document.querySelector(".dragging")?.classList.remove("dragging");
+  });
+
+  function getClosestElement(container, mouseY) {
+    const listItems = [...container.querySelectorAll("li:not(.drgging)")];
+    return listItems.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = mouseY - box.top - box.height / 2;
+        return offset < 0 && offset > closest.offset
+          ? { offset, element: child }
+          : closest;
+      },
+      { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+  }
 });
 
 /* 

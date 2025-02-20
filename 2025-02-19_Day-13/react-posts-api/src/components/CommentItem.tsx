@@ -1,5 +1,4 @@
-import React from "react";
-import { CommentType, PostType } from "../api_calls";
+import { CommentType } from "../api_calls";
 
 const CommentItem = ({ comment }: { comment: CommentType }) => {
   return (
