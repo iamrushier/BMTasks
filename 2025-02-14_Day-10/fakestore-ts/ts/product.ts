@@ -16,13 +16,19 @@ if (productId) {
     const addToCartBtn = <HTMLButtonElement>(
       document.querySelector(".add-cart-btn")
     );
+    const quantityInput = <HTMLInputElement>(
+      document.querySelector("#quantity-input")
+    );
+
     addToCartBtn.addEventListener("click", () => {
+      const quantity = Number(quantityInput.value);
       addProductToCart({
         userId: Number(loggedInUser.details.id),
         date: new Date().toISOString(),
-        products: [{ productId: Number(productId), quantity: 1 }],
+        products: [{ productId: Number(productId), quantity: quantity }],
       }).then((data) => {
         alert(`Product added to cart: ${JSON.stringify(data)}`);
+        quantityInput.value = "1";
       });
     });
   });

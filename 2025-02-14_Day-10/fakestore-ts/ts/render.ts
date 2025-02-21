@@ -154,7 +154,9 @@ const renderProductDetails = (data: IProductDetails) => {
                 data.rating.count
               }</span> reviews)
             </p>
-            <button class="btn btn-success add-cart-btn">Add to Cart</button>
+            <label for="quantity-input" class="me-2"><strong>Quantity:</strong></label>
+          <input type="number" id="quantity-input" class="form-control me-3" value="1" min="1" style="width: 80px;">
+          <button class="btn btn-success add-cart-btn">Add to Cart</button>
           </div>
         </div>`;
   productDetails.appendChild(container);
