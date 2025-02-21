@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useTodos } from "./TasksContext";
 import React from "react";
 
-const CountDisplay = React.memo(() => {
+const CountDisplay = () => {
   console.log("CountDisplay renders");
   const { todos } = useTodos();
   const completedTasksCount = useMemo(() => {
@@ -13,6 +13,6 @@ const CountDisplay = React.memo(() => {
       <div>Completed tasks: {completedTasksCount}</div>
     </div>
   );
-});
+};
 
-export default CountDisplay;
+export default React.memo(CountDisplay);

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTodos } from "./TasksContext";
 import React from "react";
-const TodoInput = React.memo(() => {
+const TodoInput = () => {
   console.log("TodoInput renders");
   const [title, setTitle] = useState("");
   const { dispatch } = useTodos();
@@ -30,6 +30,6 @@ const TodoInput = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
-export default TodoInput;
+export default React.memo(TodoInput);

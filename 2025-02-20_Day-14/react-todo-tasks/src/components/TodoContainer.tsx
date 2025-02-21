@@ -4,7 +4,7 @@ import { saveToLocalStorage } from "../storage";
 import { useTodos } from "./TasksContext";
 import { useEffect } from "react";
 import React from "react";
-const TodoContainer = React.memo(() => {
+const TodoContainer = () => {
   console.log("TodoContainer renders");
   const { todos } = useTodos();
   useEffect(() => {
@@ -29,6 +29,6 @@ const TodoContainer = React.memo(() => {
       </div>
     </>
   );
-});
+};
 
-export default TodoContainer;
+export default React.memo(TodoContainer);

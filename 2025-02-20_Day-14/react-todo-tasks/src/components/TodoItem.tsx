@@ -4,7 +4,7 @@ import { useTodos } from "./TasksContext";
 import React from "react";
 import { saveToLocalStorage } from "../storage";
 
-const TodoItem = React.memo((props: todoItemType) => {
+const TodoItem = (props: todoItemType) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(props.title);
   const { todos, dispatch } = useTodos();
@@ -60,6 +60,6 @@ const TodoItem = React.memo((props: todoItemType) => {
       </button>
     </li>
   );
-});
+};
 
-export default TodoItem;
+export default React.memo(TodoItem);
