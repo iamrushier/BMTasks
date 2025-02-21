@@ -1,8 +1,15 @@
 import axios from "axios";
-import { AuthToken, cartEntry, Product, User, UserDetails } from "./types";
+import {
+  AuthToken,
+  ICart,
+  IProductDetails,
+  IUserCreds,
+  IUserDetails,
+} from "./types";
 const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 
-const getAllProducts = async (): Promise<Product[]> => {
+console.log("Hello APi");
+const getAllProducts = async (): Promise<IProductDetails[]> => {
   const res = await fakeStoreAPI.get("/products?limit=10");
   return res.data;
 };
@@ -12,28 +19,33 @@ const getCategories = async (): Promise<string[]> => {
   return res.data;
 };
 
-const getProductsByCategory = async (category: string): Promise<Product[]> => {
+const getProductsByCategory = async (
+  category: string
+): Promise<IProductDetails[]> => {
   category = category.toLowerCase();
   const res = await fakeStoreAPI.get(`/products/category/${category}`);
   return res.data;
 };
 
-const getProductById = async (productId: number): Promise<Product> => {
+const getProductById = async (productId: number): Promise<IProductDetails> => {
   const res = await fakeStoreAPI.get(`/products/${productId}`);
   return res.data;
 };
 
-const getCartItemsForUserID = async (userId: number) => {
+const getCartItemsForUserID = async (userId: number): Promise<ICart[]> => {
   const res = await fakeStoreAPI.get(`/carts/user/${userId}`);
   return res.data;
 };
 
-const updateCartProducts = async (cartId: number, products: Product[]) => {
-  const res = await fakeStoreAPI.patch(`/carts/${cartId}`, { products });
-  return res.data;
-};
+// const updateCartProducts = async (
+//   cartId: number,
+//   products: IProductDetails[]
+// ) => {
+//   const res = await fakeStoreAPI.patch(`/carts/${cartId}`, { products });
+//   return res.data;
+// };
 
-const addProductToCart = async ({ userId, date, products }: cartEntry) => {
+const addProductToCart = async ({ userId, date, products }: Partial<ICart>) => {
   const res = await fakeStoreAPI.post("/carts", { userId, date, products });
   return res.data;
 };
@@ -46,27 +58,27 @@ const emptyCart = async (cartId: number) => {
 const tryLoginForUser = async ({
   username,
   password,
-}: User): Promise<AuthToken> => {
+}: Partial<IUserCreds>): Promise<AuthToken> => {
   const res = await fakeStoreAPI.post("/auth/login", { username, password });
   return res.data;
 };
 
-const getAllUsers = async (): Promise<UserDetails[]> => {
+const getAllUsers = async (): Promise<IUserDetails[]> => {
   const res = await fakeStoreAPI.get("/users");
   return res.data;
 };
 
 async function getIdOfLoggedInUser(
-  loggedInUser: User
+  loggedInUser: IUserCreds
 ): Promise<number | undefined> {
   try {
     const users = await getAllUsers();
     const matchedUser = users.find(
-      (user: User) => user.username === loggedInUser.username
+      (user: IUserDetails) => user.username === loggedInUser.username
     );
 
     if (matchedUser) {
-      return matchedUser.id;
+      return Number(matchedUser.id);
     }
   } catch (e) {
     console.log("Failed to fetch ID", e);
@@ -76,7 +88,6 @@ async function getIdOfLoggedInUser(
 export {
   getAllProducts,
   getCategories,
-  updateCartProducts,
   getCartItemsForUserID,
   getProductById,
   addProductToCart,

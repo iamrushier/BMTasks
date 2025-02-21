@@ -1,14 +1,15 @@
 import { getCategories, getProductsByCategory } from "./api_calls";
-import { logoutUser, toggleCategories } from "./event_handlers";
+import { handleLogout, handleToggleCategories } from "./event_handlers";
 import { renderCategories, renderProducts } from "./render";
 import loggedInUser from "./state";
 
-if (!loggedInUser.username) window.location.href = "../index.html";
+if (!loggedInUser.details.username) window.location.href = "../index.html";
 
 const logoutBtn = <HTMLButtonElement>document.querySelector(".logout");
 const catBar = <HTMLElement>document.getElementById("category-bar");
-logoutBtn.addEventListener("click", logoutUser);
-catBar.addEventListener("click", toggleCategories);
+
+logoutBtn.addEventListener("click", handleLogout);
+catBar.addEventListener("click", handleToggleCategories);
 
 const initCatBar = () => {
   catBar.querySelector(".active")?.classList.remove("active");

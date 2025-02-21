@@ -1,11 +1,11 @@
 import loggedInUser from "../ts/state";
-import { getProductsByCategory } from "./api_calls";
+import { getProductsByCategory, getUserId, tryLoginForUser } from "./api_calls";
 import { renderProducts } from "./render";
-export const logoutUser = () => {
+export const handleLogout = () => {
   loggedInUser.clearUser();
   window.location.href = "../index.html";
 };
-export const toggleCategories = (e: Event) => {
+export const handleToggleCategories = (e: Event) => {
   const catBar = <HTMLElement>document.getElementById("category-bar");
   const target = e.target as HTMLElement;
   if (target.classList.contains("nav-link")) {
@@ -23,6 +23,32 @@ export const toggleCategories = (e: Event) => {
     }
   }
 };
-export const checkoutAlert = () => {
+export const handleCheckoutAlert = () => {
   alert(`Checkout complete`);
+};
+export const handleLogin = async () => {
+  const usernameField = <HTMLInputElement>document.getElementById("username");
+  const passwordField = <HTMLInputElement>document.getElementById("password");
+  const msgDiv = <HTMLDivElement>document.querySelector(".message");
+  const username = usernameField.value;
+  const password = passwordField.value;
+  if (username && password) {
+    try {
+      const res = await tryLoginForUser({ username, password });
+
+      loggedInUser.setUser(username, password);
+      getUserId(loggedInUser.details).then((id) =>
+        loggedInUser.setUserId(String(id))
+      );
+
+      msgDiv.textContent = `Logging in as '${username}'\nToken: ${
+        res.token.slice(0, 21) + "...."
+      }`;
+      setTimeout(() => {
+        window.location.href = "pages/home.html";
+      }, 1000);
+    } catch (e) {
+      msgDiv.textContent = "Invalid credentials";
+    }
+  }
 };

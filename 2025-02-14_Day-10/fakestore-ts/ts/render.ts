@@ -1,7 +1,7 @@
 import { getProductById } from "./api_calls";
-import { Cart, Categories, Product, UserDetails } from "./types";
+import { ICart, Categories, IProductDetails, IUserDetails } from "./types";
 
-const renderProducts = (prodData: Product[]) => {
+const renderProducts = (prodData: IProductDetails[]) => {
   const prodContainer = <HTMLDivElement>document.querySelector(".container");
   prodContainer.innerHTML = "";
   for (const prod of prodData) {
@@ -59,7 +59,7 @@ const renderCategories = (data: Categories) => {
   }
 };
 
-const renderCartItems = async (data: Cart[]) => {
+const renderCartItems = async (data: ICart[]) => {
   const cartContainer = <HTMLDivElement>(
     document.querySelector(".item-container")
   );
@@ -117,7 +117,7 @@ const renderCartItems = async (data: Cart[]) => {
     .reduce((f, s) => f + s)}`;
 };
 
-const renderProductDetails = (data: Product) => {
+const renderProductDetails = (data: IProductDetails) => {
   const productDetails = <HTMLElement>(
     document.querySelector(".product-details")
   );
@@ -159,7 +159,7 @@ const renderProductDetails = (data: Product) => {
   productDetails.appendChild(container);
 };
 
-const showUsers = (users: UserDetails[]) => {
+const showUsers = (users: IUserDetails[]) => {
   const userContainer = <HTMLDivElement>(
     document.querySelector(".users-container")
   );

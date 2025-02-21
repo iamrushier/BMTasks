@@ -1,15 +1,12 @@
 import { renderProductDetails } from "./render";
-import {
-  addProductToCart,
-  getProductById,
-  updateCartProducts,
-} from "./api_calls";
+import { addProductToCart, getProductById } from "./api_calls";
 import loggedInUser from "../ts/state";
-import { logoutUser } from "./event_handlers";
+import { handleLogout } from "./event_handlers";
 
-if (!loggedInUser.username) window.location.href = "../index.html";
+if (!loggedInUser.details.username) window.location.href = "../index.html";
 const logoutBtn = <HTMLButtonElement>document.querySelector(".logout");
-logoutBtn.addEventListener("click", logoutUser);
+
+logoutBtn.addEventListener("click", handleLogout);
 
 const productId = window.location.search.split("=")[1];
 if (productId) {
@@ -21,7 +18,7 @@ if (productId) {
     );
     addToCartBtn.addEventListener("click", () => {
       addProductToCart({
-        userId: Number(loggedInUser.id),
+        userId: Number(loggedInUser.details.id),
         date: new Date().toISOString(),
         products: [{ productId: Number(productId), quantity: 1 }],
       }).then((data) => {

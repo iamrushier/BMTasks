@@ -2,12 +2,12 @@ import { getAllProducts } from "./api_calls";
 import loggedInUser from "../ts/state";
 import { renderProducts } from "./render";
 
-import { logoutUser } from "./event_handlers";
+import { handleLogout } from "./event_handlers";
 
-if (!loggedInUser.username) window.location.href = "../index.html";
+if (!loggedInUser.details.username) window.location.href = "../index.html";
 
 const logoutBtn = <HTMLButtonElement>document.querySelector(".logout");
-logoutBtn.addEventListener("click", logoutUser);
+logoutBtn.addEventListener("click", handleLogout);
 
 getAllProducts()
   .then((data) => {

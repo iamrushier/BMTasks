@@ -1,15 +1,15 @@
 import loggedInUser from "../ts/state";
-import { getUserId, getProductById, getCartItemsForUserID } from "./api_calls";
-import { checkoutAlert, logoutUser } from "./event_handlers";
+import { getUserId, getCartItemsForUserID } from "./api_calls";
+import { handleCheckoutAlert, handleLogout } from "./event_handlers";
 import { renderCartItems } from "./render";
-if (!loggedInUser.username) window.location.href = "../index.html";
+if (!loggedInUser.details.username) window.location.href = "../index.html";
 
 const logoutBtn = <HTMLButtonElement>document.querySelector(".logout");
 const checkoutBtn = <HTMLButtonElement>document.querySelector(".checkout-btn");
-logoutBtn.addEventListener("click", logoutUser);
-checkoutBtn.addEventListener("click", checkoutAlert);
+logoutBtn.addEventListener("click", handleLogout);
+checkoutBtn.addEventListener("click", handleCheckoutAlert);
 
-getUserId(loggedInUser)
+getUserId(loggedInUser.details)
   .then((id) => {
     const strID = String(id);
     loggedInUser.setUserId(strID);

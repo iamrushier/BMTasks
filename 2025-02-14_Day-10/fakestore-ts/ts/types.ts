@@ -1,4 +1,4 @@
-export interface Product {
+export interface IProductDetails {
   id: number;
   title: string;
   price: number;
@@ -10,28 +10,29 @@ export interface Product {
     count: number;
   };
 }
-export interface cartEntry {
+export interface ICartProduct {
+  productId: number;
+  quantity: number;
+}
+
+export interface ICart {
+  id: number;
   userId: number;
   date: string;
-  products: { productId: number; quantity: number }[];
+  products: ICartProduct[];
 }
-export interface User {
+
+export type Categories = string[];
+
+export interface INewProduct extends Partial<IProductDetails> {}
+
+export interface IUserCreds {
+  id: string;
   username: string;
   password: string;
 }
-export interface AuthToken {
-  token: string;
-}
-export interface loggedInUser {
-  id: number;
-  username: string;
-  password: string;
-}
-export interface UserDetails {
-  id: number;
+export interface IUserDetails extends IUserCreds {
   email: string;
-  username: string;
-  password: string;
   name: {
     firstname: string;
     lastname: string;
@@ -48,10 +49,6 @@ export interface UserDetails {
   };
   phone: string;
 }
-export type Categories = string[];
-export interface Cart {
-  id: number;
-  userId: number;
-  date: string;
-  products: { productId: number; quantity: number }[];
+export interface AuthToken {
+  token: string;
 }

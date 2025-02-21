@@ -1,25 +1,25 @@
+import { IUserCreds } from "./types";
+
 const loggedInUser = {
-  username: sessionStorage.getItem("username") || "",
-  password: sessionStorage.getItem("password") || "",
-  id: sessionStorage.getItem("id") ?? "",
+  details: <IUserCreds>(
+    JSON.parse(sessionStorage.getItem("loggedInUser") || "{}")
+  ) ?? {
+    id: "",
+    username: "",
+    password: "",
+  },
   setUser(username: string, password: string) {
-    this.username = username;
-    this.password = password;
-    sessionStorage.setItem("username", username);
-    sessionStorage.setItem("password", password);
-    sessionStorage.setItem("id", "");
+    this.details.username = username;
+    this.details.password = password;
+    sessionStorage.setItem("loggedInUser", JSON.stringify(this.details));
   },
   setUserId(id: string) {
-    this.id = id;
-    sessionStorage.setItem("id", JSON.stringify(id));
+    this.details.id = id;
+    sessionStorage.setItem("loggedInUser", JSON.stringify(this.details));
   },
   clearUser() {
-    this.username = "";
-    this.password = "";
-    this.id = "";
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("password");
-    sessionStorage.removeItem("id");
+    this.details = { username: "", password: "", id: "" };
+    sessionStorage.removeItem("loggedInUser");
   },
 };
 
