@@ -19,7 +19,7 @@ const TodoItem = (props: todoItemType) => {
       type: "toggle_status",
       data: { id: props.id },
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <li className="list-group-item d-flex align-items-center" key={props.id}>

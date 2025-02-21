@@ -1,5 +1,4 @@
 import TodoItem from "./TodoItem";
-import CountDisplay from "./CountDisplay";
 import { saveToLocalStorage } from "../storage";
 import { useTodos } from "./TasksContext";
 import { useEffect } from "react";
@@ -12,7 +11,6 @@ const TodoContainer = () => {
   }, [todos]);
   return (
     <>
-      <CountDisplay />
       <div className="card mt-4">
         <ul className="list-group ">
           {todos.map((item) => {

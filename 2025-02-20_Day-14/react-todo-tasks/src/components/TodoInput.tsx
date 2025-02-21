@@ -12,7 +12,7 @@ const TodoInput = () => {
       data: { title: title, id: Date.now(), status: false },
     });
     setTitle("");
-  }, [title, dispatch]);
+  }, [title]);
 
   return (
     <div className="input-group mb-3">
