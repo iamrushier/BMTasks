@@ -8,7 +8,6 @@ import {
 } from "./types";
 const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 
-console.log("Hello APi");
 const getAllProducts = async (): Promise<IProductDetails[]> => {
   const res = await fakeStoreAPI.get("/products?limit=10");
   return res.data;

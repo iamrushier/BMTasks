@@ -1,5 +1,10 @@
 import loggedInUser from "../ts/state";
-import { getProductsByCategory, getUserId, tryLoginForUser } from "./api_calls";
+import {
+  emptyCart,
+  getProductsByCategory,
+  getUserId,
+  tryLoginForUser,
+} from "./api_calls";
 import { renderProducts } from "./render";
 export const handleLogout = () => {
   loggedInUser.clearUser();
@@ -51,4 +56,20 @@ export const handleLogin = async () => {
       msgDiv.textContent = "Invalid credentials";
     }
   }
+};
+
+export const handleDeleteCart = async () => {
+  const cartContainer = <HTMLDivElement>(
+    document.querySelector(".item-container")
+  );
+  const cartId = cartContainer.getAttribute("cart-id");
+  if (!cartId) {
+    console.error("Cart ID not found!");
+    return;
+  }
+  const res = await emptyCart(Number(cartId));
+  alert(`Deleted item: ${JSON.stringify(res)}`);
+  cartContainer.innerHTML = "";
+  document.querySelector(".items-count")!.textContent = "Your cart is empty.";
+  document.querySelector(".total-price")!.textContent = "$0";
 };

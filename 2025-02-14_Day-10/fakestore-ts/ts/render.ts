@@ -65,6 +65,7 @@ const renderCartItems = async (data: ICart[]) => {
   );
   cartContainer.innerHTML = "";
   const itemsCountMsg = <HTMLDivElement>document.querySelector(".items-count");
+  cartContainer.setAttribute("cart-id", String(data[0].id));
   itemsCountMsg.textContent = `You have ${data[0].products.length} items in your cart`;
   for (const entry of data[0].products) {
     const quantity = entry.quantity;
