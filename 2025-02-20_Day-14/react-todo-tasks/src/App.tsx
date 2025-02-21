@@ -6,7 +6,7 @@ const App = () => {
   console.log("App renders");
   return (
     <>
-      <h1 className="text-center mt-3">React Todo</h1>
+      <h1 className="text-center mt-3">React Todo Tasks</h1>
       <hr />
       <div className="container mt-3 w-50">
         <TaskProvider>
