@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="nav nav-pills gap-2 p-2 border border-primary d-flex w-100 align-items-center">
       <div className="d-flex gap-2">
         <NavLink
-          to="/home"
+          to="/"
           className={({ isActive }) =>
             isActive
               ? "nav-link active rounded-2 home-btn"

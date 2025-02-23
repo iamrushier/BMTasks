@@ -34,7 +34,7 @@ const UserLogin = () => {
         });
       }
       console.log("Updated User:", JSON.stringify(matchedUser));
-      navigate("/home");
+      navigate("/");
     } catch (err: any) {
       setIsLoginInvalid(true);
       console.log(err.message);
