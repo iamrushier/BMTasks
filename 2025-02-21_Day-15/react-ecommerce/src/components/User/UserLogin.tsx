@@ -1,24 +1,48 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { tryLoginForUser } from "../../api_calls";
+import { Link, useNavigate } from "react-router-dom";
+import { getAllUsers, tryLoginForUser } from "../../api_calls";
+import { useUserContext } from "./UserContext";
+import { IUserDetails } from "../../types";
 
 const UserLogin = () => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
+  const { loggedInUser, dispatch } = useUserContext();
+
   let navigate = useNavigate();
   const [isLoginInvalid, setIsLoginInvalid] = useState(false);
   const [isSuccessLogin, setIsSuccessLogin] = useState(false);
   const handleLogin = () => {
     tryLoginForUser(credentials)
-      .then((res) => {
+      .then(() => {
         setIsSuccessLogin(true);
         setIsLoginInvalid(false);
-        setTimeout(() => {
-          navigate("/home");
-        }, 1500);
-        console.log(res);
+        dispatch({
+          type: "add_uname_password",
+          data: { ...credentials, id: loggedInUser.id },
+        });
+      })
+      .then(async () => {
+        try {
+          const users = await getAllUsers();
+          const matchedUser = users.find(
+            (user: IUserDetails) => user.username === loggedInUser.username
+          );
+
+          if (matchedUser) {
+            dispatch({
+              type: "add_id",
+              data: { ...loggedInUser, id: matchedUser.id },
+            });
+          }
+        } catch (e) {
+          console.log("Failed to fetch ID", e);
+        }
+      })
+      .then(() => {
+        navigate("/home");
       })
       .catch((err) => {
         setIsLoginInvalid(true);
