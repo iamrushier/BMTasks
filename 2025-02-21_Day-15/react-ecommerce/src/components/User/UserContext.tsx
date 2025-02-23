@@ -26,6 +26,8 @@ const reducer = (
       };
     case "add_id":
       return { ...prev, id: action.data.id };
+    case "logout":
+      return { id: "", username: "", password: "" };
   }
   return prev;
 };

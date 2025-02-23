@@ -10,45 +10,38 @@ const UserLogin = () => {
     password: "",
   });
   const { loggedInUser, dispatch } = useUserContext();
-
+  console.log("Login", loggedInUser.id);
   let navigate = useNavigate();
   const [isLoginInvalid, setIsLoginInvalid] = useState(false);
   const [isSuccessLogin, setIsSuccessLogin] = useState(false);
-  const handleLogin = () => {
-    tryLoginForUser(credentials)
-      .then(() => {
-        setIsSuccessLogin(true);
-        setIsLoginInvalid(false);
-        dispatch({
-          type: "add_uname_password",
-          data: { ...credentials, id: loggedInUser.id },
-        });
-      })
-      .then(async () => {
-        try {
-          const users = await getAllUsers();
-          const matchedUser = users.find(
-            (user: IUserDetails) => user.username === loggedInUser.username
-          );
-
-          if (matchedUser) {
-            dispatch({
-              type: "add_id",
-              data: { ...loggedInUser, id: matchedUser.id },
-            });
-          }
-        } catch (e) {
-          console.log("Failed to fetch ID", e);
-        }
-      })
-      .then(() => {
-        navigate("/home");
-      })
-      .catch((err) => {
-        setIsLoginInvalid(true);
-        console.log(err.message);
+  const handleLogin = async () => {
+    try {
+      await tryLoginForUser(credentials);
+      setIsSuccessLogin(true);
+      setIsLoginInvalid(false);
+      dispatch({
+        type: "add_uname_password",
+        data: { ...credentials, id: loggedInUser.id },
       });
+      const users = await getAllUsers();
+      const matchedUser = users.find(
+        (user: IUserDetails) => user.username === credentials.username
+      );
+
+      if (matchedUser) {
+        dispatch({
+          type: "add_id",
+          data: { ...loggedInUser, id: matchedUser.id },
+        });
+      }
+      console.log("Updated User:", JSON.stringify(matchedUser));
+      navigate("/home");
+    } catch (err: any) {
+      setIsLoginInvalid(true);
+      console.log(err.message);
+    }
   };
+
   return (
     <div className="container card p-3 " style={{ width: "400px" }}>
       <h4 className="text-center">User Login</h4>
