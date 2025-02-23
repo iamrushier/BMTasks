@@ -1,5 +1,11 @@
 import axios from "axios";
-import { AuthToken, IUserCreds, IUserDetails } from "./types";
+import {
+  AuthToken,
+  ICart,
+  IProductDetails,
+  IUserCreds,
+  IUserDetails,
+} from "./types";
 const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 
 export const tryLoginForUser = async ({
@@ -15,19 +21,19 @@ export const getAllUsers = async (): Promise<IUserDetails[]> => {
   return res.data;
 };
 
-export async function getIdOfLoggedInUser(
-  loggedInUser: IUserCreds
-): Promise<number | undefined> {
-  try {
-    const users = await getAllUsers();
-    const matchedUser = users.find(
-      (user: IUserDetails) => user.username === loggedInUser.username
-    );
-
-    if (matchedUser) {
-      return Number(matchedUser.id);
-    }
-  } catch (e) {
-    console.log("Failed to fetch ID", e);
-  }
-}
+export const getProductById = async (
+  productId: number
+): Promise<IProductDetails> => {
+  const res = await fakeStoreAPI.get(`/products/${productId}`);
+  return res.data;
+};
+export const getCartItemsForUserID = async (
+  userId: number
+): Promise<ICart[]> => {
+  const res = await fakeStoreAPI.get(`/carts/user/${userId}`);
+  return res.data;
+};
+export const emptyCart = async (cartId: number) => {
+  const res = await fakeStoreAPI.delete(`/carts/${cartId}`);
+  return res.data;
+};

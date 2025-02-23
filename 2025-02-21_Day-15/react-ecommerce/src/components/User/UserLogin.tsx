@@ -10,7 +10,6 @@ const UserLogin = () => {
     password: "",
   });
   const { loggedInUser, dispatch } = useUserContext();
-  console.log("Login", loggedInUser.id);
   let navigate = useNavigate();
   const [isLoginInvalid, setIsLoginInvalid] = useState(false);
   const [isSuccessLogin, setIsSuccessLogin] = useState(false);

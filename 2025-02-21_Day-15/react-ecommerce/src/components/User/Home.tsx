@@ -3,7 +3,6 @@ import { useUserContext } from "./UserContext";
 
 const Home = () => {
   const { loggedInUser } = useUserContext();
-  console.log("Home", loggedInUser.id);
   return (
     <div>
       <Navbar />
