@@ -1,14 +1,22 @@
 import React from "react";
 import { CartItemProps } from "../../types";
+import { useNavigate } from "react-router-dom";
 
 const CartItem: React.FC<CartItemProps> = ({
+  id,
   title,
   price,
   quantity,
   image,
 }) => {
+  const navigate = useNavigate();
   return (
-    <div className="card mb-3">
+    <div
+      className="card mb-3"
+      onClick={() => {
+        navigate(`/product/${id}`);
+      }}
+    >
       <div className="card-body">
         <div className="d-flex justify-content-between">
           <div className="d-flex flex-row align-items-center">

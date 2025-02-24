@@ -43,17 +43,18 @@ const Cart = () => {
         <p>
           {cartData
             ? `You have ${cartData.products.length} items in your cart`
-            : "Your cart is empty"}
+            : "Your cart will appear here"}
         </p>
 
         <div className="item-container">
           {cartData && products.length > 0 ? (
-            cartData.products.map((entry, index) => {
+            cartData.products.map((entry) => {
               const product = products.find((p) => p.id === entry.productId);
               return (
                 product && (
                   <CartItem
-                    key={index}
+                    key={entry.productId}
+                    id={product.id}
                     title={product.title}
                     price={product.price}
                     quantity={entry.quantity}
