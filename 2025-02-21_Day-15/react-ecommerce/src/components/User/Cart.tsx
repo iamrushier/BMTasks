@@ -8,7 +8,7 @@ import { useCartContext } from "./CartContext";
 
 const Cart = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const { cart } = useCartContext();
+  const { cart, dispatch } = useCartContext();
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -76,7 +76,13 @@ const Cart = () => {
                   .toFixed(2)}
               </h3>
             </div>
-            <button className="checkout-btn btn btn-info btn-lg w-100">
+            <button
+              className="checkout-btn btn btn-info btn-lg w-100"
+              onClick={() => {
+                alert("Dummy checkout COMPLETE!!");
+                dispatch({ type: "clear_cart" });
+              }}
+            >
               Checkout
             </button>
           </div>
