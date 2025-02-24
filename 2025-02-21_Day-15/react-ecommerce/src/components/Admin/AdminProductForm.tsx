@@ -1,10 +1,167 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import AdminNavbar from "./AdminNavbar";
+import { IProductDetails } from "../../types";
+import { useAdminProductContext } from "./AdminProductContext";
 
 const AdminProductForm = () => {
+  const { id } = useParams();
+  const isEditing = !!id;
+  const navigate = useNavigate();
+  const { products, dispatch } = useAdminProductContext();
+  const initialProductData: IProductDetails = {
+    id: 0,
+    title: "",
+    price: 0,
+    category: "",
+    description: "",
+    image: "",
+    rating: { rate: 0, count: 0 },
+  };
+  const [product, setProduct] = useState<IProductDetails>(initialProductData);
+
+  const [isEditMode, setIsEditMode] = useState(!isEditing);
+
+  useEffect(() => {
+    if (isEditing) {
+      const product = products.find((p) => p.id === Number(id));
+      if (product) {
+        setProduct(product);
+        setIsEditMode(false);
+      }
+    } else {
+      setProduct(initialProductData);
+      setIsEditMode(true);
+    }
+  }, [id, isEditing]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    if (isEditing) {
+      dispatch({ type: "edit_product", item: product });
+      alert("Product updated successfully!");
+    } else {
+      dispatch({ type: "add_product", item: { ...product, id: Date.now() } });
+      alert("Product added successfully!");
+    }
+    navigate("/admin/home");
+  };
+
+  const handleDelete = () => {
+    dispatch({ type: "delete_product", item: product });
+    alert("Product deleted successfully!");
+    navigate("/admin/home");
+  };
+
   return (
     <div>
       <AdminNavbar />
-      <div>AdminProductForm</div>
+      <div className="container mt-4">
+        <div
+          className="card p-4 shadow-sm mx-auto"
+          style={{ maxWidth: "600px" }}
+        >
+          <h3 className="mb-3">
+            {isEditing ? "Edit Product" : "Add New Product"}
+          </h3>
+
+          <div className="mb-3">
+            <label className="form-label">Title:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="title"
+              value={product.title}
+              onChange={handleInputChange}
+              disabled={!isEditMode}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Price:</label>
+            <input
+              type="number"
+              className="form-control"
+              name="price"
+              value={product.price}
+              onChange={handleInputChange}
+              disabled={!isEditMode}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Category:</label>
+            <select
+              className="form-select"
+              name="category"
+              value={product.category}
+              onChange={handleInputChange}
+              disabled={!isEditMode}
+            >
+              <option value="electronics">electronics</option>
+              <option value="jewelery">jewelery</option>
+              <option value="men's clothing">men's clothing</option>
+              <option value="women's clothing">women's clothing</option>
+            </select>
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Description:</label>
+            <textarea
+              className="form-control"
+              name="description"
+              rows={3}
+              value={product.description}
+              onChange={handleInputChange}
+              disabled={!isEditMode}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Image URL:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="image"
+              value={product.image}
+              onChange={handleInputChange}
+              disabled={!isEditMode}
+            />
+          </div>
+
+          <div className="d-flex justify-content-between">
+            {isEditing ? (
+              <>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => setIsEditMode(!isEditMode)}
+                >
+                  {isEditMode ? "Cancel" : "Edit"}
+                </button>
+                {isEditMode && (
+                  <button className="btn btn-success" onClick={handleSubmit}>
+                    Update
+                  </button>
+                )}
+                <button className="btn btn-danger" onClick={handleDelete}>
+                  Delete
+                </button>
+              </>
+            ) : (
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Add Product
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

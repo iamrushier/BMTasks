@@ -5,7 +5,7 @@ import { useAuthorizeAdmin } from "./AdminContext";
 const AdminLogin = () => {
   const [adminUname, setAdminUname] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
-  const { isAuthorizedAdmin, verifyAdminLogin } = useAuthorizeAdmin();
+  const { verifyAdminLogin } = useAuthorizeAdmin();
   const navigate = useNavigate();
 
   const verifyLogin = () => {

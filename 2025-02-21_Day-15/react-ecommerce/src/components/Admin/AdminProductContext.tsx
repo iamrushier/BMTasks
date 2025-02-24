@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { IProductDetails } from "../../types";
+import { getAllProducts } from "../../api_calls";
 type ProductContextType = {
   products: IProductDetails[];
   dispatch: React.Dispatch<{
@@ -40,7 +41,19 @@ export const AdminProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [products, dispatch] = React.useReducer(productsReducer, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productData = await getAllProducts();
 
+        dispatch({ type: "initilize_data", products: productData });
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
   return (
     <AdminProductContext.Provider value={{ products, dispatch }}>
       {children}

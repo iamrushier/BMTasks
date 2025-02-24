@@ -2,28 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { useAuthorizeAdmin } from "./AdminContext";
 import { useAdminProductContext } from "./AdminProductContext";
 import AdminNavbar from "./AdminNavbar";
-import ProductCard from "../stateless/ProductCard";
-import { getAllProducts } from "../../api_calls";
 import { useEffect } from "react";
 import AdminProductCard from "./AdminProductCard";
 
 const AdminHome = () => {
   const navigate = useNavigate();
   const { isAuthorizedAdmin } = useAuthorizeAdmin();
-  const { products, dispatch } = useAdminProductContext();
+  const { products } = useAdminProductContext();
   useEffect(() => {
     if (!isAuthorizedAdmin) navigate("/admin/login");
-    const fetchProducts = async () => {
-      try {
-        const productData = await getAllProducts();
-
-        dispatch({ type: "initilize_data", products: productData });
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
   }, []);
 
   return (
