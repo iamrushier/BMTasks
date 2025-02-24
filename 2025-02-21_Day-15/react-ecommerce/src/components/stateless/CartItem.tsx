@@ -24,17 +24,26 @@ const CartItem: React.FC<CartItemProps> = ({
     });
   };
 
-  const handleRemoveItem = () => {
-    dispatch({
-      type: "remove_from_cart",
-      item: { productId: id, quantity: quantity },
-    });
+  const handleRemoveItem = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const confirmDelete = confirm("Are you sure you want to remove this item?");
+    if (confirmDelete) {
+      dispatch({
+        type: "remove_from_cart",
+        item: { productId: id, quantity: quantity },
+      });
+      setInputQuantity(0);
+      alert("Item removed from cart.");
+    }
   };
   return (
     <div className="card mb-3 p-2">
       <div className="card-body">
         <div className="d-flex align-items-center justify-content-between">
-          <div className="d-flex align-items-center flex-grow-1">
+          <div
+            className="d-flex align-items-center flex-grow-1"
+            onClick={() => navigate(`/product/${id}`)}
+          >
             <img
               src={image}
               className="img-fluid rounded-3"
@@ -45,7 +54,6 @@ const CartItem: React.FC<CartItemProps> = ({
                 objectFit: "cover",
                 cursor: "pointer",
               }}
-              onClick={() => navigate(`/product/${id}`)}
             />
             <div className="ms-3">
               <h5 className="mb-1">{title}</h5>

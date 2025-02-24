@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom";
 import Navbar from "../stateless/Navbar";
 import { getProductById } from "../../api_calls";
 import { useEffect, useState } from "react";
-import { IProductDetails } from "../../types";
+import { ICartProduct, IProductDetails } from "../../types";
+import { useCartContext } from "./CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -10,13 +11,23 @@ const ProductDetails = () => {
     undefined
   );
   const [quantity, setQuantity] = useState(1);
-
+  const { dispatch } = useCartContext();
   useEffect(() => {
     if (id) {
       getProductById(Number(id)).then(setProduct);
     }
   }, [id]);
+  const handleAddToCart = () => {
+    if (!product) return;
 
+    const cartItem: ICartProduct = {
+      productId: product.id,
+      quantity,
+    };
+
+    dispatch({ type: "add_to_cart", item: cartItem });
+    alert(`Added ${quantity} pieces of "${product.title}" to cart`);
+  };
   return (
     <div>
       <Navbar />
@@ -57,7 +68,9 @@ const ProductDetails = () => {
                     onChange={(e) => setQuantity(Number(e.target.value))}
                     style={{ width: "80px" }}
                   />
-                  <button className="btn btn-success">Add to Cart</button>
+                  <button className="btn btn-success" onClick={handleAddToCart}>
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>

@@ -15,7 +15,7 @@ const UserLogin = () => {
     password: "",
   });
   const { loggedInUser, dispatch } = useUserContext();
-  const { cart, dispatch: cartDispatch } = useCartContext();
+  const { dispatch: cartDispatch } = useCartContext();
   let navigate = useNavigate();
   const [isLoginInvalid, setIsLoginInvalid] = useState(false);
   const [isSuccessLogin, setIsSuccessLogin] = useState(false);

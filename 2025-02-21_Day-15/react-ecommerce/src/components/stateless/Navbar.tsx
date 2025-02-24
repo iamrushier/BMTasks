@@ -1,8 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useUserContext } from "../User/UserContext";
+import { useCartContext } from "../User/CartContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { cart } = useCartContext();
   const { loggedInUser, dispatch } = useUserContext();
   return (
     <nav className="nav nav-pills gap-2 p-2 border border-primary d-flex w-100 align-items-center">
@@ -35,7 +37,7 @@ const Navbar = () => {
               : "nav-link rounded-2 home-btn"
           }
         >
-          Cart
+          Cart({cart.products.length})
         </NavLink>
       </div>
       <button

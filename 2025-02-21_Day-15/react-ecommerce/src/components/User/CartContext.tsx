@@ -18,7 +18,22 @@ const cartReducer = (
       return { ...state, ...action.cart };
     case "add_to_cart":
       if (!action.item) return state;
-      return { ...state, products: [...state.products, action.item] };
+      const existingProduct = state.products.find(
+        (p) => p.productId === action.item?.productId
+      );
+
+      if (existingProduct) {
+        return {
+          ...state,
+          products: state.products.map((p) =>
+            p.productId === action.item?.productId
+              ? { ...p, quantity: p.quantity + action.item!.quantity }
+              : p
+          ),
+        };
+      } else {
+        return { ...state, products: [...state.products, action.item] };
+      }
     case "update_quantity":
       if (!action.item) return state;
       return {
