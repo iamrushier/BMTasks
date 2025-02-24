@@ -32,7 +32,7 @@ const Cart = () => {
     };
 
     fetchCart();
-  }, [loggedInUser.id]);
+  }, [cart]);
 
   return (
     <div>
@@ -41,7 +41,7 @@ const Cart = () => {
         <h2>Shopping Cart</h2>
         <p>
           {cart.id !== 0
-            ? `You have ${cart.products.length} items in your cart`
+            ? `You have ${cart.products.length} products in your cart`
             : "Your cart will appear here"}
         </p>
 

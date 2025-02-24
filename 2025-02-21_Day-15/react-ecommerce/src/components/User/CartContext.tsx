@@ -19,7 +19,16 @@ const cartReducer = (
     case "add_to_cart":
       if (!action.item) return state;
       return { ...state, products: [...state.products, action.item] };
-
+    case "update_quantity":
+      if (!action.item) return state;
+      return {
+        ...state,
+        products: state.products.map((p) =>
+          p.productId === action.item?.productId
+            ? { ...p, quantity: action.item.quantity }
+            : p
+        ),
+      };
     case "remove_from_cart":
       return {
         ...state,
