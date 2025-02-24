@@ -1,7 +1,12 @@
-import React from "react";
+import AdminNavbar from "./AdminNavbar";
 
 const AdminProductForm = () => {
-  return <div>AdminProductForm</div>;
+  return (
+    <div>
+      <AdminNavbar />
+      <div>AdminProductForm</div>
+    </div>
+  );
 };
 
 export default AdminProductForm;
