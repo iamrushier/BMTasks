@@ -16,14 +16,11 @@ const Cart = () => {
     if (!loggedInUser.id) {
       navigate("/login");
     }
-
     const fetchCart = async () => {
       try {
         const cart = await getCartItemsForUserID(Number(loggedInUser.id));
         if (cart.length > 0) {
           setCartData(cart[0]);
-
-          // Fetch product details for each item in the cart
           const productPromises = cart[0].products.map((item) =>
             getProductById(item.productId)
           );

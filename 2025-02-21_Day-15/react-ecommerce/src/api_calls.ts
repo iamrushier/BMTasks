@@ -37,3 +37,11 @@ export const emptyCart = async (cartId: number) => {
   const res = await fakeStoreAPI.delete(`/carts/${cartId}`);
   return res.data;
 };
+export const getLimitedProducts = async (): Promise<IProductDetails[]> => {
+  const res = await fakeStoreAPI.get("/products?limit=12");
+  return res.data;
+};
+export const getAllProducts = async (): Promise<IProductDetails[]> => {
+  const res = await fakeStoreAPI.get("/products");
+  return res.data;
+};

@@ -18,6 +18,16 @@ const Navbar = () => {
           Home
         </NavLink>
         <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            isActive
+              ? "nav-link active rounded-2 home-btn"
+              : "nav-link rounded-2 home-btn"
+          }
+        >
+          Products
+        </NavLink>
+        <NavLink
           to="/cart"
           className={({ isActive }) =>
             isActive
@@ -35,7 +45,7 @@ const Navbar = () => {
           navigate("/login");
         }}
       >
-        Logout
+        {loggedInUser.id ? "Logout" : "Login"}
       </button>
     </nav>
   );
