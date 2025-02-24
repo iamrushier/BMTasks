@@ -8,6 +8,7 @@ import { UserContextProvider } from "./components/User/UserContext";
 import Cart from "./components/User/Cart";
 import Products from "./components/User/Products";
 import ProductDisplay from "./components/User/ProductDisplay";
+import ProductDetails from "./components/User/ProductDetails";
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
               <Route index element={<ProductDisplay />} />
               <Route path=":category" element={<ProductDisplay />} />
             </Route>
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/admin/login" element={<AdminLogin />} />
