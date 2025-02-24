@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
 import Navbar from "../stateless/Navbar";
-import { useUserContext } from "./UserContext";
 import { getProductById } from "../../api_calls";
 import CartItem from "../stateless/CartItem";
 import { IProduct } from "../../types";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useCartContext } from "./CartContext";
 
 const Cart = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const { cart } = useCartContext();
-  const { loggedInUser } = useUserContext();
-  const navigate = useNavigate();
   useEffect(() => {
-    if (!loggedInUser.id) {
-      navigate("/login");
-    }
     const fetchCart = async () => {
       try {
         if (cart.id !== 0) {

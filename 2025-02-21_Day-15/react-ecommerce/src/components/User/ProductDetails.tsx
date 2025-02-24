@@ -1,12 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../stateless/Navbar";
 import { getProductById } from "../../api_calls";
 import { useEffect, useState } from "react";
 import { ICartProduct, IProductDetails } from "../../types";
 import { useCartContext } from "./CartContext";
+import { useUserContext } from "./UserContext";
 
 const ProductDetails = () => {
+  const { loggedInUser } = useUserContext();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState<IProductDetails | undefined>(
     undefined
   );
@@ -19,7 +22,11 @@ const ProductDetails = () => {
   }, [id]);
   const handleAddToCart = () => {
     if (!product) return;
-
+    if (!loggedInUser.id) {
+      alert("Log in first to add product to cart");
+      navigate("/login");
+      return;
+    }
     const cartItem: ICartProduct = {
       productId: product.id,
       quantity,

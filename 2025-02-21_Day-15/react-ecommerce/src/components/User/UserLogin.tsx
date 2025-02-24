@@ -17,13 +17,20 @@ const UserLogin = () => {
   const { loggedInUser, dispatch } = useUserContext();
   const { dispatch: cartDispatch } = useCartContext();
   let navigate = useNavigate();
-  const [isLoginInvalid, setIsLoginInvalid] = useState(false);
-  const [isSuccessLogin, setIsSuccessLogin] = useState(false);
+  const [loginMessage, setLoginMessage] = useState("");
   const handleLogin = async () => {
     try {
-      await tryLoginForUser(credentials);
-      setIsSuccessLogin(true);
-      setIsLoginInvalid(false);
+      if (!credentials.username || !credentials.password) {
+        setLoginMessage("Please enter username and password!");
+        return;
+      }
+
+      const data = await tryLoginForUser(credentials);
+      setLoginMessage(
+        `Logging in as ${credentials.username} with token: ${
+          data.token.slice(0, 15) + "...."
+        }`
+      );
       dispatch({
         type: "add_uname_password",
         data: { ...credentials, id: loggedInUser.id },
@@ -44,7 +51,7 @@ const UserLogin = () => {
 
       navigate("/");
     } catch (err: any) {
-      setIsLoginInvalid(true);
+      setLoginMessage("Invalid username or password!");
       console.log(err.message);
     }
   };
@@ -81,12 +88,8 @@ const UserLogin = () => {
       <button className="btn btn-primary w-100 mt-3" onClick={handleLogin}>
         Login
       </button>
-      {isSuccessLogin ? <p>Logging in...</p> : ""}
-      {isLoginInvalid ? <p>Invalid credentials</p> : ""}
-      {/* <Link to="/home" className="btn btn-primary w-100 mt-3">
-        Login
-      </Link> */}
-      <p className="text-center mt-3">
+      <p className="text-center">{loginMessage}</p>
+      <p className="text-center mt-2">
         <Link to="/admin/login">Switch to Admin Login</Link>
       </p>
     </div>
