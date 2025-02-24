@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../stateless/Navbar";
-import { getProductById } from "../../api_calls";
+import { addProductToCart, getProductById } from "../../api_calls";
 import { useEffect, useState } from "react";
 import { ICartProduct, IProductDetails } from "../../types";
 import { useCartContext } from "./CartContext";
@@ -20,7 +20,7 @@ const ProductDetails = () => {
       getProductById(Number(id)).then(setProduct);
     }
   }, [id]);
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!product) return;
     if (!loggedInUser.id) {
       alert("Log in first to add product to cart");
@@ -31,7 +31,11 @@ const ProductDetails = () => {
       productId: product.id,
       quantity,
     };
-
+    await addProductToCart({
+      userId: Number(loggedInUser.id),
+      date: new Date().toISOString(),
+      products: [cartItem],
+    });
     dispatch({ type: "add_to_cart", item: cartItem });
     alert(`Added ${quantity} pieces of "${product.title}" to cart`);
   };

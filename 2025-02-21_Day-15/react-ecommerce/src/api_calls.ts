@@ -33,7 +33,7 @@ export const getCartItemsForUserID = async (
   const res = await fakeStoreAPI.get(`/carts/user/${userId}`);
   return res.data;
 };
-export const emptyCart = async (cartId: number) => {
+export const deleteCartItems = async (cartId: number) => {
   const res = await fakeStoreAPI.delete(`/carts/${cartId}`);
   return res.data;
 };
@@ -63,5 +63,20 @@ export const addNewProduct = async (product: IProductDetails) => {
 };
 export const deleteProduct = async (id: number) => {
   const res = await fakeStoreAPI.delete(`/products/${id}`);
+  return res.data;
+};
+export const addProductToCart = async ({
+  userId,
+  date,
+  products,
+}: Partial<ICart>) => {
+  const res = await fakeStoreAPI.post("/carts", { userId, date, products });
+  return res.data;
+};
+export const updateCartProducts = async (
+  cartId: number,
+  cart: Partial<ICart>
+) => {
+  const res = await fakeStoreAPI.patch(`/carts/${cartId}`, cart);
   return res.data;
 };

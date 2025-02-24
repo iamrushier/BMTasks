@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { CartItemProps } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../User/CartContext";
+import { deleteCartItems, updateCartProducts } from "../../api_calls";
+import { useUserContext } from "../User/UserContext";
 
 const CartItem: React.FC<CartItemProps> = ({
   id,
@@ -13,21 +15,30 @@ const CartItem: React.FC<CartItemProps> = ({
   const navigate = useNavigate();
   const { dispatch } = useCartContext();
   const [inputQuantity, setInputQuantity] = useState(quantity);
-
-  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const { loggedInUser } = useUserContext();
+  const handleQuantityChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     let newQuantity = Number(event.target.value);
 
     setInputQuantity(newQuantity);
+    const cartItem = { productId: id, quantity: newQuantity };
+    await updateCartProducts(id, {
+      userId: Number(loggedInUser.id),
+      date: new Date().toISOString(),
+      products: [cartItem],
+    });
     dispatch({
       type: "update_quantity",
-      item: { productId: id, quantity: newQuantity },
+      item: cartItem,
     });
   };
 
-  const handleRemoveItem = (e: React.MouseEvent) => {
+  const handleRemoveItem = async (e: React.MouseEvent) => {
     e.preventDefault();
     const confirmDelete = confirm("Are you sure you want to remove this item?");
     if (confirmDelete) {
+      await deleteCartItems(id);
       dispatch({
         type: "remove_from_cart",
         item: { productId: id, quantity: quantity },
