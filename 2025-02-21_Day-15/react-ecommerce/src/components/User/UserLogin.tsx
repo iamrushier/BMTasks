@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllUsers, tryLoginForUser } from "../../api_calls";
+import {
+  getAllUsers,
+  getCartItemsForUserID,
+  tryLoginForUser,
+} from "../../api_calls";
 import { useUserContext } from "./UserContext";
 import { IUserDetails } from "../../types";
+import { useCartContext } from "./CartContext";
 
 const UserLogin = () => {
   const [credentials, setCredentials] = useState({
@@ -10,6 +15,7 @@ const UserLogin = () => {
     password: "",
   });
   const { loggedInUser, dispatch } = useUserContext();
+  const { cart, dispatch: cartDispatch } = useCartContext();
   let navigate = useNavigate();
   const [isLoginInvalid, setIsLoginInvalid] = useState(false);
   const [isSuccessLogin, setIsSuccessLogin] = useState(false);
@@ -32,8 +38,10 @@ const UserLogin = () => {
           type: "add_id",
           data: { ...loggedInUser, id: matchedUser.id },
         });
+        const cartData = await getCartItemsForUserID(Number(matchedUser.id));
+        cartDispatch({ type: "set_cart_init", cart: cartData[0] });
       }
-      console.log("Updated User:", JSON.stringify(matchedUser));
+
       navigate("/");
     } catch (err: any) {
       setIsLoginInvalid(true);

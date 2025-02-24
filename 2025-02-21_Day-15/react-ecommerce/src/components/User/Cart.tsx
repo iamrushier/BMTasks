@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import Navbar from "../stateless/Navbar";
 import { useUserContext } from "./UserContext";
-import { getCartItemsForUserID, getProductById } from "../../api_calls";
+import { getProductById } from "../../api_calls";
 import CartItem from "../stateless/CartItem";
-import { ICart, IProduct } from "../../types";
+import { IProduct } from "../../types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from "./CartContext";
 
 const Cart = () => {
-  const [cartData, setCartData] = useState<ICart | null>(null);
   const [products, setProducts] = useState<IProduct[]>([]);
+  const { cart } = useCartContext();
   const { loggedInUser } = useUserContext();
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,10 +19,8 @@ const Cart = () => {
     }
     const fetchCart = async () => {
       try {
-        const cart = await getCartItemsForUserID(Number(loggedInUser.id));
-        if (cart.length > 0) {
-          setCartData(cart[0]);
-          const productPromises = cart[0].products.map((item) =>
+        if (cart.id !== 0) {
+          const productPromises = cart.products.map((item) =>
             getProductById(item.productId)
           );
           const productDetails = await Promise.all(productPromises);
@@ -41,14 +40,14 @@ const Cart = () => {
       <div className="container mt-3 w-50">
         <h2>Shopping Cart</h2>
         <p>
-          {cartData
-            ? `You have ${cartData.products.length} items in your cart`
+          {cart.id !== 0
+            ? `You have ${cart.products.length} items in your cart`
             : "Your cart will appear here"}
         </p>
 
         <div className="item-container">
-          {cartData && products.length > 0 ? (
-            cartData.products.map((entry) => {
+          {cart.id !== 0 && products.length > 0 ? (
+            cart.products.map((entry) => {
               const product = products.find((p) => p.id === entry.productId);
               return (
                 product && (
@@ -68,7 +67,7 @@ const Cart = () => {
           )}
         </div>
 
-        {cartData && products.length > 0 && (
+        {cart.id !== 0 && products.length > 0 && (
           <div className="card bg-primary text-white rounded-3 mt-3 p-3">
             <div className="d-flex justify-content-between">
               <h3>Total</h3>
@@ -77,7 +76,7 @@ const Cart = () => {
                 {products
                   .reduce((total, product) => {
                     const quantity =
-                      cartData.products.find((p) => p.productId === product.id)
+                      cart.products.find((p) => p.productId === product.id)
                         ?.quantity || 0;
                     return total + product.price * quantity;
                   }, 0)

@@ -9,25 +9,28 @@ import Cart from "./components/User/Cart";
 import Products from "./components/User/Products";
 import ProductDisplay from "./components/User/ProductDisplay";
 import ProductDetails from "./components/User/ProductDetails";
+import { CartProvider } from "./components/User/CartContext";
 function App() {
   return (
     <>
-      <UserContextProvider>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />}>
-              <Route index element={<ProductDisplay />} />
-              <Route path=":category" element={<ProductDisplay />} />
-            </Route>
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/login" element={<UserLogin />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-          </Routes>
-        </Router>
-      </UserContextProvider>
+      <CartProvider>
+        <UserContextProvider>
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />}>
+                <Route index element={<ProductDisplay />} />
+                <Route path=":category" element={<ProductDisplay />} />
+              </Route>
+              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="/login" element={<UserLogin />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+            </Routes>
+          </Router>
+        </UserContextProvider>
+      </CartProvider>
     </>
   );
 }
