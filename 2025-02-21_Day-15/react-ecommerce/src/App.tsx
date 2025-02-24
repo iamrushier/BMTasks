@@ -7,6 +7,7 @@ import Home from "./components/User/Home";
 import { UserContextProvider } from "./components/User/UserContext";
 import Cart from "./components/User/Cart";
 import Products from "./components/User/Products";
+import ProductDisplay from "./components/User/ProductDisplay";
 function App() {
   return (
     <>
@@ -15,12 +16,10 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            {/* <Route path="/category/electronics" />
-              <Route path="/category/jewlery" />
-              <Route path="/category/men's clothing" />
-              <Route path="/category/women's clothing" /> */}
-            {/* </Route> */}
+            <Route path="/products" element={<Products />}>
+              <Route index element={<ProductDisplay />} />
+              <Route path=":category" element={<ProductDisplay />} />
+            </Route>
             <Route path="/login" element={<UserLogin />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/admin/login" element={<AdminLogin />} />

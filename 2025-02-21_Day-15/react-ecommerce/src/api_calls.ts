@@ -45,3 +45,10 @@ export const getAllProducts = async (): Promise<IProductDetails[]> => {
   const res = await fakeStoreAPI.get("/products");
   return res.data;
 };
+export const getProductsByCategory = async (
+  category: string
+): Promise<IProductDetails[]> => {
+  category = category.toLowerCase();
+  const res = await fakeStoreAPI.get(`/products/category/${category}`);
+  return res.data;
+};

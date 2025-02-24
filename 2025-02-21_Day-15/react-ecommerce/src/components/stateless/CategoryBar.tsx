@@ -1,27 +1,25 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const CategoryBar = () => {
   return (
-    <div className="border  p-2 bg-light rounded">
-      <nav className="nav nav-pills d-flex justify-content-center gap-5">
-        <Link to="/" className="nav-link text-dark fw-bold">
+    <div className="border p-2 bg-light rounded">
+      <nav className="nav nav-pills d-flex justify-content-center gap-4">
+        <NavLink to="/products" end className="nav-link">
           All Products
-        </Link>
-        <Link to="jewlery" className="nav-link text-dark fw-bold">
+        </NavLink>
+        <NavLink to="/products/jewelery" className="nav-link">
           Jewelry
-        </Link>
-        <Link to="electronics" className="nav-link text-dark fw-bold">
+        </NavLink>
+        <NavLink to="/products/electronics" className="nav-link">
           Electronics
-        </Link>
-        <Link to="men's clothing" className="nav-link text-dark fw-bold">
+        </NavLink>
+        <NavLink to="/products/men's clothing" className="nav-link">
           Men's Clothing
-        </Link>
-        <Link to="women's clothing" className="nav-link text-dark fw-bold">
+        </NavLink>
+        <NavLink to="/products/women's clothing" className="nav-link">
           Women's Clothing
-        </Link>
+        </NavLink>
       </nav>
-      <Outlet />
     </div>
   );
 };
