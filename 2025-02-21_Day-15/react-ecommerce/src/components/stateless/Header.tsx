@@ -1,9 +1,11 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="text-center p-2 bg-primary text-white">
-      <h1>React Commerce</h1>
+      <Link to="/" className="text-white text-decoration-none">
+        <h1 className="fw-bold m-2">React Commerce</h1>
+      </Link>
     </div>
   );
 };
