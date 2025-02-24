@@ -1,18 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { useAuthorizeAdmin } from "./AdminContext";
 import { useAdminProductContext } from "./AdminProductContext";
 import AdminNavbar from "./AdminNavbar";
-import { useEffect } from "react";
 import AdminProductCard from "./AdminProductCard";
 
 const AdminHome = () => {
-  const navigate = useNavigate();
-  const { isAuthorizedAdmin } = useAuthorizeAdmin();
   const { products } = useAdminProductContext();
-  useEffect(() => {
-    if (!isAuthorizedAdmin) navigate("/admin/login");
-  }, []);
-
   return (
     <div>
       <AdminNavbar />

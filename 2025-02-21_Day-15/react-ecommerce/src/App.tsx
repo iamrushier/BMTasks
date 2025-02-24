@@ -14,6 +14,7 @@ import AdminProductForm from "./components/Admin/AdminProductForm";
 import AdminHome from "./components/Admin/AdminHome";
 import { AdminProvider } from "./components/Admin/AdminContext";
 import { AdminProductProvider } from "./components/Admin/AdminProductContext";
+import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 function App() {
   return (
     <>
@@ -34,15 +35,19 @@ function App() {
                   {/* Protected route here */}
                   <Route path="/cart" element={<Cart />} />
                   {/* Protected route end */}
+
                   <Route index path="/admin/login" element={<AdminLogin />} />
-                  {/* Protected route here */}
-                  <Route path="/admin/home" element={<AdminHome />} />
-                  <Route path="/admin/add_new" element={<AdminProductForm />} />
-                  <Route
-                    path="/admin/product/:id"
-                    element={<AdminProductForm />}
-                  />
-                  {/* Protected route end */}
+                  <Route element={<AdminProtectedRoute />}>
+                    <Route path="/admin/home" element={<AdminHome />} />
+                    <Route
+                      path="/admin/add_new"
+                      element={<AdminProductForm />}
+                    />
+                    <Route
+                      path="/admin/product/:id"
+                      element={<AdminProductForm />}
+                    />
+                  </Route>
                 </Routes>
               </Router>
             </UserContextProvider>
