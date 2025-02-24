@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AdminNavbar from "./AdminNavbar";
 import { IProductDetails } from "../../types";
 import { useAdminProductContext } from "./AdminProductContext";
+import { addNewProduct, deleteProduct, updateProduct } from "../../api_calls";
 
 const AdminProductForm = () => {
   const { id } = useParams();
@@ -43,19 +44,24 @@ const AdminProductForm = () => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isEditing) {
+      await updateProduct(product.id, product);
       dispatch({ type: "edit_product", item: product });
       alert("Product updated successfully!");
     } else {
+      await addNewProduct(product);
       dispatch({ type: "add_product", item: { ...product, id: Date.now() } });
       alert("Product added successfully!");
     }
     navigate("/admin/home");
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (product.id <= 200) await deleteProduct(product.id);
     dispatch({ type: "delete_product", item: product });
+
     alert("Product deleted successfully!");
     navigate("/admin/home");
   };

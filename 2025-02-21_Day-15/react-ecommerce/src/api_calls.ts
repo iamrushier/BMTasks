@@ -52,3 +52,16 @@ export const getProductsByCategory = async (
   const res = await fakeStoreAPI.get(`/products/category/${category}`);
   return res.data;
 };
+
+export const updateProduct = async (id: number, product: IProductDetails) => {
+  const res = await fakeStoreAPI.patch(`/products/${id}`, product);
+  return res.data;
+};
+export const addNewProduct = async (product: IProductDetails) => {
+  const res = await fakeStoreAPI.post("/products", product);
+  return res.data;
+};
+export const deleteProduct = async (id: number) => {
+  const res = await fakeStoreAPI.delete(`/products/${id}`);
+  return res.data;
+};
