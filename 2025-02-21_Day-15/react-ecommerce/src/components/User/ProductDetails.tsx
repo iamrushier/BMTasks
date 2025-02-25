@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../stateless/Navbar";
-import { addProductToCart, getProductById } from "../../api_calls";
+import { addProductToCart, getProductById } from "../../api/api_calls";
 import { useState } from "react";
 import { ICartProduct } from "../../types";
-import { useCartContext } from "./CartContext";
-import { useUserContext } from "./UserContext";
+import { useCartContext } from "../../contexts/UserCartContext";
+import { useUserContext } from "../../contexts/UserContext";
 import { useQuery } from "@tanstack/react-query";
 
 const ProductDetails = () => {

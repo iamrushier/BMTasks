@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 const UserProtectedRoute = () => {
   const { loggedInUser } = useUserContext();

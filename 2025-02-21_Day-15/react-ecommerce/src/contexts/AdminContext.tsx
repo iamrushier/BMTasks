@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { IAdminContextType } from "../../types";
+import { IAdminContextType } from "../types";
 
 const adminCreds = { username: "admin", password: "admin" };
 

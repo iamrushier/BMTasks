@@ -5,7 +5,7 @@ import {
   IProductDetails,
   IUserCreds,
   IUserDetails,
-} from "./types";
+} from "../types";
 const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 
 export const tryLoginForUser = async ({

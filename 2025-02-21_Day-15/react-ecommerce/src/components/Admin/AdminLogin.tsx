@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthorizeAdmin } from "./AdminContext";
+import { useAuthorizeAdmin } from "../../contexts/AdminContext";
 
 const AdminLogin = () => {
   const [adminUname, setAdminUname] = useState("");

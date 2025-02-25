@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
-import { CartContextType, ICart, ICartProduct } from "../../types";
+import { CartContextType, ICart, ICartProduct } from "../types";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 

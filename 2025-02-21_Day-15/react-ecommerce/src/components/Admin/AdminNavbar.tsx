@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuthorizeAdmin } from "./AdminContext";
+import { useAuthorizeAdmin } from "../../contexts/AdminContext";
 
 const AdminNavbar = () => {
   const { isAuthorizedAdmin, verifyAdminLogin } = useAuthorizeAdmin();

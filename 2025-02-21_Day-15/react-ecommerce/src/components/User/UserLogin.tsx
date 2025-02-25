@@ -4,10 +4,10 @@ import {
   getAllUsers,
   getCartItemsForUserID,
   tryLoginForUser,
-} from "../../api_calls";
-import { useUserContext } from "./UserContext";
+} from "../../api/api_calls";
+import { useUserContext } from "../../contexts/UserContext";
 import { IUserCreds, IUserDetails } from "../../types";
-import { useCartContext } from "./CartContext";
+import { useCartContext } from "../../contexts/UserCartContext";
 import { useMutation } from "@tanstack/react-query";
 
 const UserLogin = () => {

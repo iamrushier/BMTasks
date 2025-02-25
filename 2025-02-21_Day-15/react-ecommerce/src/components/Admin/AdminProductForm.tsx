@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminNavbar from "./AdminNavbar";
 import { IProductDetails } from "../../types";
-import { useAdminProductContext } from "./AdminProductContext";
-import { addNewProduct, deleteProduct, updateProduct } from "../../api_calls";
+import { useAdminProductContext } from "../../contexts/AdminProductContext";
+import {
+  addNewProduct,
+  deleteProduct,
+  updateProduct,
+} from "../../api/api_calls";
 
 const AdminProductForm = () => {
   const { id } = useParams();

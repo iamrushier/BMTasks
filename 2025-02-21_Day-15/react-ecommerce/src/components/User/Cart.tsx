@@ -2,7 +2,7 @@ import Navbar from "../stateless/Navbar";
 import { getProductById } from "../../api/api_calls";
 import CartItem from "../stateless/CartItem";
 import React, { useCallback, useEffect } from "react";
-import { useCartContext } from "../../contexts/CartContext";
+import { useCartContext } from "../../contexts/UserCartContext";
 import { useQuery } from "@tanstack/react-query";
 
 const Cart = () => {

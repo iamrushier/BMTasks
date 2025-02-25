@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
-import { IUserCreds, UserContextType } from "../../types";
+import { IUserCreds, UserContextType } from "../types";
 
 const initialCreds: IUserCreds = {
   id: "",

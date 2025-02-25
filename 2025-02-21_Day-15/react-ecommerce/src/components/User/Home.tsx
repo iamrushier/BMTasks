@@ -1,6 +1,6 @@
 import Navbar from "../stateless/Navbar";
-import { useUserContext } from "./UserContext";
-import { getLimitedProducts } from "../../api_calls";
+import { useUserContext } from "../../contexts/UserContext";
+import { getLimitedProducts } from "../../api/api_calls";
 import ProductCard from "../stateless/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 

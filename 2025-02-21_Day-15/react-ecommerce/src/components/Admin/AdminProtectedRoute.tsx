@@ -1,4 +1,4 @@
-import { useAuthorizeAdmin } from "./AdminContext";
+import { useAuthorizeAdmin } from "../../contexts/AdminContext";
 import { Navigate, Outlet } from "react-router-dom";
 
 const AdminProtectedRoute = () => {

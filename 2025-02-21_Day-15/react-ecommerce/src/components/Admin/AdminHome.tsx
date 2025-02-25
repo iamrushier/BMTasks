@@ -1,4 +1,4 @@
-import { useAdminProductContext } from "./AdminProductContext";
+import { useAdminProductContext } from "../../contexts/AdminProductContext";
 import AdminNavbar from "./AdminNavbar";
 import AdminProductCard from "./AdminProductCard";
 

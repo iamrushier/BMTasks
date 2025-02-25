@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { IProductDetails } from "../../types";
 import ProductCard from "../stateless/ProductCard";
-import { getAllProducts, getProductsByCategory } from "../../api_calls";
+import { getAllProducts, getProductsByCategory } from "../../api/api_calls";
 import { useQuery } from "@tanstack/react-query";
 
 const ProductDisplay = () => {

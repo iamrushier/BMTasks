@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useUserContext } from "../User/UserContext";
-import { useCartContext } from "../User/CartContext";
+import { useUserContext } from "../../contexts/UserContext";
+import { useCartContext } from "../../contexts/UserCartContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
