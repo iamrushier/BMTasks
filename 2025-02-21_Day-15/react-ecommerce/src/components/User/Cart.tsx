@@ -1,8 +1,8 @@
 import Navbar from "../stateless/Navbar";
-import { getProductById } from "../../api_calls";
+import { getProductById } from "../../api/api_calls";
 import CartItem from "../stateless/CartItem";
-import React, { useCallback } from "react";
-import { useCartContext } from "./CartContext";
+import React, { useCallback, useEffect } from "react";
+import { useCartContext } from "../../contexts/CartContext";
 import { useQuery } from "@tanstack/react-query";
 
 const Cart = () => {
@@ -21,12 +21,15 @@ const Cart = () => {
       console.error("Error fetching cart:", error);
     }
   }, []);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["cart"],
     queryFn: fetchCart,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
+  useEffect(() => {
+    refetch();
+  }, [cart]);
   return (
     <div>
       <Navbar />
@@ -79,6 +82,10 @@ const Cart = () => {
             <button
               className="checkout-btn btn btn-info btn-lg w-100"
               onClick={() => {
+                if (cart.products.length === 0) {
+                  alert("Your cart is empty");
+                  return;
+                }
                 alert("Dummy checkout COMPLETE!!");
                 dispatch({ type: "clear_cart" });
               }}
