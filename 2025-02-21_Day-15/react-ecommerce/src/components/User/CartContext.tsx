@@ -1,10 +1,5 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
-import { ICart, ICartProduct } from "../../types";
-
-type CartContextType = {
-  cart: ICart;
-  dispatch: React.Dispatch<{ type: string; item?: ICartProduct; cart?: ICart }>;
-};
+import { CartContextType, ICart, ICartProduct } from "../../types";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 

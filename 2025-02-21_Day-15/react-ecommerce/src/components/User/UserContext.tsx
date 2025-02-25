@@ -1,9 +1,5 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
-import { IUserCreds } from "../../types";
-export type UserContextType = {
-  loggedInUser: IUserCreds;
-  dispatch: React.ActionDispatch<[action: { type: string; data: IUserCreds }]>;
-};
+import { IUserCreds, UserContextType } from "../../types";
 
 const initialCreds: IUserCreds = {
   id: "",

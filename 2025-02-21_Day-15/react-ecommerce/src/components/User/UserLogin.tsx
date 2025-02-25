@@ -63,42 +63,47 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="container card p-3 " style={{ width: "400px" }}>
-      <h4 className="text-center">User Login</h4>
-      <div className="form-group">
-        <label htmlFor="user-name">Username</label>
-        <input
-          type="text"
-          className="form-control"
-          id="username"
-          value={credentials.username}
-          placeholder="Enter username"
-          onChange={(e) =>
-            setCredentials({ ...credentials, username: e.target.value })
-          }
-        />
+    <>
+      <div
+        className="container card p-3 pb-0"
+        style={{ width: "400px", marginTop: "150px" }}
+      >
+        <h4 className="text-center">User Login</h4>
+        <div className="form-group">
+          <label htmlFor="user-name">Username</label>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            value={credentials.username}
+            placeholder="Enter username"
+            onChange={(e) =>
+              setCredentials({ ...credentials, username: e.target.value })
+            }
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="text"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            value={credentials.password}
+            onChange={(e) =>
+              setCredentials({ ...credentials, password: e.target.value })
+            }
+          />
+        </div>
+        <button className="btn btn-primary w-100 mt-3" onClick={handleLogin}>
+          Login
+        </button>
+        <p className="text-end">
+          <Link to="/admin/login">Switch to Admin Login</Link>
+        </p>
       </div>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          className="form-control"
-          id="password"
-          placeholder="Password"
-          value={credentials.password}
-          onChange={(e) =>
-            setCredentials({ ...credentials, password: e.target.value })
-          }
-        />
-      </div>
-      <button className="btn btn-primary w-100 mt-3" onClick={handleLogin}>
-        Login
-      </button>
       <p className="text-center">{loginMessage}</p>
-      <p className="text-center mt-2">
-        <Link to="/admin/login">Switch to Admin Login</Link>
-      </p>
-    </div>
+    </>
   );
 };
 

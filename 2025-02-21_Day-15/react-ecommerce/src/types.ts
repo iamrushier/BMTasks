@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface IUserCreds {
   id: string;
   username: string;
@@ -21,7 +23,7 @@ export interface IUserDetails extends IUserCreds {
   };
   phone: string;
 }
-export interface AuthToken {
+export interface IAuthToken {
   token: string;
 }
 export interface ICartProduct {
@@ -46,23 +48,34 @@ export interface IProductDetails {
     count: number;
   };
 }
-export interface CartItemProps {
-  id: number;
-  title: string;
-  price: number;
+export type ICartItemProps = Pick<
+  IProductDetails,
+  "id" | "title" | "price" | "image"
+> & {
   quantity: number;
-  image: string;
-}
-export interface ICart {
-  id: number;
-  userId: number;
-  date: string;
-  products: ICartProduct[];
+};
+
+export interface IProductCardProps {
+  product: IProductDetails;
 }
 
-export interface IProduct {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
+export interface IAdminContextType {
+  isAuthorizedAdmin: boolean;
+  verifyAdminLogin: (uname: string, passwd: string) => boolean;
 }
+export type ProductContextType = {
+  products: IProductDetails[];
+  dispatch: React.Dispatch<{
+    type: string;
+    item?: IProductDetails;
+    products?: IProductDetails[];
+  }>;
+};
+export type CartContextType = {
+  cart: ICart;
+  dispatch: React.Dispatch<{ type: string; item?: ICartProduct; cart?: ICart }>;
+};
+export type UserContextType = {
+  loggedInUser: IUserCreds;
+  dispatch: React.ActionDispatch<[action: { type: string; data: IUserCreds }]>;
+};

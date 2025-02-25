@@ -1,12 +1,8 @@
 import React from "react";
-import { IProductDetails } from "../../types";
+import { IProductCardProps } from "../../types";
 import { useNavigate } from "react-router-dom";
 
-interface ProductCardProps {
-  product: IProductDetails;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<IProductCardProps> = ({ product }) => {
   const navigate = useNavigate();
 
   return (

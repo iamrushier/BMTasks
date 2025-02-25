@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { CartItemProps } from "../../types";
+import { ICartItemProps } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../User/CartContext";
 import { deleteCartItems, updateCartProducts } from "../../api_calls";
 import { useUserContext } from "../User/UserContext";
 
-const CartItem: React.FC<CartItemProps> = ({
+const CartItem: React.FC<ICartItemProps> = ({
   id,
   title,
   price,

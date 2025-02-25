@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  AuthToken,
+  IAuthToken,
   ICart,
   IProductDetails,
   IUserCreds,
@@ -11,7 +11,7 @@ const fakeStoreAPI = axios.create({ baseURL: "https://fakestoreapi.com" });
 export const tryLoginForUser = async ({
   username,
   password,
-}: Partial<IUserCreds>): Promise<AuthToken> => {
+}: Partial<IUserCreds>): Promise<IAuthToken> => {
   const res = await fakeStoreAPI.post("/auth/login", { username, password });
   return res.data;
 };

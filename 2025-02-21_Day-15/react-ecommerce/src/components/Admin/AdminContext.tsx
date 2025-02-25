@@ -1,13 +1,9 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-
-export interface AdminContextType {
-  isAuthorizedAdmin: boolean;
-  verifyAdminLogin: (uname: string, passwd: string) => boolean;
-}
+import { IAdminContextType } from "../../types";
 
 const adminCreds = { username: "admin", password: "admin" };
 
-const AdminContext = createContext<AdminContextType | undefined>(undefined);
+const AdminContext = createContext<IAdminContextType | undefined>(undefined);
 
 export const AdminProvider: React.FC<{ children: ReactNode }> = ({
   children,

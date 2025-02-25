@@ -16,6 +16,7 @@ import { AdminProvider } from "./components/Admin/AdminContext";
 import { AdminProductProvider } from "./components/Admin/AdminProductContext";
 import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 import UserProtectedRoute from "./components/User/UserProtectedRoute";
+import Error404 from "./components/stateless/Error404";
 function App() {
   return (
     <>
@@ -50,6 +51,7 @@ function App() {
                       element={<AdminProductForm />}
                     />
                   </Route>
+                  <Route path="*" element={<Error404 />} />
                 </Routes>
               </Router>
             </UserContextProvider>
