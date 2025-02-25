@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { IProductDetails, ProductContextType } from "../types";
 import { getAllProducts } from "../api/api_calls";
+
 const AdminProductContext = React.createContext<ProductContextType>({
   products: [],
   dispatch: () => {},
