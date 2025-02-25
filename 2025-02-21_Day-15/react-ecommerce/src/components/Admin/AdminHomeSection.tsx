@@ -2,7 +2,7 @@ import { useAdminProductContext } from "../../contexts/AdminProductContext";
 import AdminNavbar from "./AdminNavbar";
 import AdminProductCard from "./AdminProductCard";
 
-const AdminHome = () => {
+const AdminHomeSection = () => {
   const { products } = useAdminProductContext();
   return (
     <div>
@@ -25,4 +25,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default AdminHomeSection;

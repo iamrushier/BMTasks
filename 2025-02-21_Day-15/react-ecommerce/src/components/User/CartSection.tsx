@@ -1,11 +1,11 @@
-import Navbar from "../stateless/Navbar";
+import Navbar from "../reusable/Navbar";
 import { getProductById } from "../../api/api_calls";
-import CartItem from "../stateless/CartItem";
+import CartItem from "../reusable/CartItem";
 import React, { useCallback, useEffect } from "react";
 import { useCartContext } from "../../contexts/UserCartContext";
 import { useQuery } from "@tanstack/react-query";
 
-const Cart = () => {
+const CartSection = () => {
   const { cart, dispatch } = useCartContext();
   const fetchCart = useCallback(async () => {
     try {
@@ -99,4 +99,4 @@ const Cart = () => {
   );
 };
 
-export default React.memo(Cart);
+export default React.memo(CartSection);

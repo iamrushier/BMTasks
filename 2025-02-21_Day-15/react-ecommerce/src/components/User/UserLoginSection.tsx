@@ -10,14 +10,14 @@ import { IUserCreds, IUserDetails } from "../../types";
 import { useCartContext } from "../../contexts/UserCartContext";
 import { useMutation } from "@tanstack/react-query";
 
-const UserLogin = () => {
+const UserLoginSection = () => {
+  let navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
   const { loggedInUser, dispatch } = useUserContext();
   const { dispatch: cartDispatch } = useCartContext();
-  let navigate = useNavigate();
   const [loginMessage, setLoginMessage] = useState("");
   const mutation = useMutation({
     mutationFn: async (credentials: Partial<IUserCreds>) => {
@@ -103,8 +103,9 @@ const UserLogin = () => {
         </p>
       </div>
       <p className="text-center">{loginMessage}</p>
+      <p className="text-center">Dummy data: johnd | m38rmF$</p>
     </>
   );
 };
 
-export default UserLogin;
+export default UserLoginSection;

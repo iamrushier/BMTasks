@@ -1,6 +1,13 @@
 import { createContext, ReactNode, useContext, useReducer } from "react";
 import { CartContextType, ICart, ICartProduct } from "../types";
 
+const initialCart: ICart = {
+  id: 0,
+  userId: 0,
+  date: "",
+  products: [],
+};
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const cartReducer = (
@@ -52,12 +59,7 @@ const cartReducer = (
       return state;
   }
 };
-const initialCart: ICart = {
-  id: 0,
-  userId: 0,
-  date: "",
-  products: [],
-};
+
 export const CartProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {

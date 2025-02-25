@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthorizeAdmin } from "../../contexts/AdminContext";
 
-const AdminLogin = () => {
+const AdminLoginSection = () => {
   const [adminUname, setAdminUname] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [loginMessage, setLoginMessage] = useState("");
@@ -57,8 +57,9 @@ const AdminLogin = () => {
         </p>
       </div>
       <p className="text-center text-danger">{loginMessage}</p>
+      <p className="text-center">Dummy data: admin | admin</p>
     </>
   );
 };
 
-export default AdminLogin;
+export default AdminLoginSection;
