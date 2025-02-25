@@ -1,10 +1,10 @@
-import Navbar from "../stateless/Navbar";
+import Navbar from "../reusable/Navbar";
 import { useUserContext } from "../../contexts/UserContext";
 import { getLimitedProducts } from "../../api/api_calls";
-import ProductCard from "../stateless/ProductCard";
+import ProductCard from "../reusable/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 
-const Home = () => {
+const HomeSection = () => {
   const { loggedInUser } = useUserContext();
   const { data, isLoading } = useQuery({
     queryKey: ["products/limit"],
@@ -34,4 +34,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeSection;

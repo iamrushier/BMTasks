@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../stateless/Navbar";
+import Navbar from "../reusable/Navbar";
 import { addProductToCart, getProductById } from "../../api/api_calls";
 import { useState } from "react";
 import { ICartProduct } from "../../types";
@@ -7,7 +7,7 @@ import { useCartContext } from "../../contexts/UserCartContext";
 import { useUserContext } from "../../contexts/UserContext";
 import { useQuery } from "@tanstack/react-query";
 
-const ProductDetails = () => {
+const ProductDetailsSection = () => {
   const { loggedInUser } = useUserContext();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -93,4 +93,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default ProductDetailsSection;

@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { IProductDetails } from "../../types";
-import ProductCard from "../stateless/ProductCard";
+import ProductCard from "../reusable/ProductCard";
 import { getAllProducts, getProductsByCategory } from "../../api/api_calls";
 import { useQuery } from "@tanstack/react-query";
 
-const ProductDisplay = () => {
+const ProductsContainer = () => {
   const { category } = useParams();
   const { data, isLoading } = useQuery({
     queryKey: ["products/category", category],
@@ -37,4 +37,4 @@ const ProductDisplay = () => {
   );
 };
 
-export default ProductDisplay;
+export default ProductsContainer;
