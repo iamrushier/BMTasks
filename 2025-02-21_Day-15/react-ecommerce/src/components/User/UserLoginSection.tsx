@@ -103,6 +103,7 @@ const UserLoginSection = () => {
         </p>
       </div>
       <p className="text-center">{loginMessage}</p>
+      <p className="text-center">Dummy data: johnd | m38rmF$</p>
     </>
   );
 };

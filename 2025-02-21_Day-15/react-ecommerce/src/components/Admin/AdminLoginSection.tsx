@@ -57,6 +57,7 @@ const AdminLoginSection = () => {
         </p>
       </div>
       <p className="text-center text-danger">{loginMessage}</p>
+      <p className="text-center">Dummy data: admin | admin</p>
     </>
   );
 };
