@@ -1,34 +1,33 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../stateless/Navbar";
 import { addProductToCart, getProductById } from "../../api_calls";
-import { useEffect, useState } from "react";
-import { ICartProduct, IProductDetails } from "../../types";
+import { useState } from "react";
+import { ICartProduct } from "../../types";
 import { useCartContext } from "./CartContext";
 import { useUserContext } from "./UserContext";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductDetails = () => {
   const { loggedInUser } = useUserContext();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<IProductDetails | undefined>(
-    undefined
-  );
   const [quantity, setQuantity] = useState(1);
   const { dispatch } = useCartContext();
-  useEffect(() => {
-    if (id) {
-      getProductById(Number(id)).then(setProduct);
-    }
-  }, [id]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => getProductById(Number(id)),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
   const handleAddToCart = async () => {
-    if (!product) return;
+    if (!data) return;
     if (!loggedInUser.id) {
       alert("Log in first to add product to cart");
       navigate("/login");
       return;
     }
     const cartItem: ICartProduct = {
-      productId: product.id,
+      productId: data.id,
       quantity,
     };
     await addProductToCart({
@@ -37,13 +36,13 @@ const ProductDetails = () => {
       products: [cartItem],
     });
     dispatch({ type: "add_to_cart", item: cartItem });
-    alert(`Added ${quantity} pieces of "${product.title}" to cart`);
+    alert(`Added ${quantity} pieces of "${data.title}" to cart`);
   };
   return (
     <div>
       <Navbar />
       <div className="container mt-5">
-        {product ? (
+        {!isLoading && data ? (
           <div
             className="card p-4 shadow-sm mx-auto"
             style={{ maxWidth: "800px" }}
@@ -51,20 +50,20 @@ const ProductDetails = () => {
             <div className="row g-4">
               <div className="col-md-4 text-center">
                 <img
-                  src={product.image}
-                  alt={product.title}
+                  src={data.image}
+                  alt={data.title}
                   className="img-fluid"
                   style={{ maxHeight: "250px", objectFit: "contain" }}
                 />
               </div>
               <div className="col-md-8">
-                <h3>{product.title}</h3>
-                <p className="text-muted">{product.category}</p>
-                <h4 className="text-primary">${product.price}</h4>
-                <p>{product.description}</p>
+                <h3>{data.title}</h3>
+                <p className="text-muted">{data.category}</p>
+                <h4 className="text-primary">${data.price}</h4>
+                <p>{data.description}</p>
                 <p>
-                  <strong>Rating:</strong> {product.rating.rate} ⭐ (
-                  {product.rating.count} reviews)
+                  <strong>Rating:</strong> {data.rating.rate} ⭐ (
+                  {data.rating.count} reviews)
                 </p>
                 <div className="d-flex align-items-center">
                   <label htmlFor="quantity-input" className="me-2 fw-bold">

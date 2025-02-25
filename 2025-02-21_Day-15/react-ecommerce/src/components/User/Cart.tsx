@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react";
 import Navbar from "../stateless/Navbar";
 import { getProductById } from "../../api_calls";
 import CartItem from "../stateless/CartItem";
-import { IProduct } from "../../types";
-import React from "react";
+import React, { useCallback } from "react";
 import { useCartContext } from "./CartContext";
+import { useQuery } from "@tanstack/react-query";
 
 const Cart = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
   const { cart, dispatch } = useCartContext();
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        if (cart.id !== 0) {
-          const productPromises = cart.products.map((item) =>
-            getProductById(item.productId)
-          );
-          const productDetails = await Promise.all(productPromises);
-          setProducts(productDetails);
-        }
-      } catch (error) {
-        console.error("Error fetching cart:", error);
+  const fetchCart = useCallback(async () => {
+    try {
+      if (cart.id !== 0) {
+        const productPromises = cart.products.map((item) =>
+          getProductById(item.productId)
+        );
+        const productDetails = await Promise.all(productPromises);
+        return productDetails;
       }
-    };
-
-    fetchCart();
-  }, [cart]);
-
+      return [];
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+    }
+  }, []);
+  const { data, isLoading } = useQuery({
+    queryKey: ["cart"],
+    queryFn: fetchCart,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
   return (
     <div>
       <Navbar />
@@ -39,9 +39,9 @@ const Cart = () => {
         </p>
 
         <div className="item-container">
-          {cart.id !== 0 && products.length > 0 ? (
+          {cart.id !== 0 && !isLoading ? (
             cart.products.map((entry) => {
-              const product = products.find((p) => p.id === entry.productId);
+              const product = data?.find((p) => p.id === entry.productId);
               return (
                 product && (
                   <CartItem
@@ -60,13 +60,13 @@ const Cart = () => {
           )}
         </div>
 
-        {cart.id !== 0 && products.length > 0 && (
+        {cart.id !== 0 && !isLoading && (
           <div className="card bg-primary text-white rounded-3 mt-3 p-3">
             <div className="d-flex justify-content-between">
               <h3>Total</h3>
               <h3>
                 $
-                {products
+                {data!
                   .reduce((total, product) => {
                     const quantity =
                       cart.products.find((p) => p.productId === product.id)

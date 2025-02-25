@@ -6,8 +6,9 @@ import {
   tryLoginForUser,
 } from "../../api_calls";
 import { useUserContext } from "./UserContext";
-import { IUserDetails } from "../../types";
+import { IUserCreds, IUserDetails } from "../../types";
 import { useCartContext } from "./CartContext";
+import { useMutation } from "@tanstack/react-query";
 
 const UserLogin = () => {
   const [credentials, setCredentials] = useState({
@@ -18,14 +19,11 @@ const UserLogin = () => {
   const { dispatch: cartDispatch } = useCartContext();
   let navigate = useNavigate();
   const [loginMessage, setLoginMessage] = useState("");
-  const handleLogin = async () => {
-    try {
-      if (!credentials.username || !credentials.password) {
-        setLoginMessage("Please enter username and password!");
-        return;
-      }
-
-      const data = await tryLoginForUser(credentials);
+  const mutation = useMutation({
+    mutationFn: async (credentials: Partial<IUserCreds>) => {
+      return await tryLoginForUser(credentials);
+    },
+    onSuccess: async (data) => {
       setLoginMessage(
         `Logging in as ${credentials.username} with token: ${
           data.token.slice(0, 15) + "...."
@@ -48,12 +46,20 @@ const UserLogin = () => {
         const cartData = await getCartItemsForUserID(Number(matchedUser.id));
         cartDispatch({ type: "set_cart_init", cart: cartData[0] });
       }
-
       navigate("/");
-    } catch (err: any) {
+    },
+    onError: (err) => {
       setLoginMessage("Invalid username or password!");
       console.log(err.message);
+    },
+  });
+
+  const handleLogin = async () => {
+    if (!credentials.username || !credentials.password) {
+      setLoginMessage("Please enter username and password!");
+      return;
     }
+    mutation.mutate(credentials);
   };
 
   return (
