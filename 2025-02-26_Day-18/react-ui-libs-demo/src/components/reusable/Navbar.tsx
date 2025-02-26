@@ -41,7 +41,7 @@ const Navbar = () => {
           Cart({cart.products.length})
         </NavLink>
         <NavLink
-          to="/admin/add_new"
+          to="/add_new"
           className={({ isActive }) =>
             isActive
               ? "nav-link active rounded-2 home-btn bg-danger text-white"

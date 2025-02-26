@@ -84,7 +84,7 @@ const ProductDetailsSection = () => {
                   </button>
                   <button
                     className="btn btn-warning ms-3"
-                    onClick={() => navigate(`/admin/product/${data.id}`)}
+                    onClick={() => navigate(`/product/edit/${data.id}`)}
                   >
                     Modify
                   </button>
