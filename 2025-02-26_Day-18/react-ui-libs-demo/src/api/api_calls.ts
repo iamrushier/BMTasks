@@ -45,13 +45,6 @@ export const getAllProducts = async (): Promise<IProductDetails[]> => {
   const res = await fakeStoreAPI.get("/products");
   return res.data;
 };
-export const getProductsByCategory = async (
-  category: string
-): Promise<IProductDetails[]> => {
-  category = category.toLowerCase();
-  const res = await fakeStoreAPI.get(`/products/category/${category}`);
-  return res.data;
-};
 
 export const updateProduct = async (id: number, product: IProductDetails) => {
   const res = await fakeStoreAPI.patch(`/products/${id}`, product);
@@ -78,5 +71,27 @@ export const updateCartProducts = async (
   cart: Partial<ICart>
 ) => {
   const res = await fakeStoreAPI.patch(`/carts/${cartId}`, cart);
+  return res.data;
+};
+
+export const limitProducts = async (limit: number) => {
+  const res = await fakeStoreAPI.get(`/products?limit=${limit}`);
+  return res.data;
+};
+
+export const sortProducts = async (sort: string) => {
+  const res = await fakeStoreAPI.get(`/products?sort=${sort}`);
+  return res.data;
+};
+export const getAllCategories = async () => {
+  const res = await fakeStoreAPI.get(`/products/categories`);
+  return res.data;
+};
+
+export const getProductsByCategory = async (
+  category: string
+): Promise<IProductDetails[]> => {
+  category = category.toLowerCase();
+  const res = await fakeStoreAPI.get(`/products/category/${category}`);
   return res.data;
 };

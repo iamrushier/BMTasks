@@ -32,7 +32,12 @@ function App() {
 
                 <Route path="/products" element={<ProductsSection />}>
                   <Route index element={<ProductsContainer />} />
-                  <Route path=":category" element={<ProductsContainer />} />
+                  <Route
+                    path="category/:category"
+                    element={<ProductsContainer />}
+                  />
+                  <Route path="limit/:limit" element={<ProductsContainer />} />
+                  <Route path="sort/:order" element={<ProductsContainer />} />
                 </Route>
 
                 <Route element={<UserProtectedRoute />}>

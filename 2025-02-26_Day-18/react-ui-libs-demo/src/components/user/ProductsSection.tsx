@@ -1,12 +1,12 @@
 import Navbar from "../reusable/Navbar";
-import CategoryBar from "../reusable/CategoryBar";
 import { Outlet } from "react-router-dom";
+import FilterBar from "../reusable/FilterBar";
 
 const ProductsSection = () => {
   return (
     <div>
       <Navbar />
-      <CategoryBar />
+      <FilterBar />
       <Outlet />
     </div>
   );
