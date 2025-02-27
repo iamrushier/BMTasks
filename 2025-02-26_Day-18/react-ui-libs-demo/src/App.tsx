@@ -18,48 +18,54 @@ import { AdminProvider } from "./contexts/AdminContext";
 import UserProtectedRoute from "./components/user/UserProtectedRoute";
 import Error404 from "./components/stateless/Error404";
 import { AppProvider } from "./contexts/AppContext";
+import { ThemeProvider } from "./components/utils/ThemeProvider";
 function App() {
   return (
     <>
-      <AdminProvider>
-        <UserContextProvider>
-          <AppProvider>
-            <Router>
-              <Header />
-              <Routes>
-                <Route path="/" element={<HomeSection />} />
-                <Route path="/login" element={<UserLoginSection />} />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <AdminProvider>
+          <UserContextProvider>
+            <AppProvider>
+              <Router>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<HomeSection />} />
+                  <Route path="/login" element={<UserLoginSection />} />
 
-                <Route path="/products" element={<ProductsSection />}>
-                  <Route index element={<ProductsContainer />} />
+                  <Route path="/products" element={<ProductsSection />}>
+                    <Route index element={<ProductsContainer />} />
+                    <Route
+                      path="category/:category"
+                      element={<ProductsContainer />}
+                    />
+                    <Route
+                      path="limit/:limit"
+                      element={<ProductsContainer />}
+                    />
+                    <Route path="sort/:order" element={<ProductsContainer />} />
+                  </Route>
+
+                  <Route element={<UserProtectedRoute />}>
+                    <Route path="/cart" element={<CartSection />} />
+                    <Route path="/add_new" element={<AdminProductForm />} />
+                    <Route
+                      path="/product/edit/:id"
+                      element={<AdminProductForm />}
+                    />
+                  </Route>
+
                   <Route
-                    path="category/:category"
-                    element={<ProductsContainer />}
+                    path="/product/:id"
+                    element={<ProductDetailsSection />}
                   />
-                  <Route path="limit/:limit" element={<ProductsContainer />} />
-                  <Route path="sort/:order" element={<ProductsContainer />} />
-                </Route>
 
-                <Route element={<UserProtectedRoute />}>
-                  <Route path="/cart" element={<CartSection />} />
-                  <Route path="/add_new" element={<AdminProductForm />} />
-                  <Route
-                    path="/product/edit/:id"
-                    element={<AdminProductForm />}
-                  />
-                </Route>
-
-                <Route
-                  path="/product/:id"
-                  element={<ProductDetailsSection />}
-                />
-
-                <Route path="*" element={<Error404 />} />
-              </Routes>
-            </Router>
-          </AppProvider>
-        </UserContextProvider>
-      </AdminProvider>
+                  <Route path="*" element={<Error404 />} />
+                </Routes>
+              </Router>
+            </AppProvider>
+          </UserContextProvider>
+        </AdminProvider>
+      </ThemeProvider>
     </>
   );
 }

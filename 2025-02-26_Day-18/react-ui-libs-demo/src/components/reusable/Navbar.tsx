@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { useCartContext } from "@/contexts/AppContext";
+import { ModeToggle } from "../utils/ModeToggle";
 // import { useCartContext } from "../../contexts/_UserCartContext";
 
 const Navbar = () => {
@@ -60,6 +61,7 @@ const Navbar = () => {
       >
         {loggedInUser.id ? "Logout" : "Login"}
       </button>
+      <ModeToggle />
     </nav>
   );
 };

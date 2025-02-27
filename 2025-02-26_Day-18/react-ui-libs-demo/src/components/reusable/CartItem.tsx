@@ -5,6 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { deleteCartItems, updateCartProducts } from "../../api/api_calls";
 import { useUserContext } from "../../contexts/UserContext";
 import { useCartContext } from "@/contexts/AppContext";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
 
 const CartItem: React.FC<ICartItemProps> = ({
   id,
@@ -17,6 +27,9 @@ const CartItem: React.FC<ICartItemProps> = ({
   const { dispatch } = useCartContext();
   const [inputQuantity, setInputQuantity] = useState(quantity);
   const { loggedInUser } = useUserContext();
+
+  const [open, setOpen] = useState(false);
+
   const handleQuantityChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -37,16 +50,17 @@ const CartItem: React.FC<ICartItemProps> = ({
 
   const handleRemoveItem = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const confirmDelete = confirm("Are you sure you want to remove this item?");
-    if (confirmDelete) {
-      await deleteCartItems(id);
-      dispatch({
-        type: "remove_from_cart",
-        item: { productId: id, quantity: quantity },
-      });
-      setInputQuantity(0);
-      alert("Item removed from cart.");
-    }
+    // const confirmDelete = confirm("Are you sure you want to remove this item?");
+    // if (confirmDelete) {
+    await deleteCartItems(id);
+    dispatch({
+      type: "remove_from_cart",
+      item: { productId: id, quantity: quantity },
+    });
+    setInputQuantity(0);
+    setOpen(false);
+    // alert("Item removed from cart.");
+    // }
   };
   return (
     <div className="card mb-3 p-2">
@@ -86,12 +100,30 @@ const CartItem: React.FC<ICartItemProps> = ({
               />
             </div>
             <h5 className="mb-0 fw-bold">${(price * quantity).toFixed(2)}</h5>
-            <button
+            {/* <button
               className="btn btn-danger btn-sm"
               onClick={handleRemoveItem}
             >
               ❌
-            </button>
+            </button> */}
+            <AlertDialog open={open} onOpenChange={setOpen}>
+              <AlertDialogTrigger>❌</AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Remove Item?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to remove <strong>{title}</strong>{" "}
+                    from your cart?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleRemoveItem}>
+                    Remove
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </div>
