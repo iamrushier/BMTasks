@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IProductDetails } from "../../types";
-// import { useAdminProductContext } from "../../contexts/_AdminProductContext";
 import {
   addNewProduct,
   deleteProduct,

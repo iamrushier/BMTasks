@@ -1,10 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { useCartContext } from "@/contexts/AppContext";
-import { ModeToggle } from "../utils/ModeToggle";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-// import { useCartContext } from "../../contexts/_UserCartContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -60,7 +58,7 @@ const Navbar = () => {
           Add New
         </NavLink>
       </div>
-      <div className="ml-auto flex items-center gap-3">
+      <div className="ml-auto flex items-center gap-3 text-secondary">
         <Button
           variant="outline"
           onClick={() => {

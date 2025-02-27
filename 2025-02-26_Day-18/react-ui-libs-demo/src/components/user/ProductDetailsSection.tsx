@@ -3,7 +3,6 @@ import Navbar from "../reusable/Navbar";
 import { addProductToCart, getProductById } from "../../api/api_calls";
 import { useState } from "react";
 import { ICartProduct } from "../../types";
-// import { useCartContext } from "../../contexts/_UserCartContext";
 import { useUserContext } from "../../contexts/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { useCartContext } from "@/contexts/AppContext";

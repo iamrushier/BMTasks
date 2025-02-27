@@ -2,7 +2,6 @@ import Navbar from "../reusable/Navbar";
 import { getProductById } from "../../api/api_calls";
 import CartItem from "../reusable/CartItem";
 import React, { useCallback, useEffect } from "react";
-// import { useCartContext } from "../../contexts/_UserCartContext";
 import { useQuery } from "@tanstack/react-query";
 import { useCartContext } from "@/contexts/AppContext";
 

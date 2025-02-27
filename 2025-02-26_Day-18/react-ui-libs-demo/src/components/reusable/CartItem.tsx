@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ICartItemProps } from "../../types";
 import { useNavigate } from "react-router-dom";
-// import { useCartContext } from "../../contexts/_UserCartContext";
 import { deleteCartItems, updateCartProducts } from "../../api/api_calls";
 import { useUserContext } from "../../contexts/UserContext";
 import { useCartContext } from "@/contexts/AppContext";

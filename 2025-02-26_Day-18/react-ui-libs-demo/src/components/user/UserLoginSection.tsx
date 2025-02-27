@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getAllUsers,
   getCartItemsForUserID,
@@ -7,7 +7,6 @@ import {
 } from "../../api/api_calls";
 import { useUserContext } from "../../contexts/UserContext";
 import { IUserCreds, IUserDetails } from "../../types";
-// import { useCartContext } from "../../contexts/_UserCartContext";
 import { useMutation } from "@tanstack/react-query";
 import { useCartContext } from "@/contexts/AppContext";
 import { Button } from "../ui/button";
