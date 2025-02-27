@@ -1,34 +1,38 @@
 import React from "react";
 import { IProductCardProps } from "../../types";
 import { useNavigate } from "react-router-dom";
-
+import { Card, CardContent, CardFooter } from "../ui/card";
+import { Button } from "../ui/button";
 const ProductCard: React.FC<IProductCardProps> = ({ product }) => {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="card p-3 shadow-sm border-0"
-      style={{
-        cursor: "pointer",
-        transition: "transform 0.2s",
-        minHeight: "300px",
-      }}
+    <Card
+      className="cursor-pointer transition-transform hover:scale-105"
       onClick={() => navigate(`/product/${product.id}`)}
     >
-      <img
-        src={product.image}
-        className="card-img-top mx-auto"
-        style={{ width: "200px", height: "200px", objectFit: "contain" }}
-        alt={product.title}
-      />
-      <div className="card-body text-center">
-        <h6 className="card-title text-truncate">{product.title}</h6>
-        <p className="text-warning mb-1">
-          ⭐ {product.rating.rate} ({product.rating.count})
-        </p>
-        <h5 className="text-primary">${product.price}</h5>
-      </div>
-    </div>
+      <CardContent className="flex flex-col items-center p-3 pb-0">
+        <img
+          src={product.image}
+          className="w-32 h-32 object-contain mb-3"
+          alt={product.title}
+        />
+        <h6 className="text-lg font-semibold text-center truncate w-full">
+          {product.title}
+        </h6>
+        <div className="flex items-center gap-1 text-yellow-500">
+          <span>
+            ⭐ {product.rating.rate} ({product.rating.count})
+          </span>
+        </div>
+        <h5 className="text-xl font-bold text-primary mt-2 mb-0">
+          ${product.price}
+        </h5>
+      </CardContent>
+      <CardFooter className="flex justify-center">
+        <Button variant="outline">View Details</Button>
+      </CardFooter>
+    </Card>
   );
 };
 

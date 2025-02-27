@@ -25,8 +25,8 @@ const ProductsContainer = () => {
   });
 
   return (
-    <div className="container mt-4">
-      <h3 className="text-center">
+    <div className="container mt-4 min-h-screen">
+      <h3 className="text-center text-primary">
         {category
           ? `Category: ${category.toUpperCase()}`
           : Number(limit) > 0

@@ -9,6 +9,24 @@ import {
 } from "../../api/api_calls";
 import Navbar from "../reusable/Navbar";
 import { useProductContext } from "@/contexts/AppContext";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Textarea } from "../ui/textarea";
 
 const AdminProductForm = () => {
   const { id } = useParams();
@@ -48,6 +66,9 @@ const AdminProductForm = () => {
   ) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
+  const handleSelectChange = (value: string) => {
+    setProduct({ ...product, category: value });
+  };
 
   const handleSubmit = async () => {
     if (isEditing) {
@@ -72,106 +93,115 @@ const AdminProductForm = () => {
   };
 
   return (
-    <div>
+    <div className="bg-background min-h-screen">
       <Navbar />
       <div className="container mt-4">
-        <div
-          className="card p-4 shadow-sm mx-auto"
-          style={{ maxWidth: "600px" }}
-        >
-          <h3 className="mb-3">
-            {isEditing ? "Edit Product" : "Add New Product"}
-          </h3>
+        <Card className="p-6 shadow-sm mx-auto max-w-xl">
+          <CardHeader className="px-0 pt-0">
+            <CardTitle>
+              {isEditing ? "Edit Product" : "Add New Product"}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-0">
+            <div className="space-y-4">
+              <div className="grid gap-2">
+                <Label htmlFor="title">Title:</Label>
+                <Input
+                  id="title"
+                  type="text"
+                  name="title"
+                  value={product.title}
+                  onChange={handleInputChange}
+                  disabled={!isEditMode}
+                />
+              </div>
 
-          <div className="mb-3">
-            <label className="form-label">Title:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="title"
-              value={product.title}
-              onChange={handleInputChange}
-              disabled={!isEditMode}
-            />
-          </div>
+              <div className="grid gap-2">
+                <Label htmlFor="price">Price:</Label>
+                <Input
+                  id="price"
+                  type="number"
+                  name="price"
+                  value={product.price}
+                  onChange={handleInputChange}
+                  disabled={!isEditMode}
+                />
+              </div>
 
-          <div className="mb-3">
-            <label className="form-label">Price:</label>
-            <input
-              type="number"
-              className="form-control"
-              name="price"
-              value={product.price}
-              onChange={handleInputChange}
-              disabled={!isEditMode}
-            />
-          </div>
+              <div className="grid gap-2">
+                <Label htmlFor="category">Category:</Label>
+                <Select
+                  name="category"
+                  value={product.category}
+                  onValueChange={handleSelectChange}
+                  disabled={!isEditMode}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="electronics">electronics</SelectItem>
+                    <SelectItem value="jewelery">jewelery</SelectItem>
+                    <SelectItem value="men's clothing">
+                      men's clothing
+                    </SelectItem>
+                    <SelectItem value="women's clothing">
+                      women's clothing
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-          <div className="mb-3">
-            <label className="form-label">Category:</label>
-            <select
-              className="form-select"
-              name="category"
-              value={product.category}
-              onChange={handleInputChange}
-              disabled={!isEditMode}
-            >
-              <option value="electronics">electronics</option>
-              <option value="jewelery">jewelery</option>
-              <option value="men's clothing">men's clothing</option>
-              <option value="women's clothing">women's clothing</option>
-            </select>
-          </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description:</Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  rows={3}
+                  value={product.description}
+                  onChange={handleInputChange}
+                  disabled={!isEditMode}
+                />
+              </div>
 
-          <div className="mb-3">
-            <label className="form-label">Description:</label>
-            <textarea
-              className="form-control"
-              name="description"
-              rows={3}
-              value={product.description}
-              onChange={handleInputChange}
-              disabled={!isEditMode}
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Image URL:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="image"
-              value={product.image}
-              onChange={handleInputChange}
-              disabled={!isEditMode}
-            />
-          </div>
-
-          <div className="d-flex justify-content-between">
+              <div className="grid gap-2">
+                <Label htmlFor="image">Image URL:</Label>
+                <Input
+                  id="image"
+                  type="text"
+                  name="image"
+                  value={product.image}
+                  onChange={handleInputChange}
+                  disabled={!isEditMode}
+                />
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="px-0 pb-0 flex justify-between">
             {isEditing ? (
               <>
-                <button
-                  className="btn btn-warning"
+                <Button
+                  variant="outline"
                   onClick={() => setIsEditMode(!isEditMode)}
                 >
                   {isEditMode ? "Cancel" : "Edit"}
-                </button>
+                </Button>
                 {isEditMode && (
-                  <button className="btn btn-success" onClick={handleSubmit}>
+                  <Button variant="default" onClick={handleSubmit}>
                     Update
-                  </button>
+                  </Button>
                 )}
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <Button variant="destructive" onClick={handleDelete}>
                   Delete
-                </button>
+                </Button>
               </>
             ) : (
-              <button className="btn btn-primary" onClick={handleSubmit}>
+              <Button variant="default" onClick={handleSubmit}>
                 Add Product
-              </button>
+              </Button>
             )}
-          </div>
-        </div>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

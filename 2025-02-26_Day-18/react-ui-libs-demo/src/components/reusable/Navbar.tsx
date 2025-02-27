@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { useCartContext } from "@/contexts/AppContext";
 import { ModeToggle } from "../utils/ModeToggle";
+import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 // import { useCartContext } from "../../contexts/_UserCartContext";
 
 const Navbar = () => {
@@ -9,14 +11,15 @@ const Navbar = () => {
   const { cart } = useCartContext();
   const { loggedInUser, dispatch } = useUserContext();
   return (
-    <nav className="nav nav-pills gap-2 p-2 border border-primary d-flex w-100 align-items-center">
-      <div className="d-flex gap-2">
+    <nav className="flex items-center gap-4 p-2 border-b shadow-sm dark:bg-gray-900">
+      <div className="flex gap-3">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            isActive
-              ? "nav-link active rounded-2 home-btn"
-              : "nav-link rounded-2 home-btn"
+            cn(
+              "px-4 py-2 rounded-md transition-colors hover:bg-gray-200 dark:hover:bg-gray-700",
+              isActive ? "bg-gray-300 dark:bg-gray-800 font-semibold" : ""
+            )
           }
         >
           Home
@@ -24,9 +27,10 @@ const Navbar = () => {
         <NavLink
           to="/products"
           className={({ isActive }) =>
-            isActive
-              ? "nav-link active rounded-2 home-btn"
-              : "nav-link rounded-2 home-btn"
+            cn(
+              "px-4 py-2 rounded-md transition-colors hover:bg-gray-200 dark:hover:bg-gray-700",
+              isActive ? "bg-gray-300 dark:bg-gray-800 font-semibold" : ""
+            )
           }
         >
           Products
@@ -34,33 +38,39 @@ const Navbar = () => {
         <NavLink
           to="/cart"
           className={({ isActive }) =>
-            isActive
-              ? "nav-link active rounded-2 home-btn"
-              : "nav-link rounded-2 home-btn"
+            cn(
+              "px-4 py-2 rounded-md transition-colors hover:bg-gray-200 dark:hover:bg-gray-700",
+              isActive ? "bg-gray-300 dark:bg-gray-800 font-semibold" : ""
+            )
           }
         >
-          Cart({cart.products.length})
+          Cart ({cart.products.length})
         </NavLink>
         <NavLink
           to="/add_new"
           className={({ isActive }) =>
-            isActive
-              ? "nav-link active rounded-2 home-btn bg-danger text-white"
-              : "nav-link rounded-2 home-btn r"
+            cn(
+              "px-4 py-2 rounded-md transition-colors",
+              isActive
+                ? "bg-red-500 text-white font-semibold"
+                : "hover:bg-gray-200 dark:hover:bg-gray-700"
+            )
           }
         >
-          Add new
+          Add New
         </NavLink>
       </div>
-      <button
-        className="btn btn-link logout ms-auto"
-        onClick={() => {
-          dispatch({ type: "logout", data: loggedInUser });
-          navigate("/login");
-        }}
-      >
-        {loggedInUser.id ? "Logout" : "Login"}
-      </button>
+      <div className="ml-auto flex items-center gap-3">
+        <Button
+          variant="outline"
+          onClick={() => {
+            dispatch({ type: "logout", data: loggedInUser });
+            navigate("/login");
+          }}
+        >
+          {loggedInUser.id ? "Logout" : "Login"}
+        </Button>
+      </div>
     </nav>
   );
 };

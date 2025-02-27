@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
+import { Card } from "@/components/ui/card";
 
 const Error404 = () => {
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: "70vh" }}
-    >
-      <div className="text-center">
-        <h1 className="text-danger p-3">This page doesn't exist</h1>
-        <Link to="/" className="btn btn-primary btn-sm">
-          Back Home
-        </Link>
-      </div>
+    <div className="flex justify-center items-center h-[70vh]">
+      <Card className="p-6 text-center">
+        <h1 className="text-2xl font-bold text-red-500">
+          This page doesn't exist
+        </h1>
+
+        <Link to="/">Back Home</Link>
+      </Card>
     </div>
   );
 };

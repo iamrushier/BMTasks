@@ -69,7 +69,7 @@ const UserLoginSection = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-background">
         <Card className="w-[400px] shadow-lg dark:bg-gray-900">
           <CardHeader>
             <h4 className="text-center text-lg font-bold">User Login</h4>

@@ -4,7 +4,7 @@ import FilterBar from "../reusable/FilterBar";
 
 const ProductsSection = () => {
   return (
-    <div>
+    <div className="bg-background">
       <Navbar />
       <FilterBar />
       <Outlet />

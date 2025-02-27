@@ -32,10 +32,10 @@ const CartSection = () => {
     refetch();
   }, [cart]);
   return (
-    <div>
+    <div className="bg-background min-h-screen">
       <Navbar />
       <div className="container mt-3 w-50">
-        <h2>Shopping Cart</h2>
+        <h2 className="text-center text-primary">Shopping Cart</h2>
         <p>
           {cart.id !== 0
             ? `You have ${cart.products.length} products in your cart`

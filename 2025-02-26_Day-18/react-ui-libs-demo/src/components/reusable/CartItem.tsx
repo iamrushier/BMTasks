@@ -15,6 +15,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
+import { Card } from "../ui/card";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const CartItem: React.FC<ICartItemProps> = ({
   id,
@@ -50,8 +53,6 @@ const CartItem: React.FC<ICartItemProps> = ({
 
   const handleRemoveItem = async (e: React.MouseEvent) => {
     e.preventDefault();
-    // const confirmDelete = confirm("Are you sure you want to remove this item?");
-    // if (confirmDelete) {
     await deleteCartItems(id);
     dispatch({
       type: "remove_from_cart",
@@ -59,55 +60,44 @@ const CartItem: React.FC<ICartItemProps> = ({
     });
     setInputQuantity(0);
     setOpen(false);
-    // alert("Item removed from cart.");
-    // }
   };
   return (
-    <div className="card mb-3 p-2">
-      <div className="card-body">
-        <div className="d-flex align-items-center justify-content-between">
+    <Card className="mb-3 p-2">
+      <div className="p-4">
+        <div className="flex items-center justify-between">
           <div
-            className="d-flex align-items-center flex-grow-1"
+            className="flex items-center flex-grow-1 cursor-pointer"
             onClick={() => navigate(`/product/${id}`)}
           >
             <img
               src={image}
-              className="img-fluid rounded-3"
+              className="rounded-md object-cover w-[70px] h-[70px]"
               alt={title}
-              style={{
-                width: "70px",
-                height: "70px",
-                objectFit: "cover",
-                cursor: "pointer",
-              }}
             />
-            <div className="ms-3">
-              <h5 className="mb-1">{title}</h5>
-              <h6 className="text-muted">${price.toFixed(2)}</h6>
+            <div className="ml-3">
+              <h5 className="mb-1 text-base font-medium">{title}</h5>
+              <h6 className="text-muted-foreground">${price.toFixed(2)}</h6>
             </div>
           </div>
 
-          <div className="d-flex align-items-center gap-3">
-            <div className="d-flex align-items-center">
-              <span className="me-2">Qty:</span>
-              <input
+          <div className="flex items-center gap-3">
+            <div className="flex items-center">
+              <span className="mr-2">Qty:</span>
+              <Input
                 type="number"
                 value={inputQuantity}
                 min="1"
-                className="form-control text-center"
-                style={{ width: "60px" }}
+                className="text-center w-[60px]"
                 onChange={handleQuantityChange}
               />
             </div>
-            <h5 className="mb-0 fw-bold">${(price * quantity).toFixed(2)}</h5>
-            {/* <button
-              className="btn btn-danger btn-sm"
-              onClick={handleRemoveItem}
-            >
-              ❌
-            </button> */}
+            <h5 className="font-bold">${(price * quantity).toFixed(2)}</h5>
             <AlertDialog open={open} onOpenChange={setOpen}>
-              <AlertDialogTrigger>❌</AlertDialogTrigger>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  ❌
+                </Button>
+              </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Remove Item?</AlertDialogTitle>
@@ -127,7 +117,7 @@ const CartItem: React.FC<ICartItemProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

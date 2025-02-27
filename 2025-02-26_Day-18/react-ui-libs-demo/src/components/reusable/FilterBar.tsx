@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllCategories } from "../../api/api_calls";
+import { Card } from "../ui/card";
+import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const FilterBar = () => {
   const [categories, setCategories] = useState<string[]>([]);
@@ -21,46 +30,56 @@ const FilterBar = () => {
   }, []);
 
   return (
-    <div className="border p-2 bg-light rounded d-flex justify-content-around align-items-center">
-      <select
-        className="form-select w-auto"
-        onChange={(e) => {
-          if (e.target.value) navigate(`/products/category/${e.target.value}`);
-          else navigate(`/products`);
-        }}
-      >
-        <option value="">All Categories</option>
-        {categories.map((cat) => (
-          <option key={cat} value={cat}>
-            {cat.charAt(0).toUpperCase() + cat.slice(1)}
-          </option>
-        ))}
-      </select>
-
-      <input
-        type="number"
-        className="form-control w-auto"
-        placeholder="Limit"
-        min={1}
-        value={limit}
-        onChange={(e) => setLimit(e.target.value)}
-        onBlur={() => {
-          if (Number(limit) > 0) navigate(`/products/limit/${limit}`);
-          else navigate(`/products`);
-        }}
-      />
-
-      <select
-        className="form-select w-auto"
-        onChange={(e) => {
-          setSortOrder(e.target.value);
-          if (e.target.value) navigate(`/products/sort/${e.target.value}`);
-        }}
-      >
-        <option value="asc">ID: Low to High</option>
-        <option value="desc">ID: High to Low</option>
-      </select>
-    </div>
+    <Card className="p-4">
+      <div className="flex flex-row justify-between items-center gap-4 w-full">
+        <Select
+          onValueChange={(value) =>
+            navigate(
+              value !== "all" ? `/products/category/${value}` : "/products"
+            )
+          }
+        >
+          <SelectTrigger className="w-48">
+            <SelectValue placeholder="All Categories" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Categories</SelectItem>
+            {categories.map((cat) => (
+              <SelectItem key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Input
+          type="number"
+          placeholder="Limit"
+          min={1}
+          value={limit}
+          className="w-32"
+          onChange={(e) => setLimit(e.target.value)}
+          onBlur={() =>
+            navigate(
+              Number(limit) > 0 ? `/products/limit/${limit}` : "/products"
+            )
+          }
+        />
+        <Select
+          onValueChange={(value) => {
+            setSortOrder(value);
+            navigate(`/products/sort/${value}`);
+          }}
+        >
+          <SelectTrigger className="w-48">
+            <SelectValue placeholder="Sort Order" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="asc">ID: Low to High</SelectItem>
+            <SelectItem value="desc">ID: High to Low</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </Card>
   );
 };
 
