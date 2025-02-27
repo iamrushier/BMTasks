@@ -61,7 +61,6 @@ const Navbar = () => {
       >
         {loggedInUser.id ? "Logout" : "Login"}
       </button>
-      <ModeToggle />
     </nav>
   );
 };

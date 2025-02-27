@@ -10,6 +10,10 @@ import { IUserCreds, IUserDetails } from "../../types";
 // import { useCartContext } from "../../contexts/_UserCartContext";
 import { useMutation } from "@tanstack/react-query";
 import { useCartContext } from "@/contexts/AppContext";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 const UserLoginSection = () => {
   let navigate = useNavigate();
@@ -65,43 +69,50 @@ const UserLoginSection = () => {
 
   return (
     <>
-      <div
-        className="container card p-3"
-        style={{ width: "400px", marginTop: "150px" }}
-      >
-        <h4 className="text-center">User Login</h4>
-        <div className="form-group">
-          <label htmlFor="user-name">Username</label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            value={credentials.username}
-            placeholder="Enter username"
-            onChange={(e) =>
-              setCredentials({ ...credentials, username: e.target.value })
-            }
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="text"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            value={credentials.password}
-            onChange={(e) =>
-              setCredentials({ ...credentials, password: e.target.value })
-            }
-          />
-        </div>
-        <button className="btn btn-primary w-100 mt-3" onClick={handleLogin}>
-          Login
-        </button>
+      <div className="flex justify-center items-center h-screen">
+        <Card className="w-[400px] shadow-lg dark:bg-gray-900">
+          <CardHeader>
+            <h4 className="text-center text-lg font-bold">User Login</h4>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder="Enter username"
+                  value={credentials.username}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, username: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter password"
+                  value={credentials.password}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, password: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col space-y-3">
+            <Button className="w-full" onClick={handleLogin}>
+              Login
+            </Button>
+            <p className="text-center text-sm">{loginMessage}</p>
+            <p className="text-center text-xs text-muted-foreground">
+              Dummy data: <strong>johnd | m38rmF$</strong>
+            </p>
+          </CardFooter>
+        </Card>
       </div>
-      <p className="text-center">{loginMessage}</p>
-      <p className="text-center">Dummy data: johnd | m38rmF$</p>
     </>
   );
 };
