@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 import { useTodos } from "./TasksContext";
 import React from "react";
 const TodoInput = () => {
-  console.log("TodoInput renders");
   const [title, setTitle] = useState("");
   const { dispatch } = useTodos();
 

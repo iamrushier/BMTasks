@@ -4,7 +4,6 @@ import TodoContainer from "./components/TodoContainer";
 import { TaskProvider } from "./components/TasksContext";
 import CountDisplay from "./components/CountDisplay";
 const App = () => {
-  console.log("App renders");
   return (
     <>
       <h1 className="text-center mt-3">React Todo Tasks</h1>

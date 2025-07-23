@@ -18,7 +18,7 @@ const cartReducer = (
     case "set_cart_init":
       if (!action.cart) return state;
       return { ...state, ...action.cart };
-    case "add_to_cart":
+    case "add_to_cart": {
       if (!action.item) return state;
       const existingProduct = state.products.find(
         (p) => p.productId === action.item?.productId
@@ -36,6 +36,7 @@ const cartReducer = (
       } else {
         return { ...state, products: [...state.products, action.item] };
       }
+    }
     case "update_quantity":
       if (!action.item) return state;
       return {

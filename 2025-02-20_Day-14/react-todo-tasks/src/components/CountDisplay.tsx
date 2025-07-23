@@ -3,7 +3,6 @@ import { useTodos } from "./TasksContext";
 import React from "react";
 
 const CountDisplay = () => {
-  console.log("CountDisplay renders");
   const { todos } = useTodos();
   const completedTasksCount = useMemo(() => {
     return todos.filter((task) => task.status).length;

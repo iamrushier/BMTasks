@@ -8,7 +8,6 @@ const TodoItem = (props: todoItemType) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(props.title);
   const { todos, dispatch } = useTodos();
-  console.log("TodoItem renders", title);
 
   useEffect(() => {
     saveToLocalStorage("todos", todos);

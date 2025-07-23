@@ -28,11 +28,12 @@ const reducer = (
       ]);
     case "delete":
       return prev.filter((item) => item.id !== action.data.id);
-    case "edit":
+    case "edit": {
       const currIndex = prev.findIndex((item) => item.id === action.data.id);
       const copy = structuredClone(prev);
       copy[currIndex].title = action.data.title;
       return copy;
+    }
     case "toggle_status": {
       const currIndex = prev.findIndex((item) => item.id === action.data.id);
       const copy = structuredClone(prev);
